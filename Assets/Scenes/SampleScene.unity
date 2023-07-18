@@ -765,11 +765,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1651074479}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f16e04d5bcca4ad4f8b3d3a0822c4933, type: 3}
+  m_Script: {fileID: 11500000, guid: 2cb4122707f6671428f809aa8f9aadcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jump_strength: 3
-  PlayerCameraTransform: {fileID: 938637325}
+  jump_strength: 5
+  PlayerCameraTransform: {fileID: 0}
   mouseTurn: {x: 0, y: 0}
 --- !u!1 &1904762010 stripped
 GameObject:
