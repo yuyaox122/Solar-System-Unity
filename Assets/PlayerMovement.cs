@@ -6,15 +6,14 @@ public class PlayerMovement : MonoBehaviour
 {
     float speed = 10;
     [SerializeField] float jump_strength = 5;
-    [SerializeField] float sensitivity = 1;
     [SerializeField] Transform PlayerCameraTransform;
     int planet_teleport_index = 0;
+    public Vector2 mouseTurn;
     // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = true;
-        
     }
 
     // Update is called once per frame
@@ -40,10 +39,5 @@ public class PlayerMovement : MonoBehaviour
             planet_teleport_index ++;
             planet_teleport_index %= planets.Length;
         }
-        
-        float mousex = Input.GetAxis("Mouse X");
-        float mousey = Input.GetAxis("Mouse Y");
-        PlayerCameraTransform.Rotate(0f, sensitivity * mousex, 0f);
-        PlayerCameraTransform.Rotate(-sensitivity * mousey, 0f, 0f);
     }
 }
