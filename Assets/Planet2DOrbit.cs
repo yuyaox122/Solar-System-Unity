@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,10 +31,6 @@ public class Planet2DOrbit : MonoBehaviour
     void Start()
     {   
         if (planet != "Sun") {
-            Debug.Log(Sun.GetComponent<Planet2DOrbit>().radius);
-            Debug.Log(Mathf.Log(radius, Sun.GetComponent<Planet2DOrbit>().radius));
-            size_scale = Mathf.Log(radius, Sun.GetComponent<Planet2DOrbit>().radius);
-            transform.localScale = new Vector3(size_scale, size_scale, size_scale);
             int index = Array.IndexOf(planets, planet);
             mass = masses[index]; 
             a = semi_major[index]; 
@@ -43,6 +40,11 @@ public class Planet2DOrbit : MonoBehaviour
             gravity = gravities[index]; 
             eccentricity = eccentricities[index];
             inclination_angle = inclination_angles[index];
+            Debug.Log((Sun.GetComponent<Planet2DOrbit>().radius).ToString());
+            Debug.Log((radius).ToString());
+            Debug.Log((Mathf.Log(radius, Sun.GetComponent<Planet2DOrbit>().radius)).ToString());
+            size_scale = Mathf.Log(radius, Sun.GetComponent<Planet2DOrbit>().radius);
+            transform.localScale = new Vector3(size_scale, size_scale, size_scale);
         }
         else {
             mass = 332837f;
