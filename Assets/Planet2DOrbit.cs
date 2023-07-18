@@ -27,7 +27,7 @@ public class Planet2DOrbit : MonoBehaviour
     float eccentricity;
     float inclination_angle;
     float radius_scale;
-    float orbit_scale = 10;
+    float orbit_scale = 50;
     float time_scale = 1000;
 
     void Start()
