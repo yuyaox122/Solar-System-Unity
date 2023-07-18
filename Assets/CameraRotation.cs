@@ -4,20 +4,25 @@ using UnityEngine;
 
 public class CameraRotation : MonoBehaviour
 {
-    public Vector3 mouseTurn;
     public float sensitivity = 3;
     // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        transform.eulerAngles = Vector3.zero;
     }
 
     // Update is called once per frame
     void Update()
     {
-        mouseTurn.x -= Input.GetAxis("Mouse Y");
-        mouseTurn.y += Input.GetAxis("Mouse X");
-        transform.eulerAngles = sensitivity * mouseTurn;
+        if (Input.GetKey(KeyCode.R))
+        {
+            transform.eulerAngles = Vector3.zero;
+        }
+        else
+        {
+            transform.eulerAngles += sensitivity * new Vector3(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), 0f);
+        }
     }
 }
