@@ -25,10 +25,15 @@ public class Planet2DOrbit : MonoBehaviour
     float gravity; // in terms of g = 9.81 m/s^2
     float eccentricity;
     float inclination_angle;
+    float size_scale;
 
     void Start()
     {   
         if (planet != "Sun") {
+            Debug.Log(Sun.GetComponent<Planet2DOrbit>().radius);
+            Debug.Log(Mathf.Log(radius, Sun.GetComponent<Planet2DOrbit>().radius));
+            size_scale = Mathf.Log(radius, Sun.GetComponent<Planet2DOrbit>().radius);
+            transform.localScale = new Vector3(size_scale, size_scale, size_scale);
             int index = Array.IndexOf(planets, planet);
             mass = masses[index]; 
             a = semi_major[index]; 
@@ -38,6 +43,11 @@ public class Planet2DOrbit : MonoBehaviour
             gravity = gravities[index]; 
             eccentricity = eccentricities[index];
             inclination_angle = inclination_angles[index];
+        }
+        else {
+            mass = 332837f;
+            radius = 109.12f;
+            gravity = 27.95f;
         }
     }
 
