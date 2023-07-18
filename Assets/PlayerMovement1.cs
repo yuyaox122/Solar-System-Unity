@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    float speed = 5;
-    [SerializeField] float jump_strength = 1;
+    float speed = 10;
+    [SerializeField] float jump_strength = 5;
     [SerializeField] float sensitivity = 1;
     [SerializeField] Transform PlayerCameraTransform;
     int planet_teleport_index = 0;

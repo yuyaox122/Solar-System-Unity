@@ -26,7 +26,8 @@ public class Planet2DOrbit : MonoBehaviour
     float gravity; // in terms of g = 9.81 m/s^2
     float eccentricity;
     float inclination_angle;
-    float size_scale;
+    float radius_scale;
+    float orbit_scale = 10;
 
     void Start()
     {   
@@ -40,16 +41,17 @@ public class Planet2DOrbit : MonoBehaviour
             gravity = gravities[index]; 
             eccentricity = eccentricities[index];
             inclination_angle = inclination_angles[index];
-            Debug.Log((Sun.GetComponent<Planet2DOrbit>().radius).ToString());
-            Debug.Log((radius).ToString());
-            Debug.Log((Mathf.Log(radius, Sun.GetComponent<Planet2DOrbit>().radius)).ToString());
-            size_scale = Mathf.Log(radius, Sun.GetComponent<Planet2DOrbit>().radius);
-            transform.localScale = new Vector3(size_scale, size_scale, size_scale);
+            // Debug.Log(Mathf.Log(radius, 10));
+            radius_scale = Mathf.Log(radius, 10) + 1;
+            // Debug.Log(radius_scale.ToString());
+            transform.localScale = new Vector3(radius_scale, radius_scale, radius_scale);
         }
         else {
             mass = 332837f;
             radius = 109.12f;
             gravity = 27.95f;
+            radius_scale = Mathf.Log(radius, 10) + 1;
+            transform.localScale = new Vector3(radius_scale, radius_scale, radius_scale);
         }
     }
 
@@ -58,7 +60,7 @@ public class Planet2DOrbit : MonoBehaviour
     {
         if (planet != "Sun") {
         int t = (int)(Time.time / orbital_period * 2 * Mathf.PI);
-        transform.position = new Vector3(get_r(a, eccentricity, t) * Mathf.Cos(t), 0f, get_r(a, eccentricity, t) * Mathf.Sin(t));  
+        transform.position = new Vector3(orbit_scale * get_r(a, eccentricity, t) * Mathf.Cos(t), 0f, orbit_scale * get_r(a, eccentricity, t) * Mathf.Sin(t));  
         }  
     }
 
