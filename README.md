@@ -1,1 +1,1 @@
-# Solar_System_Unity
+# Computational Challenge 2023 Unity Solar System
