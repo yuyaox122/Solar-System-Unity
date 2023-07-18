@@ -17,7 +17,7 @@ public class Planet2DOrbit : MonoBehaviour
     private float[] gravities = new float[] {0.37f, 0.90f, 1.00f, 0.38f, 2.53f, 1.07f, 0.90f, 1.14f, 0.09f}; // in terms of g = 9.81 m/s^2
     private float[] eccentricities = new float[] {0.21f, 0.01f, 0.02f, 0.09f, 0.05f, 0.06f, 0.05f, 0.01f, 0.25f};
     private float[] inclination_angles = new float[] {7.00f, 3.39f, 0.00f, 1.85f, 1.31f, 2.49f, 0.77f, 1.77f, 17.5f};
-    private int t;
+    private float t;
     float mass; // Earth masses
     float a; //AU
     float radius; // Earth radii
@@ -28,6 +28,7 @@ public class Planet2DOrbit : MonoBehaviour
     float inclination_angle;
     float radius_scale;
     float orbit_scale = 10;
+    float time_scale = 1000;
 
     void Start()
     {   
@@ -59,10 +60,18 @@ public class Planet2DOrbit : MonoBehaviour
     void Update()
     {
         if (planet != "Sun") {
-        int t = (int)(Time.time / orbital_period * 2 * Mathf.PI);
-        transform.position = new Vector3(orbit_scale * get_r(a, eccentricity, t) * Mathf.Cos(t), 0f, orbit_scale * get_r(a, eccentricity, t) * Mathf.Sin(t));  
+            float t = (((Time.time / 0.001f) / (orbital_period * time_scale)) * 2 * Mathf.PI);
+            Debug.Log(t);
+            transform.position = new Vector3(orbit_scale * get_r(a, eccentricity, t) * Mathf.Cos(t), 0f, orbit_scale * get_r(a, eccentricity, t) * Mathf.Sin(t));
+            // UpdatePlanet();
         }  
     }
+
+    // IEnumerator UpdatePlanet() {
+        
+    //     yield return new WaitForSeconds(1);
+    //     tick += 1;
+    // }
 
     float get_r(float a, float epsilon, float theta) {
         return (a * (1 - Mathf.Pow(epsilon, 2))) / (1 - epsilon * Mathf.Cos(theta));
