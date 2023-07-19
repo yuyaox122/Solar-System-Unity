@@ -35,7 +35,7 @@ public class Planet2DOrbit : MonoBehaviour
 
     void Start()
     {
-        radii = radii.Select(el => el / 23454.8f).ToArray();
+        // radii = radii.Select(el => el / 23454.8f).ToArray();
         if (planet != "Sun") {
             int index = Array.IndexOf(planets, planet);
             mass = masses[index];
