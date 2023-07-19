@@ -27,8 +27,10 @@ public class Planet2DOrbit : MonoBehaviour
     float eccentricity;
     float inclination_angle;
     float radius_scale;
-    float orbit_scale = 50;
-    float time_scale = 1000;
+    float orbit_scale = 50f;
+    float time_scale = 1f;
+    float trail_width = 0.5f;
+    private TrailRenderer trail_component;
 
     void Start()
     {   
@@ -46,6 +48,10 @@ public class Planet2DOrbit : MonoBehaviour
             radius_scale = Mathf.Log(radius, 10) + 1;
             // Debug.Log(radius_scale.ToString());
             transform.localScale = new Vector3(radius_scale, radius_scale, radius_scale);
+            trail_component = GetComponent<TrailRenderer>();
+            trail_component.time =  orbital_period;
+            trail_component.startWidth = trail_width;
+            trail_component.endWidth = trail_width;
         }
         else {
             mass = 332837f;
@@ -60,7 +66,7 @@ public class Planet2DOrbit : MonoBehaviour
     void Update()
     {
         if (planet != "Sun") {
-            float t = (((Time.time / 0.001f) / (orbital_period * time_scale)) * 2 * Mathf.PI);
+            float t = (((Time.time) / (orbital_period * time_scale)) * 2 * Mathf.PI);
             // Debug.Log(t);
             transform.position = new Vector3(orbit_scale * get_r(a, eccentricity, t) * Mathf.Cos(t), 0f, orbit_scale * get_r(a, eccentricity, t) * Mathf.Sin(t));
             // UpdatePlanet();
