@@ -50,6 +50,7 @@ public class Planet2DOrbit : MonoBehaviour
             transform.localScale = new Vector3(radius_scale, radius_scale, radius_scale);
             trail_component = GetComponent<TrailRenderer>();
             trail_component.time =  orbital_period;
+            trail_width = (Mathf.Log(index + 1, 2) + 1) * trail_width;
             trail_component.startWidth = trail_width;
             trail_component.endWidth = trail_width;
         }
