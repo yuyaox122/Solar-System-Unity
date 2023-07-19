@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    float _speed = 10;
+    float _speed = 40;
     public GameObject playerCamera;
-    [SerializeField] float jump_strength = 5;
-    [SerializeField] Transform PlayerCameraTransform;
+
+    public Vector3 spawn_point;
+    public float jump_strength = 200;
     private Vector3 verticalMovementDir;
     private Vector3 horizontalMovementDir;
     private int planetTeleportIndex;

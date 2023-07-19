@@ -28,13 +28,15 @@ public class Planet2DOrbit : MonoBehaviour
     float inclination_angle;
     float radius_scale;
     float orbit_scale = 50f;
-    float time_scale = 1f;
-    float trail_width = 0.5f;
+    float time_scale = 0.1f;
+    float trail_width = 1f;
     private TrailRenderer trail_component;
 
     void Start()
     {   
         if (planet != "Sun") {
+            trail_component = GetComponent<TrailRenderer>();
+            trail_component.enabled = false;
             int index = Array.IndexOf(planets, planet);
             mass = masses[index]; 
             a = semi_major[index]; 
@@ -44,15 +46,17 @@ public class Planet2DOrbit : MonoBehaviour
             gravity = gravities[index]; 
             eccentricity = eccentricities[index];
             inclination_angle = inclination_angles[index];
-            // Debug.Log(Mathf.Log(radius, 10));
             radius_scale = Mathf.Log(radius, 10) + 1;
-            // Debug.Log(radius_scale.ToString());
             transform.localScale = new Vector3(radius_scale, radius_scale, radius_scale);
-            trail_component = GetComponent<TrailRenderer>();
-            trail_component.time =  orbital_period;
+            trail_component.time = orbital_period * (1 / time_scale);
             trail_width = (Mathf.Log(index + 1, 2) + 1) * trail_width;
             trail_component.startWidth = trail_width;
             trail_component.endWidth = trail_width;
+            transform.position = new Vector3(orbit_scale * get_r(a, eccentricity, 0) * Mathf.Cos(0), 0f, orbit_scale * get_r(a, eccentricity, 0) * Mathf.Sin(0));
+            Debug.Log(planet);
+            Debug.Log(transform.position);
+            Debug.Log(trail_width);
+            trail_component.enabled = true;
         }
         else {
             mass = 332837f;
@@ -67,7 +71,7 @@ public class Planet2DOrbit : MonoBehaviour
     void Update()
     {
         if (planet != "Sun") {
-            float t = (((Time.time) / (orbital_period * time_scale)) * 2 * Mathf.PI);
+            float t = (((Time.time) / (orbital_period * (1 / time_scale))) * 2 * Mathf.PI);
             // Debug.Log(t);
             transform.position = new Vector3(orbit_scale * get_r(a, eccentricity, t) * Mathf.Cos(t), 0f, orbit_scale * get_r(a, eccentricity, t) * Mathf.Sin(t));
             // UpdatePlanet();

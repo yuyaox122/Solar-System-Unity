@@ -586,8 +586,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 938637324}
+  spawn_point: {x: 0, y: 0, z: 0}
   jump_strength: 5
-  PlayerCameraTransform: {fileID: 0}
 --- !u!114 &1904762011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21062,7 +21062,7 @@ Transform:
   m_GameObject: {fileID: 8810168034598856784}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: -20}
+  m_LocalPosition: {x: 0, y: 0, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -26516,9 +26516,9 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.7686275, g: 0.6784314, b: 0.5176471, a: 1}
-      key1: {r: 0.38823533, g: 0.31764707, b: 0.27450982, a: 1}
-      key2: {r: 0.35686275, g: 0.25882354, b: 0.22352943, a: 0}
+      key0: {r: 0.6627451, g: 0.54901963, b: 0.4039216, a: 1}
+      key1: {r: 0.76470596, g: 0.6666667, b: 0.5137255, a: 1}
+      key2: {r: 0.38823533, g: 0.31764707, b: 0.27450982, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
@@ -37029,7 +37029,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.43529415, g: 0.20392159, b: 0.10980393, a: 1}
+      key0: {r: 0.5176471, g: 0.30588236, b: 0.16470589, a: 1}
       key1: {r: 0.7960785, g: 0.69411767, b: 0.5647059, a: 1}
       key2: {r: 0.07058824, g: 0.21960786, b: 0.3137255, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}

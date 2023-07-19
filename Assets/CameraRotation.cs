@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraRotation : MonoBehaviour
 {
-    public float sensitivity = 3; 
+    public float sensitivity = 1; 
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +22,7 @@ public class CameraRotation : MonoBehaviour
         }
         else
         {
-            transform.eulerAngles += sensitivity * new Vector3(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), 0f);
+                transform.eulerAngles += sensitivity * new Vector3(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), 0f);
         }
     }
 }
