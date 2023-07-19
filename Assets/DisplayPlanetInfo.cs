@@ -1,35 +1,59 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class DisplayPlanetInfo : MonoBehaviour
+public class PlanetClicked : MonoBehaviour
 {
-    public GameObject player; // Assign your player in the inspector
-    public Text distanceText; // Assign your Text UI element in the inspector
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float width = 1;
+    public float height = 1;
 
-    // Update is called once per frame
-    void Update()
+    public void Start()
     {
-        
-    }
+        MeshRenderer meshRenderer = gameObject.AddComponent<MeshRenderer>();
+        meshRenderer.sharedMaterial = new Material(Shader.Find("Standard"));
 
-    void OnMouseDown()
-    {
-        // Calculate the distance and update the UI
-        float distance = Vector3.Distance(player.transform.position, transform.position);
-        distanceText.text = "Distance: " + distance.ToString();
-    }
+        MeshFilter meshFilter = gameObject.AddComponent<MeshFilter>();
 
-    void OnMouseUp()
-    {
-        // Clear the distance text
-        distanceText.text = "";
-    }
+        Mesh mesh = new Mesh();
 
+        Vector3[] vertices = new Vector3[4]
+        {
+            new Vector3(0, 0, 0),
+            new Vector3(width, 0, 0),
+            new Vector3(0, height, 0),
+            new Vector3(width, height, 0)
+        };
+        mesh.vertices = vertices;
+
+        int[] tris = new int[6]
+        {
+            // lower left triangle
+            0, 2, 1,
+            // upper right triangle
+            2, 3, 1
+        };
+        mesh.triangles = tris;
+
+        Vector3[] normals = new Vector3[4]
+        {
+            -Vector3.forward,
+            -Vector3.forward,
+            -Vector3.forward,
+            -Vector3.forward
+        };
+        mesh.normals = normals;
+
+        Vector2[] uv = new Vector2[4]
+        {
+            new Vector2(0, 0),
+            new Vector2(1, 0),
+            new Vector2(0, 1),
+            new Vector2(1, 1)
+        };
+        mesh.uv = uv;
+
+        meshFilter.mesh = mesh;
+    // void DisplayInfo() {
+    // }
+    }
 }
