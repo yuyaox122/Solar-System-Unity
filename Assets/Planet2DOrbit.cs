@@ -29,7 +29,7 @@ public class Planet2DOrbit : MonoBehaviour
     float radius_scale;
     float orbit_scale = 50f;
     float time_scale = 0.1f;
-    float trail_width = 1f;
+    float trail_width = 0.5f;
     private TrailRenderer trail_component;
 
     void Start()
