@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    float _speed = 10;
     public GameObject playerCamera;
+    [SerializeField] float _speed = 10;
     [SerializeField] float jump_strength = 5;
     [SerializeField] Transform PlayerCameraTransform;
     private Vector3 verticalMovementDir;
