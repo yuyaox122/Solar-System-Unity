@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraRotation : MonoBehaviour
 {
-    public float sensitivity = 3;
+    public float sensitivity = 3; 
     // Start is called before the first frame update
     void Start()
     {

@@ -61,7 +61,7 @@ public class Planet2DOrbit : MonoBehaviour
     {
         if (planet != "Sun") {
             float t = (((Time.time / 0.001f) / (orbital_period * time_scale)) * 2 * Mathf.PI);
-            Debug.Log(t);
+            // Debug.Log(t);
             transform.position = new Vector3(orbit_scale * get_r(a, eccentricity, t) * Mathf.Cos(t), 0f, orbit_scale * get_r(a, eccentricity, t) * Mathf.Sin(t));
             // UpdatePlanet();
         }  
