@@ -768,9 +768,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cb4122707f6671428f809aa8f9aadcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCamera: {fileID: 938637324}
   jump_strength: 5
   PlayerCameraTransform: {fileID: 0}
-  mouseTurn: {x: 0, y: 0}
 --- !u!1 &1904762010 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1733945558841920, guid: 300f80108a63f48618cb4a1c8b8c1e86,
@@ -789,7 +789,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc62060b4279ee9418ce36a4924ab471, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planet: Earth
+  planet: Mercury
   Sun: {fileID: 1071490614}
 --- !u!96 &1904762012
 TrailRenderer:
