@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraRotation : MonoBehaviour
+public class CameraMovement : MonoBehaviour
 {
     public float sensitivity = 3;
     public GameObject player;
