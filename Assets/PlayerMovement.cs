@@ -5,9 +5,11 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public GameObject playerCamera;
-    [SerializeField] float _speed = 10;
-    [SerializeField] float jump_strength = 5;
+    [SerializeField] float _speed = 100;
+    [SerializeField] float jump_strength = 100;
     [SerializeField] Transform PlayerCameraTransform;
+
+    public Vector3 spawn_point;
     private Vector3 verticalMovementDir;
     private Vector3 horizontalMovementDir;
     private int planetTeleportIndex;
