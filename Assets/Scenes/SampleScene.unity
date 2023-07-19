@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 356868818}
   - component: {fileID: 356868817}
   m_Layer: 0
-  m_Name: Directional Light (1)
+  m_Name: Directional Light Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 410087040}
   - component: {fileID: 410087042}
   m_Layer: 0
-  m_Name: Directional Light
+  m_Name: Directional Light Down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -436,7 +436,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 938637324}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -57146,6 +57146,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 410087041}
+  - {fileID: 356868819}
   - {fileID: 1229251972278437869}
   - {fileID: 8860376396815736896}
   - {fileID: 7774413021634732342}
@@ -57157,4 +57158,3 @@ SceneRoots:
   - {fileID: 7574608072153932148}
   - {fileID: 832575519}
   - {fileID: 543450652776990136}
-  - {fileID: 356868819}

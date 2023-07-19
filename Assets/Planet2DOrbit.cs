@@ -53,9 +53,6 @@ public class Planet2DOrbit : MonoBehaviour
             trail_component.startWidth = trail_width;
             trail_component.endWidth = trail_width;
             transform.position = new Vector3(orbit_scale * get_r(a, eccentricity, 0) * Mathf.Cos(0), 0f, orbit_scale * get_r(a, eccentricity, 0) * Mathf.Sin(0));
-            Debug.Log(planet);
-            Debug.Log(transform.position);
-            Debug.Log(trail_width);
             trail_component.enabled = true;
         }
         else {
