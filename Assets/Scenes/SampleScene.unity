@@ -574,8 +574,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 938637324}
-  _speed: 200
-  jump_strength: 200
+  _speed: 100
+  jump_strength: 100
   PlayerCameraTransform: {fileID: 0}
   spawn_point: {x: 0, y: 0, z: 0}
 --- !u!114 &1904762011
