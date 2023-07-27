@@ -5948,7 +5948,7 @@ GameObject:
   - component: {fileID: 4531232699891884253}
   m_Layer: 0
   m_Name: Venus
-  m_TagString: TrackingObject
+  m_TagString: Planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15841,7 +15841,7 @@ GameObject:
   - component: {fileID: 6182846633606090158}
   m_Layer: 0
   m_Name: Jupiter
-  m_TagString: TrackingObject
+  m_TagString: Planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16101,7 +16101,7 @@ GameObject:
   - component: {fileID: 3121320925904717039}
   m_Layer: 0
   m_Name: Uranus
-  m_TagString: TrackingObject
+  m_TagString: Planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26114,7 +26114,7 @@ GameObject:
   - component: {fileID: 8598854515518915178}
   m_Layer: 0
   m_Name: Mars
-  m_TagString: TrackingObject
+  m_TagString: Planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26295,7 +26295,7 @@ GameObject:
   - component: {fileID: 3033974814183249268}
   m_Layer: 0
   m_Name: Mercury
-  m_TagString: TrackingObject
+  m_TagString: Planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41276,7 +41276,7 @@ GameObject:
   - component: {fileID: 5654128561985069502}
   m_Layer: 0
   m_Name: Saturn
-  m_TagString: TrackingObject
+  m_TagString: Planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41557,7 +41557,7 @@ GameObject:
   - component: {fileID: 5921306772423153828}
   m_Layer: 0
   m_Name: Neptune
-  m_TagString: TrackingObject
+  m_TagString: Planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46635,7 +46635,7 @@ GameObject:
   - component: {fileID: 7736758484307182558}
   m_Layer: 0
   m_Name: Pluto
-  m_TagString: TrackingObject
+  m_TagString: Planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

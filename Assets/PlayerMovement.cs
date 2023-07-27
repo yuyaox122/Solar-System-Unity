@@ -13,6 +13,23 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 verticalMovementDir;
     private Vector3 horizontalMovementDir;
     private int planetTeleportIndex;
+    private string[] planetNames = {"Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"};
+
+    private KeyCode[] teleportKeys = new KeyCode[] {KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4, KeyCode.Alpha5, KeyCode.Alpha6, KeyCode.Alpha7, KeyCode.Alpha8, KeyCode.Alpha9};
+    private Dictionary<KeyCode, string> teleportDict = new Dictionary<KeyCode, string>()
+    {
+        {KeyCode.Alpha1, "Mercury"},
+        {KeyCode.Alpha2, "Venus"},
+        {KeyCode.Alpha3, "Earth"},
+        {KeyCode.Alpha4, "Mars"},
+        {KeyCode.Alpha5, "Jupiter"},
+        {KeyCode.Alpha6, "Saturn"},
+        {KeyCode.Alpha7, "Uranus"},
+        {KeyCode.Alpha8, "Neptune"},
+        {KeyCode.Alpha9, "Pluto"}
+        
+    };
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -45,12 +62,14 @@ public class PlayerMovement : MonoBehaviour
             // GetComponent<Rigidbody> ().AddForce(0f, jump_strength, 0F, ForceMode.Impulse);
             transform.Translate(0f, -jump_strength * Time.deltaTime, 0f);
         }
-
-        if (Input.GetKey(KeyCode.E)) {  
-            GameObject[] planets = GameObject.FindGameObjectsWithTag("Planet");
-            transform.position = planets[planetTeleportIndex].transform.position;
-            planetTeleportIndex ++;
-            planetTeleportIndex %= planets.Length;
-        }
+        
+        foreach (var key in teleportKeys)
+            if (Input.GetKey(key))
+            {
+                GameObject planet = GameObject.Find(teleportDict[key]);
+                Vector3 pos = planet.transform.position;
+                Debug.Log(planet.name);
+                transform.position = new Vector3(pos.x, pos.y + 50, pos.z);
+            }
     }
 }
