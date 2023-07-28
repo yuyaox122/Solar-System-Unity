@@ -18,6 +18,7 @@ public class Planet2DOrbit : MonoBehaviour
     private float[] gravities = new float[] {0.37f, 0.90f, 1.00f, 0.38f, 2.53f, 1.07f, 0.90f, 1.14f, 0.09f}; // in terms of g = 9.81 m/s^2
     private float[] eccentricities = new float[] {0.21f, 0.01f, 0.02f, 0.09f, 0.05f, 0.06f, 0.05f, 0.01f, 0.25f};
     private float[] inclination_angles = new float[] {7.00f, 3.39f, 0.00f, 1.85f, 1.31f, 2.49f, 0.77f, 1.77f, 17.5f};
+    private Color[,] trail_colours = new Color[,] {{new Color (0.525f, 0.662f, 0.745f), new Color (0.086f, 0.365f, 0.478f)}};
     private float t;
     bool logarithmicSizes = true;
     bool logarithmicOrbits = false;
@@ -69,7 +70,7 @@ public class Planet2DOrbit : MonoBehaviour
             float alpha = 1.0f;
             Gradient gradient = new Gradient();
             gradient.SetKeys(
-                new GradientColorKey[] { new GradientColorKey(new Color (0.5254902f, 0.6627451f, 0.745f), 0.0f), new GradientColorKey(new Color (0.086f, 0.365f, 0.478f), 1.0f) },
+                new GradientColorKey[] { new GradientColorKey(trail_colours[0, 0], 0.0f), new GradientColorKey(trail_colours[0, 1], 1.0f) },
                 new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
             );
             tr.colorGradient = gradient;
