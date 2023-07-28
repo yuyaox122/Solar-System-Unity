@@ -32,6 +32,7 @@ public class Planet2DOrbit : MonoBehaviour
     float radiusScale;
     float orbit_scale = 50;
     float time_scale = 1000;
+    private TrailRenderer tr;
 
     void Start()
     {
@@ -60,8 +61,23 @@ public class Planet2DOrbit : MonoBehaviour
                 radiusScale = radius;
             }
             transform.localScale = new Vector3(radiusScale, radiusScale, radiusScale);
-            
 
+            gameObject.AddComponent<TrailRenderer>();
+            tr = GetComponent<TrailRenderer>();
+            tr.material = new Material(Shader.Find("Sprites/Default"));
+            // A simple 2 color gradient with a fixed alpha of 1.0f.
+            float alpha = 1.0f;
+            Gradient gradient = new Gradient();
+            gradient.SetKeys(
+                new GradientColorKey[] { new GradientColorKey(new Color (0.5254902f, 0.6627451f, 0.745f), 0.0f), new GradientColorKey(new Color (0.086f, 0.365f, 0.478f), 1.0f) },
+                new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
+            );
+            tr.colorGradient = gradient;
+            tr.time = orbital_period * time_scale * 0.01f * 0.9f;
+            tr.startWidth = radiusScale * 0.8f;
+            tr.endWidth = radiusScale * 0.6f;
+            Debug.Log(planet);
+            Debug.Log(orbital_period);
         }
         else {
             mass = 332837f;
@@ -77,6 +93,7 @@ public class Planet2DOrbit : MonoBehaviour
             }
             transform.localScale = new Vector3(radiusScale, radiusScale, radiusScale);
         }
+
     }
 
     // Update is called once per frame
