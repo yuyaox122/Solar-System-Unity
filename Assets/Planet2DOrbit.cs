@@ -18,7 +18,20 @@ public class Planet2DOrbit : MonoBehaviour
     private float[] gravities = new float[] {0.37f, 0.90f, 1.00f, 0.38f, 2.53f, 1.07f, 0.90f, 1.14f, 0.09f}; // in terms of g = 9.81 m/s^2
     private float[] eccentricities = new float[] {0.21f, 0.01f, 0.02f, 0.09f, 0.05f, 0.06f, 0.05f, 0.01f, 0.25f};
     private float[] inclination_angles = new float[] {7.00f, 3.39f, 0.00f, 1.85f, 1.31f, 2.49f, 0.77f, 1.77f, 17.5f};
-    private Color[,] trail_colours = new Color[,] {{new Color (0.525f, 0.662f, 0.745f), new Color (0.086f, 0.365f, 0.478f)}};
+    private Color[,] trail_colours = new Color[,]
+    {
+        {new Color (0.639f, 0.416f, 0.078f), new Color (0.839f, 0.616f, 0.278f)},
+        {new Color (0.678f, 0.329f, 0.000f), new Color (0.878f, 0.529f, 0.176f)},
+        {new Color (0.000f, 0.278f, 0.522f), new Color (0.157f, 0.478f, 0.722f)},
+        {new Color (0.557f, 0.067f, 0.000f), new Color (0.757f, 0.267f, 0.055f)},
+        {new Color (0.588f, 0.365f, 0.024f), new Color (0.788f, 0.565f, 0.224f)},
+        {new Color (0.443f, 0.408f, 0.247f), new Color (0.643f, 0.608f, 0.447f)},
+        {new Color (0.376f, 0.522f, 0.545f), new Color (0.576f, 0.722f, 0.745f)},
+        {new Color (0.127f, 0.179f, 0.429f), new Color (0.247f, 0.329f, 0.729f)},
+        {new Color (0.761f, 0.643f, 0.576f), new Color (0.961f, 0.843f, 0.776f)},
+        
+        
+    };
     private float t;
     bool logarithmicSizes = true;
     bool logarithmicOrbits = false;
@@ -33,15 +46,20 @@ public class Planet2DOrbit : MonoBehaviour
     float radiusScale;
     float orbit_scale = 50;
     float time_scale = 1000;
+    int index;
+    private GameObject solarSystem;
+    private bool threeDOrbit;
     private TrailRenderer tr;
 
     void Start()
     {
+        solarSystem = transform.parent.gameObject;
+        threeDOrbit = solarSystem.GetComponent<SolarSystemProperties>().ThreeDOrbits;
         radii = radii.Select(el => el / 23454.8f).ToArray();
         // semiMajor = semiMajor.Select(el => el * 100).ToArray();
         // radii = radii.Select(el => el * 10).ToArray();
         if (planet != "Sun") {
-            int index = Array.IndexOf(planets, planet);
+            index = Array.IndexOf(planets, planet);
             mass = masses[index];
             if (logarithmicOrbits) {
                 a = Mathf.Log(semiMajor[index], 1.001f);
@@ -70,7 +88,7 @@ public class Planet2DOrbit : MonoBehaviour
             float alpha = 1.0f;
             Gradient gradient = new Gradient();
             gradient.SetKeys(
-                new GradientColorKey[] { new GradientColorKey(trail_colours[0, 0], 0.0f), new GradientColorKey(trail_colours[0, 1], 1.0f) },
+                new GradientColorKey[] { new GradientColorKey(trail_colours[index, 1], 0.0f), new GradientColorKey(trail_colours[index, 0], 1.0f) },
                 new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
             );
             tr.colorGradient = gradient;
@@ -101,10 +119,24 @@ public class Planet2DOrbit : MonoBehaviour
     void Update()
     {
         if (planet != "Sun") {
-            float t = (((Time.time / 0.01f) / (orbital_period * time_scale)) * 2 * Mathf.PI);
-            // Debug.Log(t);
-            transform.position = new Vector3(orbit_scale * get_r(a, eccentricity, t) * Mathf.Cos(t), 0f, orbit_scale * get_r(a, eccentricity, t) * Mathf.Sin(t));
-            // UpdatePlanet();
+            float t = (((Time.time / 0.001f) / (orbital_period * time_scale)) * 2 * Mathf.PI);
+            if (!threeDOrbit)
+            {
+                // Debug.Log(t);
+                transform.position = new Vector3(orbit_scale * get_r(a, eccentricity, t) * Mathf.Cos(t), 0f,
+                    orbit_scale * get_r(a, eccentricity, t) * Mathf.Sin(t));
+                // UpdatePlanet();
+            }
+            else if (threeDOrbit)
+            {
+                // Debug.Log(t);
+                transform.position = new Vector3(
+                    orbit_scale * get_r(a, eccentricity, t) * Mathf.Cos(t) * Mathf.Cos(inclination_angle * Mathf.PI / 180),
+                    orbit_scale * get_r(a, eccentricity, t) * Mathf.Cos(t) * Mathf.Sin(inclination_angle * Mathf.PI / 180),
+                    orbit_scale * get_r(a, eccentricity, t) * Mathf.Sin(t)
+                );
+                // UpdatePlanet();
+            }
         }  
     }
 
