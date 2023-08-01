@@ -5,8 +5,12 @@ using UnityEngine.UI;
 
 public class SliderController : MonoBehaviour
 {
-    public Text valueText;
-    public void OnSliderChanged(float value) {
-        valueText.text = value.ToString();
+    [SerializeField] private Slider _slider;
+    [SerializeField] private TMPro.TextMeshProUGUI _sliderText;
+
+    void Start() {
+        _slider.onValueChanged.AddListener((v) => {
+            _sliderText.text = v.ToString("0.0");
+        });
     }
 }
