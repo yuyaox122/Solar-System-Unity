@@ -2,23 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class DisplayStats : MonoBehaviour
 {
     [SerializeField] GameObject StatBar; 
-    [SerializeField] TMPro.TextMeshProUGUI Title;
-    [SerializeField] TMPro.TextMeshProUGUI MassStat;
-    [SerializeField] TMPro.TextMeshProUGUI SemiMajorStat;
-    [SerializeField] TMPro.TextMeshProUGUI RadiusStat;
-    [SerializeField] TMPro.TextMeshProUGUI RotationalPeriodStat;
-    [SerializeField] TMPro.TextMeshProUGUI OrbitalPeriodStat;
-    [SerializeField] TMPro.TextMeshProUGUI GravityStat;
-    [SerializeField] TMPro.TextMeshProUGUI EccentricityStat;
-    [SerializeField] TMPro.TextMeshProUGUI InclinationAngleStat;
+    [SerializeField] TMP_Text Title;
+    [SerializeField] TMP_InputField MassStat;
+    [SerializeField] TMP_InputField SemiMajorStat;
+    [SerializeField] TMP_InputField RadiusStat;
+    [SerializeField] TMP_InputField RotationalPeriodStat;
+    [SerializeField] TMP_InputField OrbitalPeriodStat;
+    [SerializeField] TMP_InputField GravityStat;
+    [SerializeField] TMP_InputField EccentricityStat;
+    [SerializeField] TMP_InputField InclinationAngleStat;
+    Planet2DOrbit currentPlanetScript;
 
     void Start()
     {
         StatBar.SetActive(false);
+        MassStat.onEndEdit.AddListener(delegate{OnDeselectedMassInput(MassStat.text);});
     }
 
     void Update()
@@ -28,16 +31,24 @@ public class DisplayStats : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo)) {
+                Debug.Log(hitInfo.collider.gameObject.name);
                 if (hitInfo.collider.GetComponent<Planet2DOrbit>()) {
                     StatBar.SetActive(true);
-                    Planet2DOrbit PlanetScript = hitInfo.collider.GetComponent<Planet2DOrbit>();
-                    string PlanetName = PlanetScript.getPlanet();
+                    currentPlanetScript = hitInfo.collider.GetComponent<Planet2DOrbit>();
+                    string PlanetName = currentPlanetScript.getPlanet();
                     Title.text = PlanetName;
-                    string Mass = PlanetScript.getMass().ToString();
+                    string Mass = currentPlanetScript.getMass().ToString();
                     MassStat.text = Mass;
+                    Debug.Log(Mass);
                 }
             }
         }
+    }
+
+    public void OnDeselectedMassInput(string input) {
+        Debug.Log(input);
+        currentPlanetScript.changeMass(float.Parse(input));
+        Debug.Log(MassStat.text);
     }
 
     public void Close() {

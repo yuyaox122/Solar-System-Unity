@@ -58,16 +58,26 @@ public class SphericalCameraMovement : MonoBehaviour
  
         if (Input.GetMouseButtonUp (1))
             ballEnabled = false;
- 
+
         if (ballEnabled)
         {
             float dx = (last.x - Input.mousePosition.x) * rotationSpeed;
             float dy = (last.y - Input.mousePosition.y) * rotationSpeed;
- 
+            
+            if (Input.GetKey(KeyCode.W)) {
+                r -= scrollSpeed / 10;
+            }
+            
+            if (Input.GetKey(KeyCode.S)) {
+                r += scrollSpeed / 10;
+            }
+
             r += -Input.mouseScrollDelta.y * scrollSpeed;
+
             sc.y += dx * Time.deltaTime;
 
             sc.z = Mathf.Clamp (sc.z + dy * Time.deltaTime, -1.5f, 1.5f);
+            r = Mathf.Clamp(r, 10, 10000);
 
             transform.position = getCartesianCoordinates (sc) + target_position;
 

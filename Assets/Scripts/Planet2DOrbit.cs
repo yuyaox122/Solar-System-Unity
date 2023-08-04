@@ -9,16 +9,17 @@ public class Planet2DOrbit : MonoBehaviour
 {
     public string planet;
     public GameObject GameController;
+    float G = 6.67f * Mathf.Pow(10f, (-11f));
     [SerializeField] Transform Sun;
-    private string[] planets = {"Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"};
-    private float[] masses = new float[] {0.055f, 0.815f, 1.000f, 0.107f, 317.85f, 95.159f, 14.500f, 17.204f, 0.003f}; // Earth masses
-    private float[] semiMajor = new float[] {0.387f, 0.723f, 1.000f, 1.523f, 5.202f, 9.576f, 19.293f, 30.246f, 39.509f}; //AU
-    private float[] radii = new float[] {0.383f, 0.949f, 1.000f, 0.533f, 11.209f, 9.449f, 4.007f, 3.883f, 0.187f}; // Earth radii
-    private float[] rotational_periods = new float[] {58.646f, 243.018f, 0.997f, 1.026f, 0.413f, 0.444f, 0.718f, 0.671f, 6.387f}; // days
-    private float[] orbital_periods = new float[] {0.241f, 0.615f, 1.000f, 1.881f, 11.861f, 29.628f, 84.747f, 166.344f, 248.348f}; // years
-    private float[] gravities = new float[] {0.37f, 0.90f, 1.00f, 0.38f, 2.53f, 1.07f, 0.90f, 1.14f, 0.09f}; // in terms of g = 9.81 m/s^2
-    private float[] eccentricities = new float[] {0.21f, 0.01f, 0.02f, 0.09f, 0.05f, 0.06f, 0.05f, 0.01f, 0.25f};
-    private float[] inclination_angles = new float[] {7.00f, 3.39f, 0.00f, 1.85f, 1.31f, 2.49f, 0.77f, 1.77f, 17.5f};
+    private string[] planets = { "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto" };
+    private float[] masses = new float[] { 0.055f, 0.815f, 1.000f, 0.107f, 317.85f, 95.159f, 14.500f, 17.204f, 0.003f }; // Earth masses
+    private float[] semiMajor = new float[] { 0.387f, 0.723f, 1.000f, 1.523f, 5.202f, 9.576f, 19.293f, 30.246f, 39.509f }; //AU
+    private float[] radii = new float[] { 0.383f, 0.949f, 1.000f, 0.533f, 11.209f, 9.449f, 4.007f, 3.883f, 0.187f }; // Earth radii
+    private float[] rotational_periods = new float[] { 58.646f, 243.018f, 0.997f, 1.026f, 0.413f, 0.444f, 0.718f, 0.671f, 6.387f }; // days
+    private float[] orbital_periods = new float[] { 0.241f, 0.615f, 1.000f, 1.881f, 11.861f, 29.628f, 84.747f, 166.344f, 248.348f }; // years
+    private float[] gravities = new float[] { 0.37f, 0.90f, 1.00f, 0.38f, 2.53f, 1.07f, 0.90f, 1.14f, 0.09f }; // in terms of g = 9.81 m/s^2
+    private float[] eccentricities = new float[] { 0.21f, 0.01f, 0.02f, 0.09f, 0.05f, 0.06f, 0.05f, 0.01f, 0.25f };
+    private float[] inclination_angles = new float[] { 7.00f, 3.39f, 0.00f, 1.85f, 1.31f, 2.49f, 0.77f, 1.77f, 17.5f };
     private Color[,] trail_colours = new Color[,]
     {
         {new Color (0.639f, 0.416f, 0.078f), new Color (0.839f, 0.616f, 0.278f)},
@@ -30,8 +31,8 @@ public class Planet2DOrbit : MonoBehaviour
         {new Color (0.376f, 0.522f, 0.545f), new Color (0.576f, 0.722f, 0.745f)},
         {new Color (0.127f, 0.179f, 0.429f), new Color (0.247f, 0.329f, 0.729f)},
         {new Color (0.761f, 0.643f, 0.576f), new Color (0.961f, 0.843f, 0.776f)},
-        
-        
+
+
     };
     private float t;
     bool logarithmicSizes = true;
@@ -60,26 +61,32 @@ public class Planet2DOrbit : MonoBehaviour
         radii = radii.Select(el => el / 23454.8f).ToArray();
         // semiMajor = semiMajor.Select(el => el * 100).ToArray();
         // radii = radii.Select(el => el * 10).ToArray();
-        if (planet != "Sun") {
+        if (planet != "Sun")
+        {
             time_scale = GameController.GetComponent<EventController>().ReturnTimeScale();
             index = Array.IndexOf(planets, planet);
             mass = masses[index];
-            if (logarithmicOrbits) {
+            if (logarithmicOrbits)
+            {
                 a = Mathf.Log(semiMajor[index], 1.001f);
-            } else
+            }
+            else
             {
                 a = semiMajor[index];
             }
-            radius = radii[index]; 
+            radius = radii[index];
             rotational_period = rotational_periods[index];
             orbital_period = orbital_periods[index];
-            gravity = gravities[index]; 
+            gravity = gravities[index];
             eccentricity = eccentricities[index];
             inclination_angle = inclination_angles[index];
-            
-            if (logarithmicSizes) {
+
+            if (logarithmicSizes)
+            {
                 radiusScale = Mathf.Log(radius, 10) + 1;
-            } else {
+            }
+            else
+            {
                 radiusScale = radius;
             }
             transform.localScale = new Vector3(radiusScale, radiusScale, radiusScale);
@@ -101,7 +108,8 @@ public class Planet2DOrbit : MonoBehaviour
             // Debug.Log(planet);
             // Debug.Log(orbital_period);
         }
-        else {
+        else
+        {
             mass = 332837f;
             radius = 109.12f;
             gravity = 27.95f;
@@ -121,18 +129,25 @@ public class Planet2DOrbit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (planet != "Sun") {
-            
+        if (planet != "Sun")
+        {
+            orbital_period = get_orbital_period(a, G, mass, Sun.GetComponent<Planet2DOrbit>().getMass());
+            Debug.Log("G: " + G);
+            Debug.Log("Sun: " + Sun.GetComponent<Planet2DOrbit>().getMass());
+            Debug.Log("mass: " + mass);
+            Debug.Log("a: " + a);
+            Debug.Log(planet + " Orbital Period: " + orbital_period);
             tr.time = orbital_period * time_scale * 0.9f;
             new_time_scale = GameController.GetComponent<EventController>().ReturnTimeScale();
-            if (new_time_scale != time_scale) {
+            if (new_time_scale != time_scale)
+            {
                 time_scale = new_time_scale;
                 StartCoroutine(ResetTrail(tr));
                 tr.Clear();
             }
-        }
-        if (planet != "Sun") {
+
             float t = ((Time.time * 2 * Mathf.PI) / (orbital_period)) * time_scale;
+
             if (!threeDOrbit)
             {
                 // Debug.Log(t);
@@ -150,50 +165,100 @@ public class Planet2DOrbit : MonoBehaviour
                 );
                 // UpdatePlanet();
             }
-        }  
+        }
     }
 
-    float get_r(float a, float epsilon, float theta) {
-        return (a * (1 - Mathf.Pow(epsilon, 2))) / (1 - epsilon * Mathf.Cos(theta));
+
+    float get_r(float a, float epsilon, float theta)
+    {   
+        return (a * (1 - Mathf.Pow(epsilon, 2f))) / (1 - epsilon * Mathf.Cos(theta));
+    }
+
+    float get_orbital_period(float a, float G, float m, float M)
+    {
+        return ((Mathf.Sqrt((4 * Mathf.Pow(Mathf.PI, 2f) * Mathf.Pow(a * 1.496f * Mathf.Pow(10f, 11f), 3f)) / (G * (1.9f * Mathf.Pow(10f, 30f) * M + m * 5.97f * Mathf.Pow(10f, 24f))))) / (365 * 24 * 60 * 60));
     }
 
     static IEnumerator ResetTrail(TrailRenderer tr)
     {
         var trailTime = tr.time;
         tr.time = 0;
-        yield return new WaitForSeconds(.1f);;
+        yield return new WaitForSeconds(.1f); ;
         tr.time = trailTime;
-    }        
+    }
 
-    public string getPlanet() {
+    public string getPlanet()
+    {
         return planet;
     }
 
-    public float getMass() {
+    public float getMass()
+    {
+        return mass;
+    }
+
+    public float getSemiMajor()
+    {
         return a;
     }
 
-    public float getSemiMajor() {
-        return a;
-    }
-
-    public float getRadius() {
+    public float getRadius()
+    {
         return radius;
     }
 
-    public float getRotationalPeriod() {
+    public float getRotationalPeriod()
+    {
         return rotational_period;
     }
 
-    public float getGravity() {
+    public float getGravity()
+    {
         return gravity;
     }
 
-    public float getEccentricity() {
+    public float getEccentricity()
+    {
         return eccentricity;
     }
 
-    public float getInclinationAngle() {
+    public float getInclinationAngle()
+    {
         return inclination_angle;
     }
+
+    public void changePlanet(string newPlanet)
+    {
+        planet = newPlanet;
+    }
+
+    public void changeMass(float newMass)
+    {
+        mass = newMass;
+        Debug.Log(mass);
+    }
+
+    // public void changeSemiMajor(float newSemiMajor) {
+
+    // }
+
+    //     public void changeRadius(float newRadius) {
+    //         return radius;
+    //     }
+
+    //     public void changeRotationalPeriod(float newRotationalPeriod) {
+    //         return rotational_period;
+    //     }
+
+    //     public void changeGravity(float newGravity) {
+    //         return gravity;
+    //     }
+
+    //     public void changeEccentricity(float newEccentricity) {
+    //         return eccentricity;
+    //     }
+
+    //     public void changeInclinationAngle(float newInclinationAngle) {
+    //         return inclination_angle;
+    //     }
 }
