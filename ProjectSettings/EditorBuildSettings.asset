@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: ae580f3920ff28f4babdf910bd5f74ec
   - enabled: 1
-    path: Assets/Scenes/2DOrbits.unity
+    path: Assets/Scenes/SolarSystem.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects: {}

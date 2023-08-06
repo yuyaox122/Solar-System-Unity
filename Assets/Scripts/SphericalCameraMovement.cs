@@ -6,9 +6,10 @@ public class SphericalCameraMovement : MonoBehaviour
 {
     bool ballEnabled = false;
  
-    float rotationSpeed = 1f;
+    float mouseRotationSpeed = 1f;
+    float keysRotationSpeed = 3f;
     float r = 1000f;
-    float scrollSpeed = 50f;
+    float scrollSpeed = 100f;
  
     Vector3 last = new Vector3();
 
@@ -61,29 +62,39 @@ public class SphericalCameraMovement : MonoBehaviour
 
         if (ballEnabled)
         {
-            float dx = (last.x - Input.mousePosition.x) * rotationSpeed;
-            float dy = (last.y - Input.mousePosition.y) * rotationSpeed;
+            float dx = (last.x - Input.mousePosition.x) * mouseRotationSpeed;
+            float dy = (last.y - Input.mousePosition.y) * mouseRotationSpeed;
             
-            if (Input.GetKey(KeyCode.W)) {
-                r -= scrollSpeed / 10;
-            }
-            
-            if (Input.GetKey(KeyCode.S)) {
-                r += scrollSpeed / 10;
-            }
-
             r += -Input.mouseScrollDelta.y * scrollSpeed;
 
             sc.y += dx * Time.deltaTime;
 
             sc.z = Mathf.Clamp (sc.z + dy * Time.deltaTime, -1.5f, 1.5f);
-            r = Mathf.Clamp(r, 10, 10000);
+            r = Mathf.Clamp(r, 250, 10000);
 
-            transform.position = getCartesianCoordinates (sc) + target_position;
-
-            transform.LookAt (target_position);
- 
-            last = Input.mousePosition;
+            
         }
+
+        if (Input.GetKey(KeyCode.W)) {
+            r -= scrollSpeed / 10;
+        }
+            
+        if (Input.GetKey(KeyCode.S)) {
+            r += scrollSpeed / 10;
+        }
+
+        if (Input.GetKey(KeyCode.A)) {
+            sc.y += -keysRotationSpeed * Time.deltaTime;
+        }
+
+        if (Input.GetKey(KeyCode.D)) {
+            sc.y += keysRotationSpeed * Time.deltaTime;
+        }
+
+        transform.position = getCartesianCoordinates (sc) + target_position;
+
+        transform.LookAt (target_position);
+
+        last = Input.mousePosition;
     }
 }

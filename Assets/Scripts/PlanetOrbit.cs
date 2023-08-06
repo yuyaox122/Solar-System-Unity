@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Planet2DOrbit : MonoBehaviour
+public class PlanetOrbit : MonoBehaviour
 {
     public string planet;
     public GameObject GameController;
@@ -35,7 +35,7 @@ public class Planet2DOrbit : MonoBehaviour
 
     };
     private float t;
-    bool logarithmicSizes = true;
+    bool logarithmicSizes = false;
     bool logarithmicOrbits = false;
     float mass; // Earth masses
     float a; //AU
@@ -46,7 +46,7 @@ public class Planet2DOrbit : MonoBehaviour
     float eccentricity;
     float inclination_angle;
     float radiusScale;
-    float orbit_scale = 50;
+    float orbit_scale = 1000;
     float time_scale;
     int index;
     private GameObject solarSystem;
@@ -58,7 +58,7 @@ public class Planet2DOrbit : MonoBehaviour
     {
         solarSystem = transform.parent.gameObject;
         threeDOrbit = solarSystem.GetComponent<SolarSystemProperties>().ThreeDOrbits;
-        radii = radii.Select(el => el / 23454.8f).ToArray();
+        // radii = radii.Select(el => el / 23454.8f).ToArray();
         // semiMajor = semiMajor.Select(el => el * 100).ToArray();
         // radii = radii.Select(el => el * 10).ToArray();
         if (planet != "Sun")
@@ -87,7 +87,7 @@ public class Planet2DOrbit : MonoBehaviour
             }
             else
             {
-                radiusScale = radius;
+                radiusScale = radius * 50;
             }
             transform.localScale = new Vector3(radiusScale, radiusScale, radiusScale);
             gameObject.AddComponent<TrailRenderer>();
@@ -101,10 +101,9 @@ public class Planet2DOrbit : MonoBehaviour
                 new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
             );
             tr.colorGradient = gradient;
-            tr.time = orbital_period * time_scale * 0.9f;
-            Debug.Log(tr.time);
-            tr.startWidth = radiusScale * 0.8f;
-            tr.endWidth = radiusScale * 0.6f;
+            tr.time = orbital_period / time_scale;
+            tr.startWidth = radiusScale * 0.3f;
+            tr.endWidth = radiusScale * 0.1f;
             // Debug.Log(planet);
             // Debug.Log(orbital_period);
         }
@@ -131,19 +130,13 @@ public class Planet2DOrbit : MonoBehaviour
     {
         if (planet != "Sun")
         {
-            orbital_period = get_orbital_period(a, G, mass, Sun.GetComponent<Planet2DOrbit>().getMass());
-            Debug.Log("G: " + G);
-            Debug.Log("Sun: " + Sun.GetComponent<Planet2DOrbit>().getMass());
-            Debug.Log("mass: " + mass);
-            Debug.Log("a: " + a);
-            Debug.Log(planet + " Orbital Period: " + orbital_period);
-            tr.time = orbital_period * time_scale * 0.9f;
+            orbital_period = get_orbital_period(a, G, mass, Sun.GetComponent<PlanetOrbit>().getMass());
+            tr.time = orbital_period / time_scale;
             new_time_scale = GameController.GetComponent<EventController>().ReturnTimeScale();
             if (new_time_scale != time_scale)
             {
                 time_scale = new_time_scale;
-                StartCoroutine(ResetTrail(tr));
-                tr.Clear();
+                clearTrails();
             }
 
             float t = ((Time.time * 2 * Mathf.PI) / (orbital_period)) * time_scale;
@@ -168,23 +161,20 @@ public class Planet2DOrbit : MonoBehaviour
         }
     }
 
-
+    public void clearTrails()
+    {
+        tr.enabled = false;
+        tr.Clear();
+        tr.enabled = true;
+    }
     float get_r(float a, float epsilon, float theta)
-    {   
+    {
         return (a * (1 - Mathf.Pow(epsilon, 2f))) / (1 - epsilon * Mathf.Cos(theta));
     }
 
     float get_orbital_period(float a, float G, float m, float M)
     {
-        return ((Mathf.Sqrt((4 * Mathf.Pow(Mathf.PI, 2f) * Mathf.Pow(a * 1.496f * Mathf.Pow(10f, 11f), 3f)) / (G * (1.9f * Mathf.Pow(10f, 30f) * M + m * 5.97f * Mathf.Pow(10f, 24f))))) / (365 * 24 * 60 * 60));
-    }
-
-    static IEnumerator ResetTrail(TrailRenderer tr)
-    {
-        var trailTime = tr.time;
-        tr.time = 0;
-        yield return new WaitForSeconds(.1f); ;
-        tr.time = trailTime;
+        return ((Mathf.Sqrt((4 * Mathf.Pow(Mathf.PI, 2f) * Mathf.Pow(a * 1.496f * Mathf.Pow(10f, 11f), 3f)) / (G * (5.97f * Mathf.Pow(10f, 24f)) * (M + m)))) / (365 * 24 * 60 * 60));
     }
 
     public string getPlanet()
@@ -230,35 +220,48 @@ public class Planet2DOrbit : MonoBehaviour
     public void changePlanet(string newPlanet)
     {
         planet = newPlanet;
+        clearTrails();
     }
 
     public void changeMass(float newMass)
     {
         mass = newMass;
-        Debug.Log(mass);
+        clearTrails();
     }
 
-    // public void changeSemiMajor(float newSemiMajor) {
+    public void changeSemiMajor(float newSemiMajor)
+    {
+        a = newSemiMajor;
+        clearTrails();
+    }
 
-    // }
+    public void changeRadius(float newRadius)
+    {
+        radius = newRadius;
+        clearTrails();
+    }
 
-    //     public void changeRadius(float newRadius) {
-    //         return radius;
-    //     }
+    public void changeRotationalPeriod(float newRotationalPeriod)
+    {
+        rotational_period = newRotationalPeriod;
+        clearTrails();
+    }
 
-    //     public void changeRotationalPeriod(float newRotationalPeriod) {
-    //         return rotational_period;
-    //     }
+    public void changeGravity(float newGravity)
+    {
+        gravity = newGravity;
+        clearTrails();
+    }
 
-    //     public void changeGravity(float newGravity) {
-    //         return gravity;
-    //     }
+    public void changeEccentricity(float newEccentricity)
+    {
+        eccentricity = newEccentricity;
+        clearTrails();
+    }
 
-    //     public void changeEccentricity(float newEccentricity) {
-    //         return eccentricity;
-    //     }
-
-    //     public void changeInclinationAngle(float newInclinationAngle) {
-    //         return inclination_angle;
-    //     }
+    public void changeInclinationAngle(float newInclinationAngle)
+    {
+        inclination_angle = newInclinationAngle;
+        clearTrails();
+    }
 }
