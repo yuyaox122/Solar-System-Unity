@@ -4,13 +4,40 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 
+
+
 namespace SlimUI.ModernMenu
 {
+
 	public class UIMenuManager : MonoBehaviour
 	{
+		public string[] planets = { "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto" };
+		public float[] masses = new float[] { 0.055f, 0.815f, 1.000f, 0.107f, 317.85f, 95.159f, 14.500f, 17.204f, 0.003f }; // Earth masses
+		public float[] semiMajor = new float[] { 0.387f, 0.723f, 1.000f, 1.523f, 5.202f, 9.576f, 19.293f, 30.246f, 39.509f }; //AU
+		public float[] radii = new float[] { 0.383f, 0.949f, 1.000f, 0.533f, 11.209f, 9.449f, 4.007f, 3.883f, 0.187f }; // Earth radii
+		public float[] rotational_periods = new float[] { 58.646f, 243.018f, 0.997f, 1.026f, 0.413f, 0.444f, 0.718f, 0.671f, 6.387f }; // days
+		public float[] orbital_periods = new float[] { 0.241f, 0.615f, 1.000f, 1.881f, 11.861f, 29.628f, 84.747f, 166.344f, 248.348f }; // years
+		public float[] gravities = new float[] { 0.37f, 0.90f, 1.00f, 0.38f, 2.53f, 1.07f, 0.90f, 1.14f, 0.09f }; // in terms of g = 9.81 m/s^2
+		public float[] eccentricities = new float[] { 0.21f, 0.01f, 0.02f, 0.09f, 0.05f, 0.06f, 0.05f, 0.01f, 0.25f };
+		public float[] inclination_angles = new float[] { 7.00f, 3.39f, 0.00f, 1.85f, 1.31f, 2.49f, 0.77f, 1.77f, 17.5f };
+		public float[] red = new float[] {0.639f, 0.678f, 0.000f, 0.557f, 0.588f, 0.443f, 0.376f, 0.127f, 0.761f};
+		public float[] green = new float[] {0.416f, 0.329f, 0.278f, 0.067f, 0.365f, 0.408f, 0.522f, 0.179f, 0.643f};
+		public float[] blue = new float[] {0.078f, 0.000f, 0.522f, 0.000f, 0.024f, 0.247f, 0.545f, 0.429f, 0.576f};
+		// {
+		// 	{new Color (0.639f, 0.416f, 0.078f), new Color (0.839f, 0.616f, 0.278f)},
+		// 	{new Color (0.678f, 0.329f, 0.000f), new Color (0.878f, 0.529f, 0.176f)},
+		// 	{new Color (0.000f, 0.278f, 0.522f), new Color (0.157f, 0.478f, 0.722f)},
+		// 	{new Color (0.557f, 0.067f, 0.000f), new Color (0.757f, 0.267f, 0.055f)},
+		// 	{new Color (0.588f, 0.365f, 0.024f), new Color (0.788f, 0.565f, 0.224f)},
+		// 	{new Color (0.443f, 0.408f, 0.247f), new Color (0.643f, 0.608f, 0.447f)},
+		// 	{new Color (0.376f, 0.522f, 0.545f), new Color (0.576f, 0.722f, 0.745f)},
+		// 	{new Color (0.127f, 0.179f, 0.429f), new Color (0.247f, 0.329f, 0.729f)},
+		// 	{new Color (0.761f, 0.643f, 0.576f), new Color (0.961f, 0.843f, 0.776f)},
+		// };
 		private Animator CameraObject;
 
 		// campaign button sub menu
+
 		[Header("MENUS")]
 		[Tooltip("The Menu for when the MAIN menu buttons")]
 		public GameObject mainMenu;
@@ -48,6 +75,8 @@ namespace SlimUI.ModernMenu
 		public GameObject PanelGeneral;
 		public GameObject NewGame;
 		public GameObject LoadGame;
+		public GameObject LoadedGamesList;
+		public GameObject LoadedGame;
 
 
 		// highlights in settings screen
@@ -87,7 +116,6 @@ namespace SlimUI.ModernMenu
 		void Start()
 		{
 			CameraObject = transform.GetComponent<Animator>();
-
 			playMenu.SetActive(false);
 			exitMenu.SetActive(false);
 			if (extrasMenu) extrasMenu.SetActive(false);
@@ -96,6 +124,13 @@ namespace SlimUI.ModernMenu
 			NewGame.SetActive(false);
 			LoadGame.SetActive(false);
 			SetThemeColors();
+			// PlayerPrefs.DeleteAll();
+			if (!PlayerPrefs.HasKey("!DefaultSolarSystem!")) {
+				Debug.Log(PlayerPrefs.GetString("!SolarSystemNames!"));
+				PlayerPrefs.SetString("!DefaultSolarSystem!", "1");
+				SaveAndLoad.SaveSolarSystem(new SolarSystem("The Solar System", planets, masses, semiMajor, radii, rotational_periods, orbital_periods, gravities,
+				eccentricities, inclination_angles, red, green, blue));
+			}
 		}
 
 		void SetThemeColors()
@@ -130,6 +165,7 @@ namespace SlimUI.ModernMenu
 			playMenu.SetActive(true);
 			LoadGame.SetActive(false);
 			NewGame.SetActive(false);
+			DestroyGameConfigs();
 		}
 
 		public void PlayCampaignMobile()
@@ -272,6 +308,7 @@ namespace SlimUI.ModernMenu
 			LoadGame.SetActive(false);
 			NewGame.SetActive(false);
 			DisablePlayCampaign();
+			DestroyGameConfigs();
 		}
 
 		public void AreYouSureMobile()
@@ -291,6 +328,7 @@ namespace SlimUI.ModernMenu
 			exitMenu.SetActive(false);
 			LoadGame.SetActive(false);
 			NewGame.SetActive(false);
+			DestroyGameConfigs();
 		}
 
 		public void NewGameMenu()
@@ -300,36 +338,52 @@ namespace SlimUI.ModernMenu
 			exitMenu.SetActive(false);
 			LoadGame.SetActive(false);
 			NewGame.SetActive(true);
+			DestroyGameConfigs();
 		}
 
 		public void LoadGameMenu()
 		{
+			DestroyGameConfigs();
 			playMenu.SetActive(false);
 			if (extrasMenu) extrasMenu.SetActive(false);
 			exitMenu.SetActive(false);
 			LoadGame.SetActive(true);
 			NewGame.SetActive(false);
+			string[] names = SaveAndLoad.GetNames();
+			// Debug.Log(names[0]);
+			if (names.Length != 0)
+			{
+				foreach (string name in names)
+				{
+					Debug.Log("Name: " + name);
+					GameObject game = Instantiate(LoadedGame, LoadedGamesList.transform) as GameObject;
+					game.GetComponent<LoadGamePanel>().SetupGamePanel(name);
+					// game.transform.parent = LoadedGamesList.transform;
+					// game.transform.position = new Vector3(0, 0, 0);
+					// game.transform.localScale = new Vector3(1, 1, 1);
+					// game.transform.rotation = Quaternion.Euler();
+				}
+			}
 		}
 
-		
+		public void TestSaveAndLoad()
+		{
+			SolarSystem savedSolarSystem = SaveAndLoad.LoadSolarSystem("The Solar System");
+			Debug.Log(savedSolarSystem.masses[0]);
+			Debug.Log(savedSolarSystem.planets[0]);
+			Debug.Log(savedSolarSystem.name);
+		}
 
-		// // Loads the game indicated by gameName from a file and returns them
-		// public static (List<int>[], List<int>[]) LoadGameNumbers(string gameName)
-		// {
-		// 	BinaryFormatter formatter = new BinaryFormatter();
-		// 	FileStream FS = new FileStream(Application.dataPath + "/Games/" + gameName + "_top.txt", FileMode.Open);
-		// 	List<int>[] topNumbers = (List<int>[])formatter.Deserialize(FS);
-		// 	FS.Close();
-		// 	FS = new FileStream(Application.dataPath + "/Games/" + gameName + "_side.txt", FileMode.Open);
-		// 	List<int>[] sideNumbers = (List<int>[])formatter.Deserialize(FS);
-		// 	FS.Close();
-		// 	return (topNumbers, sideNumbers);
-		// }
+		public void DestroyGameConfigs() {
+			foreach (Transform child in LoadedGamesList.transform) {
+				Destroy(child.gameObject);
+			}
+		}
 
 		public void QuitGame()
 		{
 #if UNITY_EDITOR
-				UnityEditor.EditorApplication.isPlaying = false;
+			UnityEditor.EditorApplication.isPlaying = false;
 #else
 			Application.Quit();
 #endif

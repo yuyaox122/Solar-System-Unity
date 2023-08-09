@@ -10,8 +10,8 @@ public class FreeCameraMovement : MonoBehaviour
     private float mouseY;
     private bool rotateEnabled = false;
 
-    [SerializeField] float _speed = 500;
-    [SerializeField] float jump_strength = 100;
+    [SerializeField] float _speed = 10000;
+    [SerializeField] float jump_strength = 1000;
     private Vector3 verticalMovementDir;
     private Vector3 horizontalMovementDir;
     void Start()

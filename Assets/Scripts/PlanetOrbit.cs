@@ -7,33 +7,25 @@ using UnityEngine;
 
 public class PlanetOrbit : MonoBehaviour
 {
+    SolarSystem currentSolarSystem;
     public string planet;
+    public string solarSystemName;
     public GameObject GameController;
     float G = 6.67f * Mathf.Pow(10f, (-11f));
     [SerializeField] Transform Sun;
-    private string[] planets = { "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto" };
-    private float[] masses = new float[] { 0.055f, 0.815f, 1.000f, 0.107f, 317.85f, 95.159f, 14.500f, 17.204f, 0.003f }; // Earth masses
-    private float[] semiMajor = new float[] { 0.387f, 0.723f, 1.000f, 1.523f, 5.202f, 9.576f, 19.293f, 30.246f, 39.509f }; //AU
-    private float[] radii = new float[] { 0.383f, 0.949f, 1.000f, 0.533f, 11.209f, 9.449f, 4.007f, 3.883f, 0.187f }; // Earth radii
-    private float[] rotational_periods = new float[] { 58.646f, 243.018f, 0.997f, 1.026f, 0.413f, 0.444f, 0.718f, 0.671f, 6.387f }; // days
-    private float[] orbital_periods = new float[] { 0.241f, 0.615f, 1.000f, 1.881f, 11.861f, 29.628f, 84.747f, 166.344f, 248.348f }; // years
-    private float[] gravities = new float[] { 0.37f, 0.90f, 1.00f, 0.38f, 2.53f, 1.07f, 0.90f, 1.14f, 0.09f }; // in terms of g = 9.81 m/s^2
-    private float[] eccentricities = new float[] { 0.21f, 0.01f, 0.02f, 0.09f, 0.05f, 0.06f, 0.05f, 0.01f, 0.25f };
-    private float[] inclination_angles = new float[] { 7.00f, 3.39f, 0.00f, 1.85f, 1.31f, 2.49f, 0.77f, 1.77f, 17.5f };
-    private Color[,] trail_colours = new Color[,]
-    {
-        {new Color (0.639f, 0.416f, 0.078f), new Color (0.839f, 0.616f, 0.278f)},
-        {new Color (0.678f, 0.329f, 0.000f), new Color (0.878f, 0.529f, 0.176f)},
-        {new Color (0.000f, 0.278f, 0.522f), new Color (0.157f, 0.478f, 0.722f)},
-        {new Color (0.557f, 0.067f, 0.000f), new Color (0.757f, 0.267f, 0.055f)},
-        {new Color (0.588f, 0.365f, 0.024f), new Color (0.788f, 0.565f, 0.224f)},
-        {new Color (0.443f, 0.408f, 0.247f), new Color (0.643f, 0.608f, 0.447f)},
-        {new Color (0.376f, 0.522f, 0.545f), new Color (0.576f, 0.722f, 0.745f)},
-        {new Color (0.127f, 0.179f, 0.429f), new Color (0.247f, 0.329f, 0.729f)},
-        {new Color (0.761f, 0.643f, 0.576f), new Color (0.961f, 0.843f, 0.776f)},
-
-
-    };
+    PlanetOrbit SunScript;
+    public string[] planets;
+    public float[] masses; // Earth masses
+    public float[] semiMajor; //AU
+    public float[] radii; // Earth radii
+    public float[] rotational_periods; // days
+    public float[] orbital_periods; // years
+    public float[] gravities; // in terms of g = 9.81 m/s^2
+    public float[] eccentricities;
+    public float[] inclination_angles;
+    public float[] trail_red;
+    public float[] trail_green;
+    public float[] trail_blue;
     private float t;
     bool logarithmicSizes = false;
     bool logarithmicOrbits = false;
@@ -46,7 +38,7 @@ public class PlanetOrbit : MonoBehaviour
     float eccentricity;
     float inclination_angle;
     float radiusScale;
-    float orbit_scale = 1000;
+    float orbit_scale = 10000;
     float time_scale;
     int index;
     private GameObject solarSystem;
@@ -56,8 +48,23 @@ public class PlanetOrbit : MonoBehaviour
 
     void Start()
     {
+        solarSystemName = PlayerPrefs.GetString("!ActiveSolarSystem!");
+        currentSolarSystem = SaveAndLoad.LoadSolarSystem(solarSystemName);
+        planets = currentSolarSystem.planets;
+        masses = currentSolarSystem.masses; // Earth masses
+        semiMajor = currentSolarSystem.semiMajor; //AU
+        radii = currentSolarSystem.radii; // Earth radii
+        rotational_periods = currentSolarSystem.rotational_periods; // days
+        orbital_periods = currentSolarSystem.orbital_periods; // years
+        gravities = currentSolarSystem.gravities; // in terms of g = 9.81 m/s^2
+        eccentricities = currentSolarSystem.eccentricities;
+        inclination_angles = currentSolarSystem.inclination_angles;
+        trail_red = currentSolarSystem.trail_red;
+        trail_green = currentSolarSystem.trail_green;
+        trail_blue = currentSolarSystem.trail_blue;
         solarSystem = transform.parent.gameObject;
         threeDOrbit = solarSystem.GetComponent<SolarSystemProperties>().ThreeDOrbits;
+        SunScript = Sun.GetComponent<PlanetOrbit>();
         // radii = radii.Select(el => el / 23454.8f).ToArray();
         // semiMajor = semiMajor.Select(el => el * 100).ToArray();
         // radii = radii.Select(el => el * 10).ToArray();
@@ -96,172 +103,207 @@ public class PlanetOrbit : MonoBehaviour
             // A simple 2 color gradient with a fixed alpha of 1.0f.
             float alpha = 1.0f;
             Gradient gradient = new Gradient();
+            float trail_red_1 = Mathf.Clamp(trail_red[index] + 0.15f, 0f, 1f);
+            float trail_green_1 = Mathf.Clamp(trail_green[index] + 0.15f, 0f, 1f);
+            float trail_blue_1 = Mathf.Clamp(trail_blue[index] + 0.15f, 0f, 1f);
             gradient.SetKeys(
-                new GradientColorKey[] { new GradientColorKey(trail_colours[index, 1], 0.0f), new GradientColorKey(trail_colours[index, 0], 1.0f) },
+                new GradientColorKey[] { new GradientColorKey(new Color (trail_red_1, trail_green_1, trail_blue_1), 0.0f), new GradientColorKey(new Color (trail_red[index], trail_blue[index], trail_green[index]), 0.0f) },
                 new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
             );
             tr.colorGradient = gradient;
             tr.time = orbital_period / time_scale;
-            tr.startWidth = radiusScale * 0.3f;
-            tr.endWidth = radiusScale * 0.1f;
+            tr.startWidth = radiusScale * 0.2f;
+            tr.endWidth = radiusScale * 0.2f;
             // Debug.Log(planet);
-            // Debug.Log(orbital_period);
+            // Debug.Log(orbital_period);   
         }
         else
         {
-            mass = 332837f;
-            radius = 109.12f;
-            gravity = 27.95f;
-            if (logarithmicSizes)
-            {
-                radiusScale = Mathf.Log(radius, 10) + 1;
-            }
-            else
-            {
-                radiusScale = radius;
-            }
-            transform.localScale = new Vector3(radiusScale, radiusScale, radiusScale);
+        mass = 332837f;
+        radius = 109.12f;
+        gravity = 27.95f;
+        if (logarithmicSizes)
+        {
+            radiusScale = Mathf.Log(radius, 10) + 1;
         }
+        else
+        {
+            radiusScale = radius * 10;
+        }
+        transform.localScale = new Vector3(radiusScale, radiusScale, radiusScale);
+    }
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (planet != "Sun")
+    
+    if (planet != "Sun")
+    {
+        if (logarithmicSizes)
+            {
+                radiusScale = Mathf.Log(radius, 10) + 1;
+            }
+            else
+            {
+                radiusScale = radius * 50;
+            }
+        orbital_period = get_orbital_period(a, G, mass, Sun.GetComponent<PlanetOrbit>().getMass());
+        tr.time = orbital_period / time_scale;
+        new_time_scale = GameController.GetComponent<EventController>().ReturnTimeScale();
+        if (new_time_scale != time_scale)
         {
-            orbital_period = get_orbital_period(a, G, mass, Sun.GetComponent<PlanetOrbit>().getMass());
-            tr.time = orbital_period / time_scale;
-            new_time_scale = GameController.GetComponent<EventController>().ReturnTimeScale();
-            if (new_time_scale != time_scale)
-            {
-                time_scale = new_time_scale;
-                clearTrails();
-            }
+            time_scale = new_time_scale;
+            clearTrails();
+        }
 
-            float t = ((Time.time * 2 * Mathf.PI) / (orbital_period)) * time_scale;
+        float t = ((Time.time * 2 * Mathf.PI) / (orbital_period)) * time_scale;
 
-            if (!threeDOrbit)
-            {
-                // Debug.Log(t);
-                transform.position = new Vector3(orbit_scale * get_r(a, eccentricity, t) * Mathf.Cos(t), 0f,
-                orbit_scale * get_r(a, eccentricity, t) * Mathf.Sin(t));
-                // UpdatePlanet();
-            }
-            else if (threeDOrbit)
-            {
-                // Debug.Log(t);
-                transform.position = new Vector3(
-                    orbit_scale * get_r(a, eccentricity, t) * Mathf.Cos(t) * Mathf.Cos(inclination_angle * Mathf.PI / 180),
-                    orbit_scale * get_r(a, eccentricity, t) * Mathf.Cos(t) * Mathf.Sin(inclination_angle * Mathf.PI / 180),
-                    orbit_scale * get_r(a, eccentricity, t) * Mathf.Sin(t)
-                );
-                // UpdatePlanet();
-            }
+        if (!threeDOrbit)
+        {
+            // Debug.Log(t);
+            transform.position = new Vector3(orbit_scale * get_r(a, eccentricity, t) * Mathf.Cos(t), 0f,
+            orbit_scale * get_r(a, eccentricity, t) * Mathf.Sin(t));
+            // UpdatePlanet();
+        }
+        else if (threeDOrbit)
+        {
+            // Debug.Log(t);
+            transform.position = new Vector3(
+                orbit_scale * get_r(a, eccentricity, t) * Mathf.Cos(t) * Mathf.Cos(inclination_angle * Mathf.PI / 180),
+                orbit_scale * get_r(a, eccentricity, t) * Mathf.Cos(t) * Mathf.Sin(inclination_angle * Mathf.PI / 180),
+                orbit_scale * get_r(a, eccentricity, t) * Mathf.Sin(t)
+            );
+            // UpdatePlanet();
         }
     }
+    else {
+        if (logarithmicSizes)
+        {
+            radiusScale = Mathf.Log(radius, 10) + 1;
+        }
+        else
+        {
+            radiusScale = radius * 10;
+        }
+    }
+}
 
-    public void clearTrails()
-    {
-        tr.enabled = false;
-        tr.Clear();
-        tr.enabled = true;
-    }
-    float get_r(float a, float epsilon, float theta)
-    {
-        return (a * (1 - Mathf.Pow(epsilon, 2f))) / (1 - epsilon * Mathf.Cos(theta));
-    }
+public void clearTrails()
+{
+    tr.enabled = false;
+    tr.Clear();
+    tr.enabled = true;
+}
+float get_r(float a, float epsilon, float theta)
+{
+    return (a * (1 - Mathf.Pow(epsilon, 2f))) / (1 - epsilon * Mathf.Cos(theta));
+}
 
-    float get_orbital_period(float a, float G, float m, float M)
-    {
-        return ((Mathf.Sqrt((4 * Mathf.Pow(Mathf.PI, 2f) * Mathf.Pow(a * 1.496f * Mathf.Pow(10f, 11f), 3f)) / (G * (5.97f * Mathf.Pow(10f, 24f)) * (M + m)))) / (365 * 24 * 60 * 60));
-    }
+float get_orbital_period(float a, float G, float m, float M)
+{
+    return ((Mathf.Sqrt((4 * Mathf.Pow(Mathf.PI, 2f) * Mathf.Pow(a * 1.496f * Mathf.Pow(10f, 11f), 3f)) / (G * (5.97f * Mathf.Pow(10f, 24f)) * (M + m)))) / (365 * 24 * 60 * 60));
+}
 
-    public string getPlanet()
-    {
-        return planet;
-    }
+public string getPlanet()
+{
+    return planet;
+}
 
-    public float getMass()
-    {
-        return mass;
-    }
+public float getMass()
+{
+    return mass;
+}
 
-    public float getSemiMajor()
-    {
-        return a;
-    }
+public float getSemiMajor()
+{
+    return a;
+}
 
-    public float getRadius()
-    {
-        return radius;
-    }
+public float getRadius()
+{
+    return radius;
+}
 
-    public float getRotationalPeriod()
-    {
-        return rotational_period;
-    }
+public float getRotationalPeriod()
+{
+    return rotational_period;
+}
 
-    public float getGravity()
-    {
-        return gravity;
-    }
+public float getGravity()
+{
+    return gravity;
+}
 
-    public float getEccentricity()
-    {
-        return eccentricity;
-    }
+public float getEccentricity()
+{
+    return eccentricity;
+}
 
-    public float getInclinationAngle()
-    {
-        return inclination_angle;
-    }
+public float getInclinationAngle()
+{
+    return inclination_angle;
+}
 
-    public void changePlanet(string newPlanet)
-    {
-        planet = newPlanet;
-        clearTrails();
-    }
+public void changeGameName(string newGameName)
+{
+    solarSystemName = newGameName;
+    Debug.Log("Change game name: " + solarSystemName);
+}
+public void changePlanet(string newPlanet)
+{
+    planet = newPlanet;
+    planets[index] = planet;
+    clearTrails();
+}
 
-    public void changeMass(float newMass)
-    {
-        mass = newMass;
-        clearTrails();
-    }
+public void changeMass(float newMass)
+{
+    mass = newMass;
+    SunScript.masses[index] = mass;
+    clearTrails();
+}
 
-    public void changeSemiMajor(float newSemiMajor)
-    {
-        a = newSemiMajor;
-        clearTrails();
-    }
+public void changeSemiMajor(float newSemiMajor)
+{
+    a = newSemiMajor;
+    SunScript.semiMajor[index] = a;
+    clearTrails();
+}
 
-    public void changeRadius(float newRadius)
-    {
-        radius = newRadius;
-        clearTrails();
-    }
+public void changeRadius(float newRadius)
+{
+    radius = newRadius;
+    SunScript.radii[index] = radius;
+    clearTrails();
+}
 
-    public void changeRotationalPeriod(float newRotationalPeriod)
-    {
-        rotational_period = newRotationalPeriod;
-        clearTrails();
-    }
+public void changeRotationalPeriod(float newRotationalPeriod)
+{
+    rotational_period = newRotationalPeriod;
+    SunScript.rotational_periods[index] = rotational_period;
+    clearTrails();
+}
 
-    public void changeGravity(float newGravity)
-    {
-        gravity = newGravity;
-        clearTrails();
-    }
+public void changeGravity(float newGravity)
+{
+    gravity = newGravity;
+    SunScript.gravities[index] = gravity;
+    clearTrails();
+}
 
-    public void changeEccentricity(float newEccentricity)
-    {
-        eccentricity = newEccentricity;
-        clearTrails();
-    }
+public void changeEccentricity(float newEccentricity)
+{
+    eccentricity = newEccentricity;
+    SunScript.eccentricities[index] = eccentricity;
+    clearTrails();
+}
 
-    public void changeInclinationAngle(float newInclinationAngle)
-    {
-        inclination_angle = newInclinationAngle;
-        clearTrails();
-    }
+public void changeInclinationAngle(float newInclinationAngle)
+{
+    inclination_angle = newInclinationAngle;
+    SunScript.inclination_angles[index] = inclination_angle;
+    clearTrails();
+}
 }

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
+using System;
+using System.Linq;
 
 public class DisplayStats : MonoBehaviour
 {
@@ -15,10 +18,13 @@ public class DisplayStats : MonoBehaviour
     [SerializeField] TMP_InputField GravityStat;
     [SerializeField] TMP_InputField EccentricityStat;
     [SerializeField] TMP_InputField InclinationAngleStat;
+    [SerializeField] Transform Sun;
+    PlanetOrbit SunScript;
     PlanetOrbit currentPlanetScript;
 
     void Start()
     {
+        SunScript = Sun.GetComponent<PlanetOrbit>();
         StatBar.SetActive(false);
         MassStat.onEndEdit.AddListener(delegate{OnDeselectedMassInput(MassStat.text);});
         SemiMajorStat.onEndEdit.AddListener(delegate{OnDeselectedSemiMajor(SemiMajorStat.text);});
@@ -61,6 +67,27 @@ public class DisplayStats : MonoBehaviour
         }
     }
 
+    public void PlanetSelected(string planet) {
+        StatBar.SetActive(true);
+        int index = Array.IndexOf(SunScript.planets, planet);
+        currentPlanetScript = GameObject.Find(planet).GetComponent<PlanetOrbit>();
+        string PlanetName = planet;
+        Title.text = PlanetName;
+        string Mass = SunScript.masses[index].ToString();
+        MassStat.text = Mass;
+        string SemiMajor = SunScript.semiMajor[index].ToString();
+        SemiMajorStat.text = SemiMajor;
+        string Radius = SunScript.radii[index].ToString();
+        RadiusStat.text = Radius;
+        string RotationalPeriod = SunScript.rotational_periods[index].ToString();
+        RotationalPeriodStat.text = RotationalPeriod;
+        string Gravity = SunScript.gravities[index].ToString();
+        GravityStat.text = Gravity;
+        string Eccentricity = SunScript.eccentricities[index].ToString();
+        EccentricityStat.text = Eccentricity;
+        string InclinationAngle = SunScript.inclination_angles[index].ToString();
+        InclinationAngleStat.text = InclinationAngle;
+    }
     public void OnDeselectedMassInput(string input) {
         currentPlanetScript.changeMass(float.Parse(input));
     }

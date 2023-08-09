@@ -70,7 +70,7 @@ public class SphericalCameraMovement : MonoBehaviour
             sc.y += dx * Time.deltaTime;
 
             sc.z = Mathf.Clamp (sc.z + dy * Time.deltaTime, -1.5f, 1.5f);
-            r = Mathf.Clamp(r, 250, 10000);
+            r = Mathf.Clamp(r, 250, 1000000);
 
             
         }
