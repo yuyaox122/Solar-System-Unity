@@ -11,7 +11,7 @@ public class DisplayStats : MonoBehaviour
 {
     [SerializeField] GameObject StatBar; 
     [SerializeField] TMP_Text Title;
-    [SerializeField] TMP_InputField MassStat;
+    [SerializeField] Slider MassStat;
     [SerializeField] TMP_InputField SemiMajorStat;
     [SerializeField] TMP_InputField RadiusStat;
     [SerializeField] TMP_InputField RotationalPeriodStat;
@@ -19,6 +19,7 @@ public class DisplayStats : MonoBehaviour
     [SerializeField] TMP_InputField EccentricityStat;
     [SerializeField] TMP_InputField InclinationAngleStat;
     [SerializeField] Transform Sun;
+    [SerializeField] TextMeshProUGUI MassValue;
     PlanetOrbit SunScript;
     PlanetOrbit currentPlanetScript;
 
@@ -26,7 +27,11 @@ public class DisplayStats : MonoBehaviour
     {
         SunScript = Sun.GetComponent<PlanetOrbit>();
         StatBar.SetActive(false);
-        MassStat.onEndEdit.AddListener(delegate{OnDeselectedMassInput(MassStat.text);});
+        MassStat.onValueChanged.AddListener(delegate{OnDeselectedMassInput(GetValue(MassValue.text));});
+        MassStat.onValueChanged.AddListener((a) => {
+            MassValue.text = "Mass / M: " + a.ToString("0.000");
+        });
+       
         SemiMajorStat.onEndEdit.AddListener(delegate{OnDeselectedSemiMajor(SemiMajorStat.text);});
         RadiusStat.onEndEdit.AddListener(delegate{OnDeselectedRadius(RadiusStat.text);});
         RotationalPeriodStat.onEndEdit.AddListener(delegate{OnDeselectedRotationalPeriod(RotationalPeriodStat.text);});
@@ -41,54 +46,65 @@ public class DisplayStats : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitInfo;
+            MassStat.minValue = 0.01f;
+            MassStat.maxValue = 500;
             if (Physics.Raycast(ray, out hitInfo)) {
-                Debug.Log(hitInfo.collider.gameObject.name);
+                // Debug.Log(hitInfo.collider.gameObject.name);
                 if (hitInfo.collider.GetComponent<PlanetOrbit>()) {
                     StatBar.SetActive(true);
                     currentPlanetScript = hitInfo.collider.GetComponent<PlanetOrbit>();
-                    string PlanetName = currentPlanetScript.getPlanet();
-                    Title.text = PlanetName;
-                    string Mass = currentPlanetScript.getMass().ToString();
-                    MassStat.text = Mass;
-                    string SemiMajor = currentPlanetScript.getSemiMajor().ToString();
-                    SemiMajorStat.text = SemiMajor;
-                    string Radius = currentPlanetScript.getRadius().ToString();
-                    RadiusStat.text = Radius;
-                    string RotationalPeriod = currentPlanetScript.getRotationalPeriod().ToString();
-                    RotationalPeriodStat.text = RotationalPeriod;
-                    string Gravity = currentPlanetScript.getGravity().ToString();
-                    GravityStat.text = Gravity;
-                    string Eccentricity = currentPlanetScript.getEccentricity().ToString();
-                    EccentricityStat.text = Eccentricity;
-                    string InclinationAngle = currentPlanetScript.getInclinationAngle().ToString();
-                    InclinationAngleStat.text = InclinationAngle;
+                    if (currentPlanetScript.planet != "Sun") {
+                        string PlanetName = currentPlanetScript.getPlanet();
+                        Title.text = PlanetName;
+                        float Mass = currentPlanetScript.getMass();
+                        MassValue.text = "Mass / M: " + Mass.ToString();
+                        MassStat.value = Mass;
+                        string SemiMajor = currentPlanetScript.getSemiMajor().ToString();
+                        SemiMajorStat.text = SemiMajor;
+                        string Radius = currentPlanetScript.getRadius().ToString();
+                        RadiusStat.text = Radius;
+                        string RotationalPeriod = currentPlanetScript.getRotationalPeriod().ToString();
+                        RotationalPeriodStat.text = RotationalPeriod;
+                        string Gravity = currentPlanetScript.getGravity().ToString();
+                        GravityStat.text = Gravity;
+                        string Eccentricity = currentPlanetScript.getEccentricity().ToString();
+                        EccentricityStat.text = Eccentricity;
+                        string InclinationAngle = currentPlanetScript.getInclinationAngle().ToString();
+                        InclinationAngleStat.text = InclinationAngle;
+                    }
                 }
             }
         }
     }
 
     public void PlanetSelected(string planet) {
-        StatBar.SetActive(true);
-        int index = Array.IndexOf(SunScript.planets, planet);
         currentPlanetScript = GameObject.Find(planet).GetComponent<PlanetOrbit>();
-        string PlanetName = planet;
+        StatBar.SetActive(true);
+        string PlanetName = currentPlanetScript.getPlanet();
         Title.text = PlanetName;
-        string Mass = SunScript.masses[index].ToString();
-        MassStat.text = Mass;
-        string SemiMajor = SunScript.semiMajor[index].ToString();
+        string Mass = currentPlanetScript.getMass().ToString();
+        MassValue.text = "Mass / M: " + Mass;
+        string SemiMajor = currentPlanetScript.getSemiMajor().ToString();
         SemiMajorStat.text = SemiMajor;
-        string Radius = SunScript.radii[index].ToString();
+        string Radius = currentPlanetScript.getRadius().ToString();
         RadiusStat.text = Radius;
-        string RotationalPeriod = SunScript.rotational_periods[index].ToString();
+        string RotationalPeriod = currentPlanetScript.getRotationalPeriod().ToString();
         RotationalPeriodStat.text = RotationalPeriod;
-        string Gravity = SunScript.gravities[index].ToString();
+        string Gravity = currentPlanetScript.getGravity().ToString();
         GravityStat.text = Gravity;
-        string Eccentricity = SunScript.eccentricities[index].ToString();
+        string Eccentricity = currentPlanetScript.getEccentricity().ToString();
         EccentricityStat.text = Eccentricity;
-        string InclinationAngle = SunScript.inclination_angles[index].ToString();
+        string InclinationAngle = currentPlanetScript.getInclinationAngle().ToString();
         InclinationAngleStat.text = InclinationAngle;
     }
+
+    public string GetValue(string value) {
+        int index = value.IndexOf(": ");
+        string newValue = value.Substring(index + 2);
+        return newValue;
+    }
     public void OnDeselectedMassInput(string input) {
+        Debug.Log(input);
         currentPlanetScript.changeMass(float.Parse(input));
     }
 

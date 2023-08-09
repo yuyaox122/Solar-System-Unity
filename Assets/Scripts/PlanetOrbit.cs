@@ -193,9 +193,11 @@ public class PlanetOrbit : MonoBehaviour
 public void clearTrails()
 {
     tr.enabled = false;
+    Debug.Log(planet);
     tr.Clear();
     tr.enabled = true;
 }
+
 float get_r(float a, float epsilon, float theta)
 {
     return (a * (1 - Mathf.Pow(epsilon, 2f))) / (1 - epsilon * Mathf.Cos(theta));
