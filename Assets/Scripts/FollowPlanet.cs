@@ -29,6 +29,11 @@ public class FollowPlanet : MonoBehaviour
             FreeScript.enabled = false;
             SphericalScript.enabled = false;
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+           active = false;
+        }
     }
 
     public void ToggleActive() {

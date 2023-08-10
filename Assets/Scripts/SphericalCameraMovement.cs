@@ -20,7 +20,7 @@ public class SphericalCameraMovement : MonoBehaviour
     void Start ()
     {
         target_position = target.position;
-        sc = new Vector3 (r, 0.0f, 1.0f);
+        sc = new Vector3 (r * 10, 0.0f, 1.0f);
         this.transform.position = getCartesianCoordinates(sc);
         this.transform.LookAt (target_position);
     }

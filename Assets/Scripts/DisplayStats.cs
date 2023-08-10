@@ -12,7 +12,7 @@ public class DisplayStats : MonoBehaviour
     [SerializeField] GameObject StatBar; 
     [SerializeField] TMP_Text Title;
     [SerializeField] Slider MassStat;
-    [SerializeField] TMP_InputField SemiMajorStat;
+    [SerializeField] Slider SemiMajorStat;
     [SerializeField] TMP_InputField RadiusStat;
     [SerializeField] TMP_InputField RotationalPeriodStat;
     [SerializeField] TMP_InputField GravityStat;
@@ -20,6 +20,7 @@ public class DisplayStats : MonoBehaviour
     [SerializeField] TMP_InputField InclinationAngleStat;
     [SerializeField] Transform Sun;
     [SerializeField] TextMeshProUGUI MassValue;
+    [SerializeField] TextMeshProUGUI SemiMajorValue;
     PlanetOrbit SunScript;
     PlanetOrbit currentPlanetScript;
 
@@ -31,8 +32,13 @@ public class DisplayStats : MonoBehaviour
         MassStat.onValueChanged.AddListener((a) => {
             MassValue.text = "Mass / M: " + a.ToString("0.000");
         });
+
+        SemiMajorStat.onValueChanged.AddListener(delegate{OnDeselectedMassInput(GetValue(SemiMajorValue.text));});
+        SemiMajorStat.onValueChanged.AddListener((b) => {
+            SemiMajorValue.text = "Semi Major / AU: " + b.ToString("0.000");
+        });
        
-        SemiMajorStat.onEndEdit.AddListener(delegate{OnDeselectedSemiMajor(SemiMajorStat.text);});
+        // SemiMajorStat.onEndEdit.AddListener(delegate{OnDeselectedSemiMajor(SemiMajorStat.text);});
         RadiusStat.onEndEdit.AddListener(delegate{OnDeselectedRadius(RadiusStat.text);});
         RotationalPeriodStat.onEndEdit.AddListener(delegate{OnDeselectedRotationalPeriod(RotationalPeriodStat.text);});
         GravityStat.onEndEdit.AddListener(delegate{OnDeselectedGravity(GravityStat.text);});
@@ -48,6 +54,8 @@ public class DisplayStats : MonoBehaviour
             RaycastHit hitInfo;
             MassStat.minValue = 0.01f;
             MassStat.maxValue = 500;
+            SemiMajorStat.minValue = 0.01f;
+            SemiMajorStat.maxValue = 500;
             if (Physics.Raycast(ray, out hitInfo)) {
                 // Debug.Log(hitInfo.collider.gameObject.name);
                 if (hitInfo.collider.GetComponent<PlanetOrbit>()) {
@@ -59,8 +67,9 @@ public class DisplayStats : MonoBehaviour
                         float Mass = currentPlanetScript.getMass();
                         MassValue.text = "Mass / M: " + Mass.ToString();
                         MassStat.value = Mass;
-                        string SemiMajor = currentPlanetScript.getSemiMajor().ToString();
-                        SemiMajorStat.text = SemiMajor;
+                        float SemiMajor = currentPlanetScript.getSemiMajor();
+                        SemiMajorValue.text = "Semi Major / AU: " + SemiMajor.ToString();;
+                        SemiMajorStat.value = SemiMajor;
                         string Radius = currentPlanetScript.getRadius().ToString();
                         RadiusStat.text = Radius;
                         string RotationalPeriod = currentPlanetScript.getRotationalPeriod().ToString();
@@ -84,8 +93,10 @@ public class DisplayStats : MonoBehaviour
         Title.text = PlanetName;
         string Mass = currentPlanetScript.getMass().ToString();
         MassValue.text = "Mass / M: " + Mass;
+        // string SemiMajor = currentPlanetScript.getSemiMajor().ToString();
+        // SemiMajorValue.text = SemiMajor;
         string SemiMajor = currentPlanetScript.getSemiMajor().ToString();
-        SemiMajorStat.text = SemiMajor;
+        SemiMajorValue.text = "Semi Major / AU: " + SemiMajor;
         string Radius = currentPlanetScript.getRadius().ToString();
         RadiusStat.text = Radius;
         string RotationalPeriod = currentPlanetScript.getRotationalPeriod().ToString();
@@ -104,7 +115,7 @@ public class DisplayStats : MonoBehaviour
         return newValue;
     }
     public void OnDeselectedMassInput(string input) {
-        Debug.Log(input);
+        // Debug.Log(input);
         currentPlanetScript.changeMass(float.Parse(input));
     }
 

@@ -77,7 +77,9 @@ namespace SlimUI.ModernMenu
 		public GameObject LoadGame;
 		public GameObject LoadedGamesList;
 		public GameObject LoadedGame;
-
+		public GameObject PlanetsList;
+		public GameObject PlanetConfig;
+		public GameObject EditMenu;
 
 		// highlights in settings screen
 		[Header("SETTINGS SCREEN")]
@@ -113,6 +115,9 @@ namespace SlimUI.ModernMenu
 		[Tooltip("The GameObject holding the Audio Source component for the SWOOSH SOUND when switching to the Settings Screen")]
 		public AudioSource swooshSound;
 
+		public SolarSystem newGame;
+		
+
 		void Start()
 		{
 			CameraObject = transform.GetComponent<Animator>();
@@ -122,9 +127,10 @@ namespace SlimUI.ModernMenu
 			firstMenu.SetActive(true);
 			mainMenu.SetActive(true);
 			NewGame.SetActive(false);
+			EditMenu.SetActive(false);
 			LoadGame.SetActive(false);
 			SetThemeColors();
-			PlayerPrefs.DeleteAll();
+			// PlayerPrefs.DeleteAll();
 			if (!PlayerPrefs.HasKey("!DefaultSolarSystem!")) {
 				Debug.Log(PlayerPrefs.GetString("!SolarSystemNames!"));
 				PlayerPrefs.SetString("!DefaultSolarSystem!", "1");
@@ -164,6 +170,7 @@ namespace SlimUI.ModernMenu
 			if (extrasMenu) extrasMenu.SetActive(false);
 			playMenu.SetActive(true);
 			LoadGame.SetActive(false);
+			EditMenu.SetActive(false);
 			NewGame.SetActive(false);
 			DestroyGameConfigs();
 		}
@@ -174,6 +181,7 @@ namespace SlimUI.ModernMenu
 			if (extrasMenu) extrasMenu.SetActive(false);
 			playMenu.SetActive(true);
 			mainMenu.SetActive(false);
+			EditMenu.SetActive(false);
 		}
 
 		public void ReturnMenu()
@@ -184,6 +192,7 @@ namespace SlimUI.ModernMenu
 			mainMenu.SetActive(true);
 			LoadGame.SetActive(false);
 			NewGame.SetActive(false);
+			EditMenu.SetActive(false);
 		}
 
 		// public void LoadScene(string scene){
@@ -307,6 +316,7 @@ namespace SlimUI.ModernMenu
 			if (extrasMenu) extrasMenu.SetActive(false);
 			LoadGame.SetActive(false);
 			NewGame.SetActive(false);
+			EditMenu.SetActive(false);
 			DisablePlayCampaign();
 			DestroyGameConfigs();
 		}
@@ -317,6 +327,7 @@ namespace SlimUI.ModernMenu
 			if (extrasMenu) extrasMenu.SetActive(false);
 			mainMenu.SetActive(false);
 			LoadGame.SetActive(false);
+			EditMenu.SetActive(false);
 			NewGame.SetActive(false);
 			DisablePlayCampaign();
 		}
@@ -328,6 +339,7 @@ namespace SlimUI.ModernMenu
 			exitMenu.SetActive(false);
 			LoadGame.SetActive(false);
 			NewGame.SetActive(false);
+			EditMenu.SetActive(false);
 			DestroyGameConfigs();
 		}
 
@@ -338,7 +350,17 @@ namespace SlimUI.ModernMenu
 			exitMenu.SetActive(false);
 			LoadGame.SetActive(false);
 			NewGame.SetActive(true);
+			EditMenu.SetActive(false);
 			DestroyGameConfigs();
+			newGame = new SolarSystem();
+		}
+
+		public void AddPlanet() {
+			GameObject planetPanel = Instantiate(PlanetConfig, PlanetsList.transform) as GameObject;
+			planetPanel.UIMenuManager = Camera.GetComponent<UIMenuManager>();
+		}
+		public void EditPlanet() {
+			EditMenu.SetActive(true);
 		}
 
 		public void LoadGameMenu()
@@ -366,6 +388,7 @@ namespace SlimUI.ModernMenu
 			}
 		}
 
+		
 		public void TestSaveAndLoad()
 		{
 			SolarSystem savedSolarSystem = SaveAndLoad.LoadSolarSystem("The Solar System");
