@@ -151,6 +151,8 @@ public class PlanetOrbit : MonoBehaviour
             }
         orbital_period = get_orbital_period(a, G, mass, Sun.GetComponent<PlanetOrbit>().getMass());
         tr.time = orbital_period / time_scale;
+        // Debug.Log(tr.time);
+        // Debug.Log(planet);
         new_time_scale = GameController.GetComponent<EventController>().ReturnTimeScale();
         if (new_time_scale != time_scale)
         {
@@ -193,7 +195,7 @@ public class PlanetOrbit : MonoBehaviour
 public void clearTrails()
 {
     tr.enabled = false;
-    Debug.Log(planet);
+    // Debug.Log(planet);
     tr.Clear();
     tr.enabled = true;
 }
