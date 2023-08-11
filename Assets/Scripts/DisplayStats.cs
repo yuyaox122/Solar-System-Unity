@@ -13,11 +13,6 @@ public class DisplayStats : MonoBehaviour
     [SerializeField] TMP_Text Title;
     [SerializeField] Slider MassStat;
     [SerializeField] Slider SemiMajorStat;
-    [SerializeField] TMP_InputField RadiusStat;
-    [SerializeField] TMP_InputField RotationalPeriodStat;
-    [SerializeField] TMP_InputField GravityStat;
-    [SerializeField] TMP_InputField EccentricityStat;
-    [SerializeField] TMP_InputField InclinationAngleStat;
     [SerializeField] Transform Sun;
     [SerializeField] TextMeshProUGUI MassValue;
     [SerializeField] TextMeshProUGUI SemiMajorValue;
@@ -33,17 +28,12 @@ public class DisplayStats : MonoBehaviour
             MassValue.text = "Mass / M: " + a.ToString("0.000");
         });
 
-        SemiMajorStat.onValueChanged.AddListener(delegate{OnDeselectedMassInput(GetValue(SemiMajorValue.text));});
+        SemiMajorStat.onValueChanged.AddListener(delegate{OnDeselectedSemiMajorInput(GetValue(SemiMajorValue.text));});
         SemiMajorStat.onValueChanged.AddListener((b) => {
             SemiMajorValue.text = "Semi Major / AU: " + b.ToString("0.000");
         });
        
         // SemiMajorStat.onEndEdit.AddListener(delegate{OnDeselectedSemiMajor(SemiMajorStat.text);});
-        RadiusStat.onEndEdit.AddListener(delegate{OnDeselectedRadius(RadiusStat.text);});
-        RotationalPeriodStat.onEndEdit.AddListener(delegate{OnDeselectedRotationalPeriod(RotationalPeriodStat.text);});
-        GravityStat.onEndEdit.AddListener(delegate{OnDeselectedGravity(GravityStat.text);});
-        EccentricityStat.onEndEdit.AddListener(delegate{OnDeselectedEccentricity(EccentricityStat.text);});
-        InclinationAngleStat.onEndEdit.AddListener(delegate{OnDeselectedInclinationAngle(InclinationAngleStat.text);});
     }
 
     void Update()
@@ -71,15 +61,6 @@ public class DisplayStats : MonoBehaviour
                         SemiMajorValue.text = "Semi Major / AU: " + SemiMajor.ToString();;
                         SemiMajorStat.value = SemiMajor;
                         string Radius = currentPlanetScript.getRadius().ToString();
-                        RadiusStat.text = Radius;
-                        string RotationalPeriod = currentPlanetScript.getRotationalPeriod().ToString();
-                        RotationalPeriodStat.text = RotationalPeriod;
-                        string Gravity = currentPlanetScript.getGravity().ToString();
-                        GravityStat.text = Gravity;
-                        string Eccentricity = currentPlanetScript.getEccentricity().ToString();
-                        EccentricityStat.text = Eccentricity;
-                        string InclinationAngle = currentPlanetScript.getInclinationAngle().ToString();
-                        InclinationAngleStat.text = InclinationAngle;
                     }
                 }
             }
@@ -97,16 +78,6 @@ public class DisplayStats : MonoBehaviour
         // SemiMajorValue.text = SemiMajor;
         string SemiMajor = currentPlanetScript.getSemiMajor().ToString();
         SemiMajorValue.text = "Semi Major / AU: " + SemiMajor;
-        string Radius = currentPlanetScript.getRadius().ToString();
-        RadiusStat.text = Radius;
-        string RotationalPeriod = currentPlanetScript.getRotationalPeriod().ToString();
-        RotationalPeriodStat.text = RotationalPeriod;
-        string Gravity = currentPlanetScript.getGravity().ToString();
-        GravityStat.text = Gravity;
-        string Eccentricity = currentPlanetScript.getEccentricity().ToString();
-        EccentricityStat.text = Eccentricity;
-        string InclinationAngle = currentPlanetScript.getInclinationAngle().ToString();
-        InclinationAngleStat.text = InclinationAngle;
     }
 
     public string GetValue(string value) {
@@ -119,28 +90,8 @@ public class DisplayStats : MonoBehaviour
         currentPlanetScript.changeMass(float.Parse(input));
     }
 
-    public void OnDeselectedSemiMajor(string input) {
+    public void OnDeselectedSemiMajorInput(string input) {
         currentPlanetScript.changeSemiMajor(float.Parse(input));
-    }
-
-    public void OnDeselectedRadius(string input) {
-        currentPlanetScript.changeRadius(float.Parse(input));
-    }
-
-    public void OnDeselectedRotationalPeriod(string input) {
-        currentPlanetScript.changeRotationalPeriod(float.Parse(input));
-    }
-
-    public void OnDeselectedGravity(string input) {
-        currentPlanetScript.changeGravity(float.Parse(input));
-    }
-
-    public void OnDeselectedEccentricity(string input) {
-        currentPlanetScript.changeEccentricity(float.Parse(input));
-    }
-
-    public void OnDeselectedInclinationAngle(string input) {
-        currentPlanetScript.changeInclinationAngle(float.Parse(input));
     }
     public void Close() {
         StatBar.SetActive(false);
