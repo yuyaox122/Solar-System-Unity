@@ -200,6 +200,18 @@ public void clearTrails()
     tr.enabled = true;
 }
 
+double updateSemiMajor(float m, float M, float r, float v)
+{
+    float mu = G * (m + M);
+    return (mu * r) / (2 * mu - v * v * r);
+}
+
+double updateEccentricity(float m, float M, float r, float v)
+{
+    float mu = G * (m + M);
+    return Math.Sqrt(1-r*r*v*v*(2*mu-v*v*r)/(mu*mu*r));
+}
+
 float get_r(float a, float epsilon, float theta)
 {
     return (a * (1 - Mathf.Pow(epsilon, 2f))) / (1 - epsilon * Mathf.Cos(theta));
