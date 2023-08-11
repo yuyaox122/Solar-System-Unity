@@ -8,6 +8,11 @@ public class LoadEditPanel : MonoBehaviour
     [SerializeField] TMPro.TextMeshProUGUI Title;
     string planetName;
     public UIMenuManager MenuManager;
+    int index;
+
+    public void SetIndex(int newIndex) {
+        index = newIndex;
+    }
     public void ChangeName(string planetName) {
         this.planetName = planetName;
         Title.text = planetName;
@@ -18,8 +23,4 @@ public class LoadEditPanel : MonoBehaviour
         Debug.Log("Hello");
     }
 
-    public void Close() {
-        MenuManager.CloseEditPlanet();
-    }
 }
-    

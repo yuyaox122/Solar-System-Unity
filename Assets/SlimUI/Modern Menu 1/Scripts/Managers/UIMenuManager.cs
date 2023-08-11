@@ -23,6 +23,7 @@ namespace SlimUI.ModernMenu
 		public float[] red = new float[] {0.639f, 0.678f, 0.000f, 0.557f, 0.588f, 0.443f, 0.376f, 0.127f, 0.761f};
 		public float[] green = new float[] {0.416f, 0.329f, 0.278f, 0.067f, 0.365f, 0.408f, 0.522f, 0.179f, 0.643f};
 		public float[] blue = new float[] {0.078f, 0.000f, 0.522f, 0.000f, 0.024f, 0.247f, 0.545f, 0.429f, 0.576f};
+		public int[] indexes = new int[];
 		// {
 		// 	{new Color (0.639f, 0.416f, 0.078f), new Color (0.839f, 0.616f, 0.278f)},
 		// 	{new Color (0.678f, 0.329f, 0.000f), new Color (0.878f, 0.529f, 0.176f)},
@@ -130,7 +131,7 @@ namespace SlimUI.ModernMenu
 			EditMenu.SetActive(false);
 			LoadGame.SetActive(false);
 			SetThemeColors();
-			// PlayerPrefs.DeleteAll();
+			PlayerPrefs.DeleteAll();
 			if (!PlayerPrefs.HasKey("!DefaultSolarSystem!")) {
 				Debug.Log(PlayerPrefs.GetString("!SolarSystemNames!"));
 				PlayerPrefs.SetString("!DefaultSolarSystem!", "1");
@@ -369,6 +370,7 @@ namespace SlimUI.ModernMenu
 		public void AddPlanet() {
 			GameObject planetPanel = Instantiate(PlanetConfig, PlanetsList.transform) as GameObject;
 			planetPanel.GetComponent<LoadEditPanel>().MenuManager = transform.GetComponent<UIMenuManager>();
+			planetPanel.GetComponent<LoadEditPanel>().SetIndex();
 		}
 		public void EditPlanet() {
 			EditMenu.SetActive(true);
@@ -378,6 +380,7 @@ namespace SlimUI.ModernMenu
 
 		public void CloseEditPlanet() {
 			EditMenu.SetActive(false);
+			NewGame.SetActive(true);
 		}
 
 		public void LoadGameMenu()
