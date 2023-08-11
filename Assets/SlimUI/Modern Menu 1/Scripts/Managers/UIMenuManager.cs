@@ -362,8 +362,15 @@ namespace SlimUI.ModernMenu
 			current.GetComponent<LoadEditPanel>().ChangeName(newName);
 			newGame.planets[index] = newName;
 		}
-		public void ChangeMass(int index, float newMass) {
 
+		public void ChangeOrbitalVelocity(int index, float newOrbitalVelocity) {
+			GameObject current = PlanetsList.transform.GetChild(index + 1).gameObject;
+			newGame.orbitalVelocities[index] = newOrbitalVelocity;
+		}
+
+		public void ChangeMass(int index, float newMass) {
+			GameObject current = PlanetsList.transform.GetChild(index + 1).gameObject;
+			newGame.masses[index] = newMass;
 		}
 		public void DestroyPlanetConfigs() {
 			foreach (Transform child in PlanetsList.transform) {
@@ -436,12 +443,12 @@ namespace SlimUI.ModernMenu
 			editPlanetConfig.index = newIndex;
 			editPlanetConfig.PlanetName.text = "";
 			editPlanetConfig.MassSlider.value = 0.05f;
-			// OrbitalVelocitySlider.value = OrbitalVelocitySlider.minValue;
+			editPlanetConfig.OrbitalVelocitySlider.value = 5f;
 			// OrbitalRadiusSlider.value = OrbitalRadiusSlider.minValue;
 			// InclinationAngleSlider.value = InclinationAngleSlider.minValue;
 			editPlanetConfig.MassValue.text = "Mass / (Earth M): 0.05";
 			// OrbitalVelocityValue.text = "Orbital Radius / (AU): 0.5";
-			// OrbitalRadiusValue.text = "Orbital Velocity / (km/s): 5";
+			editPlanetConfig.OrbitalRadiusValue.text = "Orbital Velocity / (km/s): 5";
 			// InclinationAngleValue.text = "Inclination Angle / (°): 0";
 			NewGame.SetActive(false);
 			Debug.Log("Edit called");

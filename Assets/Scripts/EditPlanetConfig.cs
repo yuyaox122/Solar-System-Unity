@@ -36,13 +36,11 @@ public class EditPlanetConfig : MonoBehaviour
             MassValue.text = "Mass / M: " + a.ToString("0.00");
         });
 
-        // SemiMajorStat.onValueChanged.AddListener(delegate { OnDeselectedMassInput(GetValue(SemiMajorValue.text)); });
-        // SemiMajorStat.onValueChanged.AddListener((b) =>
-        // {
-        //     SemiMajorValue.text = "Semi Major / AU: " + b.ToString("0.00");
-        // });
-
-        // SemiMajorStat.onEndEdit.AddListener(delegate{OnDeselectedSemiMajor(SemiMajorStat.text);});
+        OrbitalVelocitySlider.onValueChanged.AddListener(delegate { OnDeselectedOrbitalVelocityInput(GetValue(OrbitalVelocityValue.text)); });
+        OrbitalVelocitySlider.onValueChanged.AddListener((a) =>
+        {
+            MassValue.text = "Orbital Velocity / (km/s): 5" + a.ToString("0.00");
+        });
     }
 
     void Update()
@@ -92,10 +90,10 @@ public class EditPlanetConfig : MonoBehaviour
        
     }
 
-    // public void OnDeselectedSemiMajor(string input)
-    // {
-    //     currentPlanetScript.changeSemiMajor(float.Parse(input));
-    // }
+    public void OnDeselectedOrbitalVelocityInput(float input)
+    {
+        MenuManager.ChangeOrbitalVelocity(index, input);
+    }
 
     // public void OnDeselectedRadius(string input)
     // {
