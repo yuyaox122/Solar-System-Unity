@@ -6,16 +6,19 @@ using TMPro;
 using Unity.VisualScripting;
 using System;
 using System.Linq;
+using UnityEngine.Serialization;
 
 public class DisplayStats : MonoBehaviour
 {
     [SerializeField] GameObject StatBar; 
     [SerializeField] TMP_Text Title;
     [SerializeField] Slider MassStat;
-    [SerializeField] Slider SemiMajorStat;
+    [SerializeField] Slider OrbitalRadiusStat;
+    [SerializeField] Slider OrbitalVelocityStat;
     [SerializeField] Transform Sun;
     [SerializeField] TextMeshProUGUI MassValue;
-    [SerializeField] TextMeshProUGUI SemiMajorValue;
+    [SerializeField] TextMeshProUGUI OrbitalRadiusValue;
+    [SerializeField] TextMeshProUGUI OrbitalVelocityValue;
     PlanetOrbit SunScript;
     PlanetOrbit currentPlanetScript;
 
@@ -25,15 +28,19 @@ public class DisplayStats : MonoBehaviour
         StatBar.SetActive(false);
         MassStat.onValueChanged.AddListener(delegate{OnDeselectedMassInput(GetValue(MassValue.text));});
         MassStat.onValueChanged.AddListener((a) => {
-            MassValue.text = "Mass / M: " + a.ToString("0.000");
+            MassValue.text = "Mass / M: " + a.ToString("0.00");
         });
 
-        SemiMajorStat.onValueChanged.AddListener(delegate{OnDeselectedSemiMajorInput(GetValue(SemiMajorValue.text));});
-        SemiMajorStat.onValueChanged.AddListener((b) => {
-            SemiMajorValue.text = "Semi Major / AU: " + b.ToString("0.000");
-        });
-       
-        // SemiMajorStat.onEndEdit.AddListener(delegate{OnDeselectedSemiMajor(SemiMajorStat.text);});
+        // OrbitalRadiusStat.onValueChanged.AddListener(delegate{OnDeselectedOrbitalRadiusInput(GetValue(OrbitalRadiusValue.text));});
+        // OrbitalRadiusStat.onValueChanged.AddListener((b) => {
+        //     OrbitalRadiusValue.text = "Perihelion distance / AU: " + b.ToString("0.00");
+        // });
+        //
+        //
+        // OrbitalVelocityStat.onValueChanged.AddListener(delegate{OnDeselectedOrbitalVelocityInput(GetValue(OrbitalVelocityValue.text));});
+        // OrbitalVelocityStat.onValueChanged.AddListener((b) => {
+        //     OrbitalVelocityValue.text = "Perihelion velocity / km/s: " + b.ToString("0.00");
+        // });
     }
 
     void Update()
@@ -44,8 +51,8 @@ public class DisplayStats : MonoBehaviour
             RaycastHit hitInfo;
             MassStat.minValue = 0.01f;
             MassStat.maxValue = 500;
-            SemiMajorStat.minValue = 0.01f;
-            SemiMajorStat.maxValue = 500;
+            OrbitalRadiusStat.minValue = 0.01f;
+            OrbitalRadiusStat.maxValue = 500;
             if (Physics.Raycast(ray, out hitInfo)) {
                 // Debug.Log(hitInfo.collider.gameObject.name);
                 if (hitInfo.collider.GetComponent<PlanetOrbit>()) {
@@ -57,9 +64,12 @@ public class DisplayStats : MonoBehaviour
                         float Mass = currentPlanetScript.getMass();
                         MassValue.text = "Mass / M: " + Mass.ToString();
                         MassStat.value = Mass;
-                        float SemiMajor = currentPlanetScript.getSemiMajor();
-                        SemiMajorValue.text = "Semi Major / AU: " + SemiMajor.ToString();;
-                        SemiMajorStat.value = SemiMajor;
+                        // float OrbitalRadius = currentPlanetScript.getOrbitalRadius();
+                        // OrbitalRadiusValue.text = "Orbital radius / AU: " + OrbitalRadius.ToString();
+                        // OrbitalRadiusStat.value = OrbitalRadius;
+                        // float OrbitalVelocity = currentPlanetScript.getOrbitalVelocity();
+                        // OrbitalVelocityValue.text = "Orbital velocity / km/s: " + OrbitalVelocity.ToString();
+                        // OrbitalVelocityStat.value = Mass;
                         string Radius = currentPlanetScript.getRadius().ToString();
                     }
                 }
@@ -74,10 +84,6 @@ public class DisplayStats : MonoBehaviour
         Title.text = PlanetName;
         string Mass = currentPlanetScript.getMass().ToString();
         MassValue.text = "Mass / M: " + Mass;
-        // string SemiMajor = currentPlanetScript.getSemiMajor().ToString();
-        // SemiMajorValue.text = SemiMajor;
-        string SemiMajor = currentPlanetScript.getSemiMajor().ToString();
-        SemiMajorValue.text = "Semi Major / AU: " + SemiMajor;
     }
 
     public string GetValue(string value) {
@@ -90,9 +96,14 @@ public class DisplayStats : MonoBehaviour
         currentPlanetScript.changeMass(float.Parse(input));
     }
 
-    public void OnDeselectedSemiMajorInput(string input) {
-        currentPlanetScript.changeSemiMajor(float.Parse(input));
-    }
+    // public void OnDeselectedOrbitalRadiusInput(string input) {
+    //     currentPlanetScript.changeOrbitalRadius(float.Parse(input));
+    // }
+    //
+    // public void OnDeselectedOrbitalVelocityInput(string input) {
+    //     currentPlanetScript.changeOrbitalVelocity(float.Parse(input));
+    // }
+    
     public void Close() {
         StatBar.SetActive(false);
     }
