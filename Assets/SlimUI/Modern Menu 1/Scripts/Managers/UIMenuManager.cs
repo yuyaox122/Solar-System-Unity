@@ -131,7 +131,7 @@ namespace SlimUI.ModernMenu
 			EditMenu.SetActive(false);
 			LoadGame.SetActive(false);
 			SetThemeColors();
-			PlayerPrefs.DeleteAll();
+			// PlayerPrefs.DeleteAll();
 			if (!PlayerPrefs.HasKey("!DefaultSolarSystem!")) {
 				Debug.Log(PlayerPrefs.GetString("!SolarSystemNames!"));
 				PlayerPrefs.SetString("!DefaultSolarSystem!", "1");
@@ -367,18 +367,43 @@ namespace SlimUI.ModernMenu
 				}
 			}
 		}
+
+		public void DestroyPlanetConfig(int destroyIndex) {
+			Debug.Log("Destroy: " + destroyIndex);
+			GameObject child = PlanetsList.transform.GetChild(destroyIndex + 1).gameObject;
+			Destroy(child);
+			indexes.Remove(destroyIndex);
+			foreach( var x in indexes) {
+				Debug.Log( x.ToString());
+			}
+			for (int i = 0; i < indexes.Count; i++) {
+				if (indexes[i] > destroyIndex) {
+					Debug.Log("Value: " + i);
+					GameObject z = PlanetsList.transform.GetChild(indexes[i] + 1).gameObject;
+					z.GetComponent<LoadEditPanel>().index -= 1;
+					indexes[i] = indexes[i] - 1;
+				}
+			}
+			foreach( var x in indexes) {
+				Debug.Log( x.ToString());
+			}
+		}
+		
 		public void AddPlanet() {
 			GameObject planetPanel = Instantiate(PlanetConfig, PlanetsList.transform) as GameObject;
 			planetPanel.GetComponent<LoadEditPanel>().MenuManager = transform.GetComponent<UIMenuManager>();
 			if (indexes.Count != 0) {
-				indexes.Add(indexes.Count);
+				foreach( var x in indexes) {
+					// Debug.Log( x.ToString());
+				}
 				planetPanel.GetComponent<LoadEditPanel>().SetIndex(indexes.Count);
-				Debug.Log(indexes[indexes.Count - 1]);
+				// Debug.Log(indexes[indexes.Count - 1]);
+				indexes.Add(indexes.Count);
 			}
 			else {
 				indexes.Add(0);
 				planetPanel.GetComponent<LoadEditPanel>().SetIndex(0);
-				Debug.Log(indexes[0]);
+				// Debug.Log(indexes[0]);
 			}
 		}
 		public void EditPlanet() {
