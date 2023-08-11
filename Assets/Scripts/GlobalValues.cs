@@ -43,18 +43,18 @@ public class EventController : MonoBehaviour
 public struct SolarSystem
     {
         public string name;
-        public string[] planets;
-        public float[] masses;
-        public float[] radii;
-        public float[] orbitalRadii;
-        public float[] orbitalVelocities;
-        public float[] inclinationAngles;
-        public float[] trailRed;
-        public float[] trailGreen;
-        public float[] trailBlue;
+        public List<string> planets;
+        public List<float> masses;
+        public List<float> radii;
+        public List<float> orbitalRadii;
+        public List<float> orbitalVelocities;
+        public List<float> inclinationAngles;
+        public List<float> trailRed;
+        public List<float> trailGreen;
+        public List<float> trailBlue;
 
-        public SolarSystem(string name, string[] planets, float[] masses, float[] radii, float[] orbitalRadii,
-        float[] orbitalVelocities, float[] inclinationAngles, float[] trailRed, float[] trailGreen, float[] trailBlue) {
+        public SolarSystem(string name, List<string> planets, List<float> masses, List<float> radii, List<float> orbitalRadii,
+        List<float> orbitalVelocities, List<float> inclinationAngles, List<float> trailRed, List<float> trailGreen, List<float> trailBlue) {
             this.name = name;
             this.planets = planets;
             this.masses = masses;

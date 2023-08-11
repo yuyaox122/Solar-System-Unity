@@ -15,15 +15,15 @@ public class PlanetOrbit : MonoBehaviour
     float G = 6.67e-11f;
     [SerializeField] Transform Star;
     PlanetOrbit StarScript;
-    public string[] planets;
-    public float[] masses; // Earth masses
-    public float[] radii; // Earth radii
-    public float[] orbitalRadii; // AU
-    public float[] orbitalVelocities; // km/s
-    public float[] inclinationAngles;
-    public float[] trailRed;
-    public float[] trailGreen;
-    public float[] trailBlue;
+    public List<string> planets;
+    public List<float> masses; // Earth masses
+    public List<float> radii; // Earth radii
+    public List<float> orbitalRadii; // AU
+    public List<float> orbitalVelocities; // km/s
+    public List<float> inclinationAngles;
+    public List<float> trailRed;
+    public List<float> trailGreen;
+    public List<float> trailBlue;
     private float t;
     bool logarithmicSizes = false;
     bool logarithmicOrbits = false;
@@ -65,7 +65,7 @@ public class PlanetOrbit : MonoBehaviour
         if (planet != "Sun")
         {
             timeScale = GameController.GetComponent<EventController>().ReturnTimeScale();
-            index = Array.IndexOf(planets, planet);
+            index = planets.IndexOf(planet);
             mass = masses[index] * 5.972e24f; // kg
             radius = radii[index]; // Earth radii
             orbitalRadius = orbitalRadii[index] * 1.496e11f; // m
@@ -108,6 +108,8 @@ public class PlanetOrbit : MonoBehaviour
             tr.time = orbitalPeriod / timeScale;
             tr.startWidth = radiusScale * 0.2f;
             tr.endWidth = radiusScale * 0.2f;
+            // tr.startWidth = 0.2f;
+            // tr.endWidth = 0.2f;
         }
         else
         {
@@ -140,16 +142,21 @@ public class PlanetOrbit : MonoBehaviour
                 radiusScale = radius * 50;
             }
             orbitalPeriod = calculateOrbitalPeriod(mass, starMass, semiMajor);
-            tr.time = orbitalPeriod / timeScale;
+            // Debug.Log(planet + " " + orbitalPeriod);
+            
             // Debug.Log(tr.time);
             // Debug.Log(planet);
-            newTimeScale = GameController.GetComponent<EventController>().ReturnTimeScale();
+            newTimeScale = GameController.GetComponent<EventController>().ReturnTimeScale() / 1e18f;
+            Debug.Log("new: " + newTimeScale);
+            Debug.Log("old: " + timeScale);
             if (newTimeScale != timeScale)
             {
                 timeScale = newTimeScale;
+                Debug.Log("new timescale");
                 clearTrails();
             }
-
+            tr.time = orbitalPeriod / timeScale;
+            // Debug.Log(tr.time);
             float t = ((Time.time * 2 * Mathf.PI) / (orbitalPeriod)) * timeScale;
 
             if (!threeDOrbit)
@@ -185,7 +192,7 @@ public class PlanetOrbit : MonoBehaviour
 public void clearTrails()
 {
     tr.enabled = false;
-    // Debug.Log(planet);
+    // Debug.Log("cleared");
     tr.Clear();
     tr.enabled = true;
 }
