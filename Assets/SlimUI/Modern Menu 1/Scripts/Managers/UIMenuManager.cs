@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.Serialization;
 
 
 namespace SlimUI.ModernMenu
@@ -12,14 +12,11 @@ namespace SlimUI.ModernMenu
 	public class UIMenuManager : MonoBehaviour
 	{
 		public string[] planets = { "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto" };
-		public float[] masses = new float[] { 0.055f, 0.815f, 1.000f, 0.107f, 317.85f, 95.159f, 14.500f, 17.204f, 0.003f }; // Earth masses
-		public float[] semiMajor = new float[] { 0.387f, 0.723f, 1.000f, 1.523f, 5.202f, 9.576f, 19.293f, 30.246f, 39.509f }; //AU
+		public float[] masses = new float[] { 0.0553f, 0.815f, 1.000f, 0.107f, 317.83f, 95.16f, 14.54f, 17.15f, 0.0022f }; // Earth masses
 		public float[] radii = new float[] { 0.383f, 0.949f, 1.000f, 0.533f, 11.209f, 9.449f, 4.007f, 3.883f, 0.187f }; // Earth radii
-		public float[] rotational_periods = new float[] { 58.646f, 243.018f, 0.997f, 1.026f, 0.413f, 0.444f, 0.718f, 0.671f, 6.387f }; // days
-		public float[] orbital_periods = new float[] { 0.241f, 0.615f, 1.000f, 1.881f, 11.861f, 29.628f, 84.747f, 166.344f, 248.348f }; // years
-		public float[] gravities = new float[] { 0.37f, 0.90f, 1.00f, 0.38f, 2.53f, 1.07f, 0.90f, 1.14f, 0.09f }; // in terms of g = 9.81 m/s^2
-		public float[] eccentricities = new float[] { 0.21f, 0.01f, 0.02f, 0.09f, 0.05f, 0.06f, 0.05f, 0.01f, 0.25f };
-		public float[] inclination_angles = new float[] { 7.00f, 3.39f, 0.00f, 1.85f, 1.31f, 2.49f, 0.77f, 1.77f, 17.5f };
+		public float[] orbitalRadii = new float[] { 0.307f, 0.718f, 0.983f, 1.381f, 4.951f, 9.075f, 18.267f, 29.887f, 29.646f };
+		public float[] orbitalVelocities = new float[] { 58.97f, 35.26f, 30.29f, 26.50f, 13.72f, 10.14f, 7.13f, 5.47f, 6.10f };
+		public float[] inclinationAngles = new float[] { 7.00f, 3.39f, 0.00f, 1.85f, 1.31f, 2.49f, 0.77f, 1.77f, 17.5f };
 		public float[] red = new float[] {0.639f, 0.678f, 0.000f, 0.557f, 0.588f, 0.443f, 0.376f, 0.127f, 0.761f};
 		public float[] green = new float[] {0.416f, 0.329f, 0.278f, 0.067f, 0.365f, 0.408f, 0.522f, 0.179f, 0.643f};
 		public float[] blue = new float[] {0.078f, 0.000f, 0.522f, 0.000f, 0.024f, 0.247f, 0.545f, 0.429f, 0.576f};
@@ -135,8 +132,7 @@ namespace SlimUI.ModernMenu
 			if (!PlayerPrefs.HasKey("!DefaultSolarSystem!")) {
 				Debug.Log(PlayerPrefs.GetString("!SolarSystemNames!"));
 				PlayerPrefs.SetString("!DefaultSolarSystem!", "1");
-				SaveAndLoad.SaveSolarSystem(new SolarSystem("The Solar System", planets, masses, semiMajor, radii, rotational_periods, orbital_periods, gravities,
-				eccentricities, inclination_angles, red, green, blue));
+				SaveAndLoad.SaveSolarSystem(new SolarSystem("The Solar System", planets, masses, radii, orbitalRadii, orbitalVelocities, inclinationAngles, red, green, blue));
 			}
 		}
 

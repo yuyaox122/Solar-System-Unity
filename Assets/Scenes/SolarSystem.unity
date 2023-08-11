@@ -3543,7 +3543,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 729562499}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.060684226, y: 0.87317944, z: 0.112669304, w: 0.47029868}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5270,7 +5270,7 @@ MonoBehaviour:
   planet: Sun
   solarSystemName: 
   GameController: {fileID: 721465705}
-  Sun: {fileID: 1229251972278437869}
+  Star: {fileID: 0}
   planets:
   - Mercury
   - Venus
@@ -5291,16 +5291,6 @@ MonoBehaviour:
   - 14.5
   - 17.204
   - 0.003
-  semiMajor:
-  - 0.387
-  - 0.723
-  - 1
-  - 1.523
-  - 5.202
-  - 9.576
-  - 19.293
-  - 30.246
-  - 39.509
   radii:
   - 0.383
   - 0.949
@@ -5311,59 +5301,12 @@ MonoBehaviour:
   - 4.007
   - 3.883
   - 0.187
-  rotational_periods:
-  - 58.646
-  - 243.018
-  - 0.997
-  - 1.026
-  - 0.413
-  - 0.444
-  - 0.718
-  - 0.671
-  - 6.387
-  orbital_periods:
-  - 0.241
-  - 0.615
-  - 1
-  - 1.881
-  - 11.861
-  - 29.628
-  - 84.747
-  - 166.344
-  - 248.348
-  gravities:
-  - 0.37
-  - 0.9
-  - 1
-  - 0.38
-  - 2.53
-  - 1.07
-  - 0.9
-  - 1.14
-  - 0.09
-  eccentricities:
-  - 0.21
-  - 0.01
-  - 0.02
-  - 0.09
-  - 0.05
-  - 0.06
-  - 0.05
-  - 0.01
-  - 0.25
-  inclination_angles:
-  - 7
-  - 3.39
-  - 0
-  - 1.85
-  - 1.31
-  - 2.49
-  - 0.77
-  - 1.77
-  - 17.5
-  trail_red: []
-  trail_green: []
-  trail_blue: []
+  orbitalRadii: []
+  orbitalVelocities: []
+  inclinationAngles: []
+  trailRed: []
+  trailGreen: []
+  trailBlue: []
 --- !u!1 &1133240918
 GameObject:
   m_ObjectHideFlags: 0
@@ -7690,15 +7633,12 @@ MonoBehaviour:
   StatBar: {fileID: 7738495995259098615}
   Title: {fileID: 313000526}
   MassStat: {fileID: 1586325482}
-  SemiMajorStat: {fileID: 1336412220}
-  RadiusStat: {fileID: 477526504}
-  RotationalPeriodStat: {fileID: 815337606}
-  GravityStat: {fileID: 188037708}
-  EccentricityStat: {fileID: 2142808517}
-  InclinationAngleStat: {fileID: 443445931}
+  OrbitalRadiusStat: {fileID: 0}
+  OrbitalVelocityStat: {fileID: 0}
   Sun: {fileID: 1983439763308622408}
   MassValue: {fileID: 620738328}
-  SemiMajorValue: {fileID: 820563221}
+  OrbitalRadiusValue: {fileID: 0}
+  OrbitalVelocityValue: {fileID: 0}
 --- !u!114 &1479142258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8595,7 +8535,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1864155934}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.9999999
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9524,7 +9464,7 @@ MonoBehaviour:
   planet: Earth
   solarSystemName: 
   GameController: {fileID: 721465705}
-  Sun: {fileID: 1229251972278437869}
+  Star: {fileID: 0}
   planets:
   - Mercury
   - Venus
@@ -9545,16 +9485,6 @@ MonoBehaviour:
   - 14.5
   - 17.204
   - 0.003
-  semiMajor:
-  - 0.387
-  - 0.723
-  - 1
-  - 1.523
-  - 5.202
-  - 9.576
-  - 19.293
-  - 30.246
-  - 39.509
   radii:
   - 0.383
   - 0.949
@@ -9565,59 +9495,12 @@ MonoBehaviour:
   - 4.007
   - 3.883
   - 0.187
-  rotational_periods:
-  - 58.646
-  - 243.018
-  - 0.997
-  - 1.026
-  - 0.413
-  - 0.444
-  - 0.718
-  - 0.671
-  - 6.387
-  orbital_periods:
-  - 0.241
-  - 0.615
-  - 1
-  - 1.881
-  - 11.861
-  - 29.628
-  - 84.747
-  - 166.344
-  - 248.348
-  gravities:
-  - 0.37
-  - 0.9
-  - 1
-  - 0.38
-  - 2.53
-  - 1.07
-  - 0.9
-  - 1.14
-  - 0.09
-  eccentricities:
-  - 0.21
-  - 0.01
-  - 0.02
-  - 0.09
-  - 0.05
-  - 0.06
-  - 0.05
-  - 0.01
-  - 0.25
-  inclination_angles:
-  - 7
-  - 3.39
-  - 0
-  - 1.85
-  - 1.31
-  - 2.49
-  - 0.77
-  - 1.77
-  - 17.5
-  trail_red: []
-  trail_green: []
-  trail_blue: []
+  orbitalRadii: []
+  orbitalVelocities: []
+  inclinationAngles: []
+  trailRed: []
+  trailGreen: []
+  trailBlue: []
 --- !u!1 &1948087337
 GameObject:
   m_ObjectHideFlags: 0
@@ -10706,7 +10589,7 @@ MonoBehaviour:
   planet: Venus
   solarSystemName: 
   GameController: {fileID: 721465705}
-  Sun: {fileID: 1983439763308622408}
+  Star: {fileID: 1983439763308622408}
   planets:
   - Mercury
   - Venus
@@ -10727,16 +10610,6 @@ MonoBehaviour:
   - 14.5
   - 17.204
   - 0.003
-  semiMajor:
-  - 0.387
-  - 0.723
-  - 1
-  - 1.523
-  - 5.202
-  - 9.576
-  - 19.293
-  - 30.246
-  - 39.509
   radii:
   - 0.383
   - 0.949
@@ -10747,59 +10620,12 @@ MonoBehaviour:
   - 4.007
   - 3.883
   - 0.187
-  rotational_periods:
-  - 58.646
-  - 243.018
-  - 0.997
-  - 1.026
-  - 0.413
-  - 0.444
-  - 0.718
-  - 0.671
-  - 6.387
-  orbital_periods:
-  - 0.241
-  - 0.615
-  - 1
-  - 1.881
-  - 11.861
-  - 29.628
-  - 84.747
-  - 166.344
-  - 248.348
-  gravities:
-  - 0.37
-  - 0.9
-  - 1
-  - 0.38
-  - 2.53
-  - 1.07
-  - 0.9
-  - 1.14
-  - 0.09
-  eccentricities:
-  - 0.21
-  - 0.01
-  - 0.02
-  - 0.09
-  - 0.05
-  - 0.06
-  - 0.05
-  - 0.01
-  - 0.25
-  inclination_angles:
-  - 7
-  - 3.39
-  - 0
-  - 1.85
-  - 1.31
-  - 2.49
-  - 0.77
-  - 1.77
-  - 17.5
-  trail_red: []
-  trail_green: []
-  trail_blue: []
+  orbitalRadii: []
+  orbitalVelocities: []
+  inclinationAngles: []
+  trailRed: []
+  trailGreen: []
+  trailBlue: []
 --- !u!114 &177342080848986341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26291,7 +26117,7 @@ Transform:
   m_GameObject: {fileID: 5805693484954456001}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00083358865, y: -0.00035765476, z: 0.00042109928}
+  m_LocalPosition: {x: -0.00054398604, y: 0.00021589713, z: 0.0008108226}
   m_LocalScale: {x: 1.005, y: 1.005, z: 1.005}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -26789,7 +26615,7 @@ MonoBehaviour:
   planet: Sun
   solarSystemName: 
   GameController: {fileID: 721465705}
-  Sun: {fileID: 1983439763308622408}
+  Star: {fileID: 1983439763308622408}
   planets:
   - Mercury
   - Venus
@@ -26810,16 +26636,6 @@ MonoBehaviour:
   - 14.5
   - 17.204
   - 0.003
-  semiMajor:
-  - 0.387
-  - 0.723
-  - 1
-  - 1.523
-  - 5.202
-  - 9.576
-  - 19.293
-  - 30.246
-  - 39.509
   radii:
   - 0.383
   - 0.949
@@ -26830,59 +26646,12 @@ MonoBehaviour:
   - 4.007
   - 3.883
   - 0.187
-  rotational_periods:
-  - 58.646
-  - 243.018
-  - 0.997
-  - 1.026
-  - 0.413
-  - 0.444
-  - 0.718
-  - 0.671
-  - 6.387
-  orbital_periods:
-  - 0.241
-  - 0.615
-  - 1
-  - 1.881
-  - 11.861
-  - 29.628
-  - 84.747
-  - 166.344
-  - 248.348
-  gravities:
-  - 0.37
-  - 0.9
-  - 1
-  - 0.38
-  - 2.53
-  - 1.07
-  - 0.9
-  - 1.14
-  - 0.09
-  eccentricities:
-  - 0.21
-  - 0.01
-  - 0.02
-  - 0.09
-  - 0.05
-  - 0.06
-  - 0.05
-  - 0.01
-  - 0.25
-  inclination_angles:
-  - 7
-  - 3.39
-  - 0
-  - 1.85
-  - 1.31
-  - 2.49
-  - 0.77
-  - 1.77
-  - 17.5
-  trail_red: []
-  trail_green: []
-  trail_blue: []
+  orbitalRadii: []
+  orbitalVelocities: []
+  inclinationAngles: []
+  trailRed: []
+  trailGreen: []
+  trailBlue: []
 --- !u!135 &1983439763308622521
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -37457,7 +37226,7 @@ MonoBehaviour:
   planet: Mercury
   solarSystemName: 
   GameController: {fileID: 721465705}
-  Sun: {fileID: 1229251972278437869}
+  Star: {fileID: 0}
   planets:
   - Mercury
   - Venus
@@ -37478,16 +37247,6 @@ MonoBehaviour:
   - 14.5
   - 17.204
   - 0.003
-  semiMajor:
-  - 0.387
-  - 0.723
-  - 1
-  - 1.523
-  - 5.202
-  - 9.576
-  - 19.293
-  - 30.246
-  - 39.509
   radii:
   - 0.383
   - 0.949
@@ -37498,59 +37257,12 @@ MonoBehaviour:
   - 4.007
   - 3.883
   - 0.187
-  rotational_periods:
-  - 58.646
-  - 243.018
-  - 0.997
-  - 1.026
-  - 0.413
-  - 0.444
-  - 0.718
-  - 0.671
-  - 6.387
-  orbital_periods:
-  - 0.241
-  - 0.615
-  - 1
-  - 1.881
-  - 11.861
-  - 29.628
-  - 84.747
-  - 166.344
-  - 248.348
-  gravities:
-  - 0.37
-  - 0.9
-  - 1
-  - 0.38
-  - 2.53
-  - 1.07
-  - 0.9
-  - 1.14
-  - 0.09
-  eccentricities:
-  - 0.21
-  - 0.01
-  - 0.02
-  - 0.09
-  - 0.05
-  - 0.06
-  - 0.05
-  - 0.01
-  - 0.25
-  inclination_angles:
-  - 7
-  - 3.39
-  - 0
-  - 1.85
-  - 1.31
-  - 2.49
-  - 0.77
-  - 1.77
-  - 17.5
-  trail_red: []
-  trail_green: []
-  trail_blue: []
+  orbitalRadii: []
+  orbitalVelocities: []
+  inclinationAngles: []
+  trailRed: []
+  trailGreen: []
+  trailBlue: []
 --- !u!23 &3048640265980335621
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -37687,7 +37399,7 @@ MonoBehaviour:
   planet: Uranus
   solarSystemName: 
   GameController: {fileID: 721465705}
-  Sun: {fileID: 1229251972278437869}
+  Star: {fileID: 0}
   planets:
   - Mercury
   - Venus
@@ -37708,16 +37420,6 @@ MonoBehaviour:
   - 14.5
   - 17.204
   - 0.003
-  semiMajor:
-  - 0.387
-  - 0.723
-  - 1
-  - 1.523
-  - 5.202
-  - 9.576
-  - 19.293
-  - 30.246
-  - 39.509
   radii:
   - 0.383
   - 0.949
@@ -37728,59 +37430,12 @@ MonoBehaviour:
   - 4.007
   - 3.883
   - 0.187
-  rotational_periods:
-  - 58.646
-  - 243.018
-  - 0.997
-  - 1.026
-  - 0.413
-  - 0.444
-  - 0.718
-  - 0.671
-  - 6.387
-  orbital_periods:
-  - 0.241
-  - 0.615
-  - 1
-  - 1.881
-  - 11.861
-  - 29.628
-  - 84.747
-  - 166.344
-  - 248.348
-  gravities:
-  - 0.37
-  - 0.9
-  - 1
-  - 0.38
-  - 2.53
-  - 1.07
-  - 0.9
-  - 1.14
-  - 0.09
-  eccentricities:
-  - 0.21
-  - 0.01
-  - 0.02
-  - 0.09
-  - 0.05
-  - 0.06
-  - 0.05
-  - 0.01
-  - 0.25
-  inclination_angles:
-  - 7
-  - 3.39
-  - 0
-  - 1.85
-  - 1.31
-  - 2.49
-  - 0.77
-  - 1.77
-  - 17.5
-  trail_red: []
-  trail_green: []
-  trail_blue: []
+  orbitalRadii: []
+  orbitalVelocities: []
+  inclinationAngles: []
+  trailRed: []
+  trailGreen: []
+  trailBlue: []
 --- !u!199 &3146448920272883902
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -42913,7 +42568,7 @@ MonoBehaviour:
   planet: Mercury
   solarSystemName: 
   GameController: {fileID: 721465705}
-  Sun: {fileID: 1983439763308622408}
+  Star: {fileID: 1983439763308622408}
   planets:
   - Mercury
   - Venus
@@ -42934,16 +42589,6 @@ MonoBehaviour:
   - 14.5
   - 17.204
   - 0.003
-  semiMajor:
-  - 0.387
-  - 0.723
-  - 1
-  - 1.523
-  - 5.202
-  - 9.576
-  - 19.293
-  - 30.246
-  - 39.509
   radii:
   - 0.383
   - 0.949
@@ -42954,59 +42599,12 @@ MonoBehaviour:
   - 4.007
   - 3.883
   - 0.187
-  rotational_periods:
-  - 58.646
-  - 243.018
-  - 0.997
-  - 1.026
-  - 0.413
-  - 0.444
-  - 0.718
-  - 0.671
-  - 6.387
-  orbital_periods:
-  - 0.241
-  - 0.615
-  - 1
-  - 1.881
-  - 11.861
-  - 29.628
-  - 84.747
-  - 166.344
-  - 248.348
-  gravities:
-  - 0.37
-  - 0.9
-  - 1
-  - 0.38
-  - 2.53
-  - 1.07
-  - 0.9
-  - 1.14
-  - 0.09
-  eccentricities:
-  - 0.21
-  - 0.01
-  - 0.02
-  - 0.09
-  - 0.05
-  - 0.06
-  - 0.05
-  - 0.01
-  - 0.25
-  inclination_angles:
-  - 7
-  - 3.39
-  - 0
-  - 1.85
-  - 1.31
-  - 2.49
-  - 0.77
-  - 1.77
-  - 17.5
-  trail_red: []
-  trail_green: []
-  trail_blue: []
+  orbitalRadii: []
+  orbitalVelocities: []
+  inclinationAngles: []
+  trailRed: []
+  trailGreen: []
+  trailBlue: []
 --- !u!114 &3294658844376392669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43122,7 +42720,7 @@ Transform:
   m_GameObject: {fileID: 8614335840512426888}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0008076357, y: -0.00025384047, z: 0.0005322497}
+  m_LocalPosition: {x: 0, y: -0.001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -43333,7 +42931,7 @@ MonoBehaviour:
   planet: Saturn
   solarSystemName: 
   GameController: {fileID: 721465705}
-  Sun: {fileID: 1983439763308622408}
+  Star: {fileID: 1983439763308622408}
   planets:
   - Mercury
   - Venus
@@ -43354,16 +42952,6 @@ MonoBehaviour:
   - 14.5
   - 17.204
   - 0.003
-  semiMajor:
-  - 0.387
-  - 0.723
-  - 1
-  - 1.523
-  - 5.202
-  - 9.576
-  - 19.293
-  - 30.246
-  - 39.509
   radii:
   - 0.383
   - 0.949
@@ -43374,59 +42962,12 @@ MonoBehaviour:
   - 4.007
   - 3.883
   - 0.187
-  rotational_periods:
-  - 58.646
-  - 243.018
-  - 0.997
-  - 1.026
-  - 0.413
-  - 0.444
-  - 0.718
-  - 0.671
-  - 6.387
-  orbital_periods:
-  - 0.241
-  - 0.615
-  - 1
-  - 1.881
-  - 11.861
-  - 29.628
-  - 84.747
-  - 166.344
-  - 248.348
-  gravities:
-  - 0.37
-  - 0.9
-  - 1
-  - 0.38
-  - 2.53
-  - 1.07
-  - 0.9
-  - 1.14
-  - 0.09
-  eccentricities:
-  - 0.21
-  - 0.01
-  - 0.02
-  - 0.09
-  - 0.05
-  - 0.06
-  - 0.05
-  - 0.01
-  - 0.25
-  inclination_angles:
-  - 7
-  - 3.39
-  - 0
-  - 1.85
-  - 1.31
-  - 2.49
-  - 0.77
-  - 1.77
-  - 17.5
-  trail_red: []
-  trail_green: []
-  trail_blue: []
+  orbitalRadii: []
+  orbitalVelocities: []
+  inclinationAngles: []
+  trailRed: []
+  trailGreen: []
+  trailBlue: []
 --- !u!114 &3800150425701782418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49347,7 +48888,7 @@ MonoBehaviour:
   planet: Venus
   solarSystemName: 
   GameController: {fileID: 721465705}
-  Sun: {fileID: 1229251972278437869}
+  Star: {fileID: 0}
   planets:
   - Mercury
   - Venus
@@ -49368,16 +48909,6 @@ MonoBehaviour:
   - 14.5
   - 17.204
   - 0.003
-  semiMajor:
-  - 0.387
-  - 0.723
-  - 1
-  - 1.523
-  - 5.202
-  - 9.576
-  - 19.293
-  - 30.246
-  - 39.509
   radii:
   - 0.383
   - 0.949
@@ -49388,59 +48919,12 @@ MonoBehaviour:
   - 4.007
   - 3.883
   - 0.187
-  rotational_periods:
-  - 58.646
-  - 243.018
-  - 0.997
-  - 1.026
-  - 0.413
-  - 0.444
-  - 0.718
-  - 0.671
-  - 6.387
-  orbital_periods:
-  - 0.241
-  - 0.615
-  - 1
-  - 1.881
-  - 11.861
-  - 29.628
-  - 84.747
-  - 166.344
-  - 248.348
-  gravities:
-  - 0.37
-  - 0.9
-  - 1
-  - 0.38
-  - 2.53
-  - 1.07
-  - 0.9
-  - 1.14
-  - 0.09
-  eccentricities:
-  - 0.21
-  - 0.01
-  - 0.02
-  - 0.09
-  - 0.05
-  - 0.06
-  - 0.05
-  - 0.01
-  - 0.25
-  inclination_angles:
-  - 7
-  - 3.39
-  - 0
-  - 1.85
-  - 1.31
-  - 2.49
-  - 0.77
-  - 1.77
-  - 17.5
-  trail_red: []
-  trail_green: []
-  trail_blue: []
+  orbitalRadii: []
+  orbitalVelocities: []
+  inclinationAngles: []
+  trailRed: []
+  trailGreen: []
+  trailBlue: []
 --- !u!1 &4589242793765798544
 GameObject:
   m_ObjectHideFlags: 0
@@ -49570,7 +49054,7 @@ Transform:
   m_GameObject: {fileID: 7978886630850274176}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0008076357, y: -0.00025384047, z: 0.0005322497}
+  m_LocalPosition: {x: 0, y: -0.001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -54743,7 +54227,7 @@ MonoBehaviour:
   planet: Uranus
   solarSystemName: 
   GameController: {fileID: 721465705}
-  Sun: {fileID: 1983439763308622408}
+  Star: {fileID: 1983439763308622408}
   planets:
   - Mercury
   - Venus
@@ -54764,16 +54248,6 @@ MonoBehaviour:
   - 14.5
   - 17.204
   - 0.003
-  semiMajor:
-  - 0.387
-  - 0.723
-  - 1
-  - 1.523
-  - 5.202
-  - 9.576
-  - 19.293
-  - 30.246
-  - 39.509
   radii:
   - 0.383
   - 0.949
@@ -54784,59 +54258,12 @@ MonoBehaviour:
   - 4.007
   - 3.883
   - 0.187
-  rotational_periods:
-  - 58.646
-  - 243.018
-  - 0.997
-  - 1.026
-  - 0.413
-  - 0.444
-  - 0.718
-  - 0.671
-  - 6.387
-  orbital_periods:
-  - 0.241
-  - 0.615
-  - 1
-  - 1.881
-  - 11.861
-  - 29.628
-  - 84.747
-  - 166.344
-  - 248.348
-  gravities:
-  - 0.37
-  - 0.9
-  - 1
-  - 0.38
-  - 2.53
-  - 1.07
-  - 0.9
-  - 1.14
-  - 0.09
-  eccentricities:
-  - 0.21
-  - 0.01
-  - 0.02
-  - 0.09
-  - 0.05
-  - 0.06
-  - 0.05
-  - 0.01
-  - 0.25
-  inclination_angles:
-  - 7
-  - 3.39
-  - 0
-  - 1.85
-  - 1.31
-  - 2.49
-  - 0.77
-  - 1.77
-  - 17.5
-  trail_red: []
-  trail_green: []
-  trail_blue: []
+  orbitalRadii: []
+  orbitalVelocities: []
+  inclinationAngles: []
+  trailRed: []
+  trailGreen: []
+  trailBlue: []
 --- !u!114 &5557803753914808475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55286,7 +54713,7 @@ MonoBehaviour:
   planet: Saturn
   solarSystemName: 
   GameController: {fileID: 721465705}
-  Sun: {fileID: 1229251972278437869}
+  Star: {fileID: 0}
   planets:
   - Mercury
   - Venus
@@ -55307,16 +54734,6 @@ MonoBehaviour:
   - 14.5
   - 17.204
   - 0.003
-  semiMajor:
-  - 0.387
-  - 0.723
-  - 1
-  - 1.523
-  - 5.202
-  - 9.576
-  - 19.293
-  - 30.246
-  - 39.509
   radii:
   - 0.383
   - 0.949
@@ -55327,59 +54744,12 @@ MonoBehaviour:
   - 4.007
   - 3.883
   - 0.187
-  rotational_periods:
-  - 58.646
-  - 243.018
-  - 0.997
-  - 1.026
-  - 0.413
-  - 0.444
-  - 0.718
-  - 0.671
-  - 6.387
-  orbital_periods:
-  - 0.241
-  - 0.615
-  - 1
-  - 1.881
-  - 11.861
-  - 29.628
-  - 84.747
-  - 166.344
-  - 248.348
-  gravities:
-  - 0.37
-  - 0.9
-  - 1
-  - 0.38
-  - 2.53
-  - 1.07
-  - 0.9
-  - 1.14
-  - 0.09
-  eccentricities:
-  - 0.21
-  - 0.01
-  - 0.02
-  - 0.09
-  - 0.05
-  - 0.06
-  - 0.05
-  - 0.01
-  - 0.25
-  inclination_angles:
-  - 7
-  - 3.39
-  - 0
-  - 1.85
-  - 1.31
-  - 2.49
-  - 0.77
-  - 1.77
-  - 17.5
-  trail_red: []
-  trail_green: []
-  trail_blue: []
+  orbitalRadii: []
+  orbitalVelocities: []
+  inclinationAngles: []
+  trailRed: []
+  trailGreen: []
+  trailBlue: []
 --- !u!1 &5692318411685961568
 GameObject:
   m_ObjectHideFlags: 0
@@ -55485,7 +54855,7 @@ MonoBehaviour:
   planet: Mars
   solarSystemName: 
   GameController: {fileID: 721465705}
-  Sun: {fileID: 1983439763308622408}
+  Star: {fileID: 1983439763308622408}
   planets:
   - Mercury
   - Venus
@@ -55506,16 +54876,6 @@ MonoBehaviour:
   - 14.5
   - 17.204
   - 0.003
-  semiMajor:
-  - 0.387
-  - 0.723
-  - 1
-  - 1.523
-  - 5.202
-  - 9.576
-  - 19.293
-  - 30.246
-  - 39.509
   radii:
   - 0.383
   - 0.949
@@ -55526,59 +54886,12 @@ MonoBehaviour:
   - 4.007
   - 3.883
   - 0.187
-  rotational_periods:
-  - 58.646
-  - 243.018
-  - 0.997
-  - 1.026
-  - 0.413
-  - 0.444
-  - 0.718
-  - 0.671
-  - 6.387
-  orbital_periods:
-  - 0.241
-  - 0.615
-  - 1
-  - 1.881
-  - 11.861
-  - 29.628
-  - 84.747
-  - 166.344
-  - 248.348
-  gravities:
-  - 0.37
-  - 0.9
-  - 1
-  - 0.38
-  - 2.53
-  - 1.07
-  - 0.9
-  - 1.14
-  - 0.09
-  eccentricities:
-  - 0.21
-  - 0.01
-  - 0.02
-  - 0.09
-  - 0.05
-  - 0.06
-  - 0.05
-  - 0.01
-  - 0.25
-  inclination_angles:
-  - 7
-  - 3.39
-  - 0
-  - 1.85
-  - 1.31
-  - 2.49
-  - 0.77
-  - 1.77
-  - 17.5
-  trail_red: []
-  trail_green: []
-  trail_blue: []
+  orbitalRadii: []
+  orbitalVelocities: []
+  inclinationAngles: []
+  trailRed: []
+  trailGreen: []
+  trailBlue: []
 --- !u!114 &5692318412741488101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56216,7 +55529,7 @@ MonoBehaviour:
   planet: Neptune
   solarSystemName: 
   GameController: {fileID: 721465705}
-  Sun: {fileID: 5835527285243924457}
+  Star: {fileID: 0}
   planets:
   - Mercury
   - Venus
@@ -56237,16 +55550,6 @@ MonoBehaviour:
   - 14.5
   - 17.204
   - 0.003
-  semiMajor:
-  - 0.387
-  - 0.723
-  - 1
-  - 1.523
-  - 5.202
-  - 9.576
-  - 19.293
-  - 30.246
-  - 39.509
   radii:
   - 0.383
   - 0.949
@@ -56257,59 +55560,12 @@ MonoBehaviour:
   - 4.007
   - 3.883
   - 0.187
-  rotational_periods:
-  - 58.646
-  - 243.018
-  - 0.997
-  - 1.026
-  - 0.413
-  - 0.444
-  - 0.718
-  - 0.671
-  - 6.387
-  orbital_periods:
-  - 0.241
-  - 0.615
-  - 1
-  - 1.881
-  - 11.861
-  - 29.628
-  - 84.747
-  - 166.344
-  - 248.348
-  gravities:
-  - 0.37
-  - 0.9
-  - 1
-  - 0.38
-  - 2.53
-  - 1.07
-  - 0.9
-  - 1.14
-  - 0.09
-  eccentricities:
-  - 0.21
-  - 0.01
-  - 0.02
-  - 0.09
-  - 0.05
-  - 0.06
-  - 0.05
-  - 0.01
-  - 0.25
-  inclination_angles:
-  - 7
-  - 3.39
-  - 0
-  - 1.85
-  - 1.31
-  - 2.49
-  - 0.77
-  - 1.77
-  - 17.5
-  trail_red: []
-  trail_green: []
-  trail_blue: []
+  orbitalRadii: []
+  orbitalVelocities: []
+  inclinationAngles: []
+  trailRed: []
+  trailGreen: []
+  trailBlue: []
 --- !u!199 &5922833892623923521
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -61229,7 +60485,7 @@ MonoBehaviour:
   planet: Jupiter
   solarSystemName: 
   GameController: {fileID: 721465705}
-  Sun: {fileID: 1229251972278437869}
+  Star: {fileID: 0}
   planets:
   - Mercury
   - Venus
@@ -61250,16 +60506,6 @@ MonoBehaviour:
   - 14.5
   - 17.204
   - 0.003
-  semiMajor:
-  - 0.387
-  - 0.723
-  - 1
-  - 1.523
-  - 5.202
-  - 9.576
-  - 19.293
-  - 30.246
-  - 39.509
   radii:
   - 0.383
   - 0.949
@@ -61270,59 +60516,12 @@ MonoBehaviour:
   - 4.007
   - 3.883
   - 0.187
-  rotational_periods:
-  - 58.646
-  - 243.018
-  - 0.997
-  - 1.026
-  - 0.413
-  - 0.444
-  - 0.718
-  - 0.671
-  - 6.387
-  orbital_periods:
-  - 0.241
-  - 0.615
-  - 1
-  - 1.881
-  - 11.861
-  - 29.628
-  - 84.747
-  - 166.344
-  - 248.348
-  gravities:
-  - 0.37
-  - 0.9
-  - 1
-  - 0.38
-  - 2.53
-  - 1.07
-  - 0.9
-  - 1.14
-  - 0.09
-  eccentricities:
-  - 0.21
-  - 0.01
-  - 0.02
-  - 0.09
-  - 0.05
-  - 0.06
-  - 0.05
-  - 0.01
-  - 0.25
-  inclination_angles:
-  - 7
-  - 3.39
-  - 0
-  - 1.85
-  - 1.31
-  - 2.49
-  - 0.77
-  - 1.77
-  - 17.5
-  trail_red: []
-  trail_green: []
-  trail_blue: []
+  orbitalRadii: []
+  orbitalVelocities: []
+  inclinationAngles: []
+  trailRed: []
+  trailGreen: []
+  trailBlue: []
 --- !u!23 &6189388597613577661
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -61658,7 +60857,7 @@ MonoBehaviour:
   planet: Earth
   solarSystemName: 
   GameController: {fileID: 721465705}
-  Sun: {fileID: 1983439763308622408}
+  Star: {fileID: 1983439763308622408}
   planets:
   - Mercury
   - Venus
@@ -61679,16 +60878,6 @@ MonoBehaviour:
   - 14.5
   - 17.204
   - 0.003
-  semiMajor:
-  - 0.387
-  - 0.723
-  - 1
-  - 1.523
-  - 5.202
-  - 9.576
-  - 19.293
-  - 30.246
-  - 39.509
   radii:
   - 0.383
   - 0.949
@@ -61699,59 +60888,12 @@ MonoBehaviour:
   - 4.007
   - 3.883
   - 0.187
-  rotational_periods:
-  - 58.646
-  - 243.018
-  - 0.997
-  - 1.026
-  - 0.413
-  - 0.444
-  - 0.718
-  - 0.671
-  - 6.387
-  orbital_periods:
-  - 0.241
-  - 0.615
-  - 1
-  - 1.881
-  - 11.861
-  - 29.628
-  - 84.747
-  - 166.344
-  - 248.348
-  gravities:
-  - 0.37
-  - 0.9
-  - 1
-  - 0.38
-  - 2.53
-  - 1.07
-  - 0.9
-  - 1.14
-  - 0.09
-  eccentricities:
-  - 0.21
-  - 0.01
-  - 0.02
-  - 0.09
-  - 0.05
-  - 0.06
-  - 0.05
-  - 0.01
-  - 0.25
-  inclination_angles:
-  - 7
-  - 3.39
-  - 0
-  - 1.85
-  - 1.31
-  - 2.49
-  - 0.77
-  - 1.77
-  - 17.5
-  trail_red: []
-  trail_green: []
-  trail_blue: []
+  orbitalRadii: []
+  orbitalVelocities: []
+  inclinationAngles: []
+  trailRed: []
+  trailGreen: []
+  trailBlue: []
 --- !u!114 &6905349007287667422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67409,7 +66551,7 @@ MonoBehaviour:
   planet: Pluto
   solarSystemName: 
   GameController: {fileID: 721465705}
-  Sun: {fileID: 1229251972278437869}
+  Star: {fileID: 0}
   planets:
   - Mercury
   - Venus
@@ -67430,16 +66572,6 @@ MonoBehaviour:
   - 14.5
   - 17.204
   - 0.003
-  semiMajor:
-  - 0.387
-  - 0.723
-  - 1
-  - 1.523
-  - 5.202
-  - 9.576
-  - 19.293
-  - 30.246
-  - 39.509
   radii:
   - 0.383
   - 0.949
@@ -67450,59 +66582,12 @@ MonoBehaviour:
   - 4.007
   - 3.883
   - 0.187
-  rotational_periods:
-  - 58.646
-  - 243.018
-  - 0.997
-  - 1.026
-  - 0.413
-  - 0.444
-  - 0.718
-  - 0.671
-  - 6.387
-  orbital_periods:
-  - 0.241
-  - 0.615
-  - 1
-  - 1.881
-  - 11.861
-  - 29.628
-  - 84.747
-  - 166.344
-  - 248.348
-  gravities:
-  - 0.37
-  - 0.9
-  - 1
-  - 0.38
-  - 2.53
-  - 1.07
-  - 0.9
-  - 1.14
-  - 0.09
-  eccentricities:
-  - 0.21
-  - 0.01
-  - 0.02
-  - 0.09
-  - 0.05
-  - 0.06
-  - 0.05
-  - 0.01
-  - 0.25
-  inclination_angles:
-  - 7
-  - 3.39
-  - 0
-  - 1.85
-  - 1.31
-  - 2.49
-  - 0.77
-  - 1.77
-  - 17.5
-  trail_red: []
-  trail_green: []
-  trail_blue: []
+  orbitalRadii: []
+  orbitalVelocities: []
+  inclinationAngles: []
+  trailRed: []
+  trailGreen: []
+  trailBlue: []
 --- !u!114 &7738495994098486434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67751,7 +66836,7 @@ MonoBehaviour:
   planet: Jupiter
   solarSystemName: 
   GameController: {fileID: 721465705}
-  Sun: {fileID: 1983439763308622408}
+  Star: {fileID: 1983439763308622408}
   planets:
   - Mercury
   - Venus
@@ -67772,16 +66857,6 @@ MonoBehaviour:
   - 14.5
   - 17.204
   - 0.003
-  semiMajor:
-  - 0.387
-  - 0.723
-  - 1
-  - 1.523
-  - 5.202
-  - 9.576
-  - 19.293
-  - 30.246
-  - 39.509
   radii:
   - 0.383
   - 0.949
@@ -67792,59 +66867,12 @@ MonoBehaviour:
   - 4.007
   - 3.883
   - 0.187
-  rotational_periods:
-  - 58.646
-  - 243.018
-  - 0.997
-  - 1.026
-  - 0.413
-  - 0.444
-  - 0.718
-  - 0.671
-  - 6.387
-  orbital_periods:
-  - 0.241
-  - 0.615
-  - 1
-  - 1.881
-  - 11.861
-  - 29.628
-  - 84.747
-  - 166.344
-  - 248.348
-  gravities:
-  - 0.37
-  - 0.9
-  - 1
-  - 0.38
-  - 2.53
-  - 1.07
-  - 0.9
-  - 1.14
-  - 0.09
-  eccentricities:
-  - 0.21
-  - 0.01
-  - 0.02
-  - 0.09
-  - 0.05
-  - 0.06
-  - 0.05
-  - 0.01
-  - 0.25
-  inclination_angles:
-  - 7
-  - 3.39
-  - 0
-  - 1.85
-  - 1.31
-  - 2.49
-  - 0.77
-  - 1.77
-  - 17.5
-  trail_red: []
-  trail_green: []
-  trail_blue: []
+  orbitalRadii: []
+  orbitalVelocities: []
+  inclinationAngles: []
+  trailRed: []
+  trailGreen: []
+  trailBlue: []
 --- !u!114 &7977947120253654219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68107,7 +67135,7 @@ Transform:
   m_GameObject: {fileID: 8480868557149589190}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00080423494, y: 0.0002527716, z: -0.0005378723}
+  m_LocalPosition: {x: 0, y: 0.00035521778, z: -0.00093460083}
   m_LocalScale: {x: 1.02, y: 1.02, z: 1.02}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -68199,7 +67227,7 @@ MonoBehaviour:
   planet: Mars
   solarSystemName: 
   GameController: {fileID: 721465705}
-  Sun: {fileID: 1229251972278437869}
+  Star: {fileID: 0}
   planets:
   - Mercury
   - Venus
@@ -68220,16 +67248,6 @@ MonoBehaviour:
   - 14.5
   - 17.204
   - 0.003
-  semiMajor:
-  - 0.387
-  - 0.723
-  - 1
-  - 1.523
-  - 5.202
-  - 9.576
-  - 19.293
-  - 30.246
-  - 39.509
   radii:
   - 0.383
   - 0.949
@@ -68240,59 +67258,12 @@ MonoBehaviour:
   - 4.007
   - 3.883
   - 0.187
-  rotational_periods:
-  - 58.646
-  - 243.018
-  - 0.997
-  - 1.026
-  - 0.413
-  - 0.444
-  - 0.718
-  - 0.671
-  - 6.387
-  orbital_periods:
-  - 0.241
-  - 0.615
-  - 1
-  - 1.881
-  - 11.861
-  - 29.628
-  - 84.747
-  - 166.344
-  - 248.348
-  gravities:
-  - 0.37
-  - 0.9
-  - 1
-  - 0.38
-  - 2.53
-  - 1.07
-  - 0.9
-  - 1.14
-  - 0.09
-  eccentricities:
-  - 0.21
-  - 0.01
-  - 0.02
-  - 0.09
-  - 0.05
-  - 0.06
-  - 0.05
-  - 0.01
-  - 0.25
-  inclination_angles:
-  - 7
-  - 3.39
-  - 0
-  - 1.85
-  - 1.31
-  - 2.49
-  - 0.77
-  - 1.77
-  - 17.5
-  trail_red: []
-  trail_green: []
-  trail_blue: []
+  orbitalRadii: []
+  orbitalVelocities: []
+  inclinationAngles: []
+  trailRed: []
+  trailGreen: []
+  trailBlue: []
 --- !u!23 &8611719219510133097
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -78308,7 +77279,7 @@ MonoBehaviour:
   planet: Neptune
   solarSystemName: 
   GameController: {fileID: 721465705}
-  Sun: {fileID: 1983439763308622408}
+  Star: {fileID: 1983439763308622408}
   planets:
   - Mercury
   - Venus
@@ -78329,16 +77300,6 @@ MonoBehaviour:
   - 14.5
   - 17.204
   - 0.003
-  semiMajor:
-  - 0.387
-  - 0.723
-  - 1
-  - 1.523
-  - 5.202
-  - 9.576
-  - 19.293
-  - 30.246
-  - 39.509
   radii:
   - 0.383
   - 0.949
@@ -78349,59 +77310,12 @@ MonoBehaviour:
   - 4.007
   - 3.883
   - 0.187
-  rotational_periods:
-  - 58.646
-  - 243.018
-  - 0.997
-  - 1.026
-  - 0.413
-  - 0.444
-  - 0.718
-  - 0.671
-  - 6.387
-  orbital_periods:
-  - 0.241
-  - 0.615
-  - 1
-  - 1.881
-  - 11.861
-  - 29.628
-  - 84.747
-  - 166.344
-  - 248.348
-  gravities:
-  - 0.37
-  - 0.9
-  - 1
-  - 0.38
-  - 2.53
-  - 1.07
-  - 0.9
-  - 1.14
-  - 0.09
-  eccentricities:
-  - 0.21
-  - 0.01
-  - 0.02
-  - 0.09
-  - 0.05
-  - 0.06
-  - 0.05
-  - 0.01
-  - 0.25
-  inclination_angles:
-  - 7
-  - 3.39
-  - 0
-  - 1.85
-  - 1.31
-  - 2.49
-  - 0.77
-  - 1.77
-  - 17.5
-  trail_red: []
-  trail_green: []
-  trail_blue: []
+  orbitalRadii: []
+  orbitalVelocities: []
+  inclinationAngles: []
+  trailRed: []
+  trailGreen: []
+  trailBlue: []
 --- !u!114 &9159674923889768351
 MonoBehaviour:
   m_ObjectHideFlags: 0
