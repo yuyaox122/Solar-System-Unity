@@ -124,9 +124,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SlimUI.ModernMenu.UIMenuManager, Assembly-CSharp
-        m_MethodName: EditPlanet
+      - m_Target: {fileID: 7961362034472258940}
+        m_TargetAssemblyTypeName: LoadEditPanel, Assembly-CSharp
+        m_MethodName: EditButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -271,6 +271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Title: {fileID: 6610067833229012457}
+  MenuManager: {fileID: 0}
 --- !u!1 &6785633416030686101
 GameObject:
   m_ObjectHideFlags: 0

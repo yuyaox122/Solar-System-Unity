@@ -173,6 +173,7 @@ namespace SlimUI.ModernMenu
 			EditMenu.SetActive(false);
 			NewGame.SetActive(false);
 			DestroyGameConfigs();
+			DestroyPlanetConfigs();
 		}
 
 		public void PlayCampaignMobile()
@@ -319,6 +320,7 @@ namespace SlimUI.ModernMenu
 			EditMenu.SetActive(false);
 			DisablePlayCampaign();
 			DestroyGameConfigs();
+			DestroyPlanetConfigs();
 		}
 
 		public void AreYouSureMobile()
@@ -341,6 +343,7 @@ namespace SlimUI.ModernMenu
 			NewGame.SetActive(false);
 			EditMenu.SetActive(false);
 			DestroyGameConfigs();
+			DestroyPlanetConfigs();
 		}
 
 		public void NewGameMenu()
@@ -352,15 +355,29 @@ namespace SlimUI.ModernMenu
 			NewGame.SetActive(true);
 			EditMenu.SetActive(false);
 			DestroyGameConfigs();
+			DestroyPlanetConfigs();
 			newGame = new SolarSystem();
 		}
-
+		
+		public void DestroyPlanetConfigs() {
+			foreach (Transform child in PlanetsList.transform) {
+				if (child.name != "AddPlanet") {
+					Destroy(child.gameObject);
+				}
+			}
+		}
 		public void AddPlanet() {
 			GameObject planetPanel = Instantiate(PlanetConfig, PlanetsList.transform) as GameObject;
-			planetPanel.UIMenuManager = Camera.GetComponent<UIMenuManager>();
+			planetPanel.GetComponent<LoadEditPanel>().MenuManager = transform.GetComponent<UIMenuManager>();
 		}
 		public void EditPlanet() {
 			EditMenu.SetActive(true);
+			NewGame.SetActive(false);
+			Debug.Log("Edit called");
+		}
+
+		public void CloseEditPlanet() {
+			EditMenu.SetActive(false);
 		}
 
 		public void LoadGameMenu()

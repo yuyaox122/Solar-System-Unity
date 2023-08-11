@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SlimUI.ModernMenu;
 
 public class LoadEditPanel : MonoBehaviour
 {
@@ -13,6 +14,12 @@ public class LoadEditPanel : MonoBehaviour
     }
 
     public void EditButtonClicked() {
-        FindObjectOfType<UIMenuManager>().EditPlanet();
+        MenuManager.EditPlanet();
+        Debug.Log("Hello");
+    }
+
+    public void Close() {
+        MenuManager.CloseEditPlanet();
     }
 }
+    
