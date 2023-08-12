@@ -131,7 +131,7 @@ namespace SlimUI.ModernMenu
 			EditMenu.SetActive(false);
 			LoadGame.SetActive(false);
 			SetThemeColors();
-			// PlayerPrefs.DeleteAll();
+			PlayerPrefs.DeleteAll();
 			if (!PlayerPrefs.HasKey("!DefaultSolarSystem!")) {
 				Debug.Log(PlayerPrefs.GetString("!SolarSystemNames!"));
 				PlayerPrefs.SetString("!DefaultSolarSystem!", "1");
