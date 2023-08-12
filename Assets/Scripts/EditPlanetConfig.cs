@@ -37,9 +37,9 @@ public class EditPlanetConfig : MonoBehaviour
         });
 
         OrbitalVelocitySlider.onValueChanged.AddListener(delegate { OnDeselectedOrbitalVelocityInput(GetValue(OrbitalVelocityValue.text)); });
-        OrbitalVelocitySlider.onValueChanged.AddListener((a) =>
+        OrbitalVelocitySlider.onValueChanged.AddListener((b) =>
         {
-            MassValue.text = "Orbital Velocity / (km/s): 5" + a.ToString("0.00");
+            OrbitalVelocityValue.text = "Orbital Velocity / (km/s): 5" + b.ToString("0.00");
         });
     }
 

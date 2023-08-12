@@ -12,16 +12,16 @@ namespace SlimUI.ModernMenu
 
 	public class UIMenuManager : MonoBehaviour
 	{
-		public List<string> planets = new List<string>{ "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto" };
+		public List<string> planets = new List<string> { "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto" };
 		public List<float> masses = new List<float> { 0.0553f, 0.815f, 1.000f, 0.107f, 317.83f, 95.16f, 14.54f, 17.15f, 0.0022f }; // Earth masses
 		public List<float> radii = new List<float> { 0.383f, 0.949f, 1.000f, 0.533f, 11.209f, 9.449f, 4.007f, 3.883f, 0.187f }; // Earth radii
 		public List<float> orbitalRadii = new List<float> { 0.307f, 0.718f, 0.983f, 1.381f, 4.951f, 9.075f, 18.267f, 29.887f, 29.646f };
 		public List<float> orbitalVelocities = new List<float> { 58.97f, 35.26f, 30.29f, 26.50f, 13.72f, 10.14f, 7.13f, 5.47f, 6.10f };
 		public List<float> inclinationAngles = new List<float> { 7.00f, 3.39f, 0.00f, 1.85f, 1.31f, 2.49f, 0.77f, 1.77f, 17.5f };
-		public List<float> trailRed = new List<float> {0.639f, 0.678f, 0.000f, 0.557f, 0.588f, 0.443f, 0.376f, 0.127f, 0.761f};
-		public List<float> trailGreen = new List<float> {0.416f, 0.329f, 0.278f, 0.067f, 0.365f, 0.408f, 0.522f, 0.179f, 0.643f};
-		public List<float> trailBlue = new List<float> {0.078f, 0.000f, 0.522f, 0.000f, 0.024f, 0.247f, 0.545f, 0.429f, 0.576f};
-		public List<int> indexes = new List<int>(); 
+		public List<float> trailRed = new List<float> { 0.639f, 0.678f, 0.000f, 0.557f, 0.588f, 0.443f, 0.376f, 0.127f, 0.761f };
+		public List<float> trailGreen = new List<float> { 0.416f, 0.329f, 0.278f, 0.067f, 0.365f, 0.408f, 0.522f, 0.179f, 0.643f };
+		public List<float> trailBlue = new List<float> { 0.078f, 0.000f, 0.522f, 0.000f, 0.024f, 0.247f, 0.545f, 0.429f, 0.576f };
+		public List<int> indexes = new List<int>();
 		// {
 		// 	{new Color (0.639f, 0.416f, 0.078f), new Color (0.839f, 0.616f, 0.278f)},
 		// 	{new Color (0.678f, 0.329f, 0.000f), new Color (0.878f, 0.529f, 0.176f)},
@@ -115,7 +115,7 @@ namespace SlimUI.ModernMenu
 		public AudioSource swooshSound;
 
 		public SolarSystem newGame;
-		
+
 
 		void Start()
 		{
@@ -130,10 +130,11 @@ namespace SlimUI.ModernMenu
 			LoadGame.SetActive(false);
 			SetThemeColors();
 			PlayerPrefs.DeleteAll();
-			if (!PlayerPrefs.HasKey("!DefaultSolarSystem!")) {
+			if (!PlayerPrefs.HasKey("!DefaultSolarSystem!"))
+			{
 				Debug.Log(PlayerPrefs.GetString("!SolarSystemNames!"));
 				PlayerPrefs.SetString("!DefaultSolarSystem!", "1");
-				SaveAndLoad.SaveSolarSystem(new SolarSystem("The Solar System", planets, masses, radii, orbitalRadii, orbitalVelocities, inclinationAngles, 
+				SaveAndLoad.SaveSolarSystem(new SolarSystem("The Solar System", planets, masses, radii, orbitalRadii, orbitalVelocities, inclinationAngles,
 				trailRed, trailGreen, trailBlue));
 			}
 		}
@@ -356,25 +357,38 @@ namespace SlimUI.ModernMenu
 			DestroyGameConfigs();
 			DestroyPlanetConfigs();
 		}
-		
-		public void ChangeName(int index, string newName) {
+
+		public void ChangeName(int index, string newName)
+		{
 			GameObject current = PlanetsList.transform.GetChild(index + 1).gameObject;
 			current.GetComponent<LoadEditPanel>().ChangeName(newName);
 			newGame.planets[index] = newName;
 		}
 
-		public void ChangeOrbitalVelocity(int index, float newOrbitalVelocity) {
-			GameObject current = PlanetsList.transform.GetChild(index + 1).gameObject;
-			newGame.orbitalVelocities[index] = newOrbitalVelocity;
-		}
 
-		public void ChangeMass(int index, float newMass) {
+		public void ChangeMass(int index, float newMass)
+		{
 			GameObject current = PlanetsList.transform.GetChild(index + 1).gameObject;
 			newGame.masses[index] = newMass;
+			Debug.Log($"[{string.Join(",", newGame.masses)}]");
 		}
-		public void DestroyPlanetConfigs() {
-			foreach (Transform child in PlanetsList.transform) {
-				if (child.name != "AddPlanet") {
+
+		public void ChangeOrbitalVelocity(int index, float newOrbitalVelocity)
+		{
+			GameObject current = PlanetsList.transform.GetChild(index + 1).gameObject;
+			newGame.orbitalVelocities[index] = newOrbitalVelocity;
+			foreach (var x in newGame.orbitalVelocities)
+			{
+				Debug.Log("ORBITAL VELOCITY: " + x.ToString());
+			}
+		}
+
+		public void DestroyPlanetConfigs()
+		{
+			foreach (Transform child in PlanetsList.transform)
+			{
+				if (child.name != "AddPlanet")
+				{
 					Destroy(child.gameObject);
 				}
 			}
@@ -382,7 +396,8 @@ namespace SlimUI.ModernMenu
 			new List<float>(), new List<float>(), new List<float>());
 		}
 
-		public void DestroyPlanetConfig(int destroyIndex) {
+		public void DestroyPlanetConfig(int destroyIndex)
+		{
 			Debug.Log("Destroy: " + destroyIndex);
 			GameObject child = PlanetsList.transform.GetChild(destroyIndex + 1).gameObject;
 			newGame.planets.RemoveAt(destroyIndex);
@@ -396,33 +411,41 @@ namespace SlimUI.ModernMenu
 			newGame.trailBlue.RemoveAt(destroyIndex);
 			Destroy(child);
 			indexes.Remove(destroyIndex);
-			foreach( var x in indexes) {
-				Debug.Log( x.ToString());
+			foreach (var x in indexes)
+			{
+				Debug.Log(x.ToString());
 			}
-			for (int i = 0; i < indexes.Count; i++) {
-				if (indexes[i] > destroyIndex) {
+			for (int i = 0; i < indexes.Count; i++)
+			{
+				if (indexes[i] > destroyIndex)
+				{
 					Debug.Log("Value: " + i);
 					GameObject z = PlanetsList.transform.GetChild(indexes[i] + 1).gameObject;
 					z.GetComponent<LoadEditPanel>().index -= 1;
 					indexes[i] = indexes[i] - 1;
 				}
 			}
-			foreach( var x in indexes) {
-				Debug.Log( x.ToString());
+			foreach (var x in indexes)
+			{
+				Debug.Log(x.ToString());
 			}
 		}
-		public void AddPlanet() {
+		public void AddPlanet()
+		{
 			GameObject planetPanel = Instantiate(PlanetConfig, PlanetsList.transform) as GameObject;
 			planetPanel.GetComponent<LoadEditPanel>().MenuManager = transform.GetComponent<UIMenuManager>();
-			if (indexes.Count != 0) {
-				foreach( var x in indexes) {
+			if (indexes.Count != 0)
+			{
+				foreach (var x in indexes)
+				{
 					// Debug.Log( x.ToString());
 				}
 				planetPanel.GetComponent<LoadEditPanel>().SetIndex(indexes.Count);
 				// Debug.Log(indexes[indexes.Count - 1]);
 				indexes.Add(indexes.Count);
 			}
-			else {
+			else
+			{
 				indexes.Add(0);
 				planetPanel.GetComponent<LoadEditPanel>().SetIndex(0);
 				// Debug.Log(indexes[0]);
@@ -437,7 +460,8 @@ namespace SlimUI.ModernMenu
 			newGame.trailGreen.Add(0.5f);
 			newGame.trailBlue.Add(0.5f);
 		}
-		public void EditPlanet(int newIndex) {
+		public void EditPlanet(int newIndex)
+		{
 			EditMenu.SetActive(true);
 			EditPlanetConfig editPlanetConfig = EditMenu.GetComponent<EditPlanetConfig>();
 			editPlanetConfig.index = newIndex;
@@ -454,7 +478,8 @@ namespace SlimUI.ModernMenu
 			Debug.Log("Edit called");
 		}
 
-		public void CloseEditPlanet() {
+		public void CloseEditPlanet()
+		{
 			EditMenu.SetActive(false);
 			NewGame.SetActive(true);
 		}
@@ -484,7 +509,7 @@ namespace SlimUI.ModernMenu
 			}
 		}
 
-		
+
 		public void TestSaveAndLoad()
 		{
 			SolarSystem savedSolarSystem = SaveAndLoad.LoadSolarSystem("The Solar System");
@@ -493,8 +518,10 @@ namespace SlimUI.ModernMenu
 			Debug.Log(savedSolarSystem.name);
 		}
 
-		public void DestroyGameConfigs() {
-			foreach (Transform child in LoadedGamesList.transform) {
+		public void DestroyGameConfigs()
+		{
+			foreach (Transform child in LoadedGamesList.transform)
+			{
 				Destroy(child.gameObject);
 			}
 		}
