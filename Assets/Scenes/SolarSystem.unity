@@ -2347,6 +2347,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sun: {fileID: 1983439763308622519}
   GameName: {fileID: 1556687520}
+  SolarSystemGameObject: {fileID: 684035118}
 --- !u!4 &721465707
 Transform:
   m_ObjectHideFlags: 0
@@ -2391,7 +2392,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 729562499}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: -0.05419786, y: -0.043346826, z: -0.0023549898, w: 0.99758613}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3403,6 +3404,8 @@ MonoBehaviour:
   trailRed: []
   trailGreen: []
   trailBlue: []
+  planetPresets: []
+  radius: 0
 --- !u!1 &1133240918
 GameObject:
   m_ObjectHideFlags: 0
@@ -5142,8 +5145,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sensitivity: 3
-  _speed: 500
-  jump_strength: 500
+  speed: 5000
+  jumpStrength: 5000
 --- !u!114 &1479142259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5189,6 +5192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  activePlanet: 
   offset: {x: 0, y: 0, z: 0}
   active: 0
 --- !u!1 &1505708800
@@ -5963,8 +5967,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1864155935}
   m_HandleRect: {fileID: 1864155934}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.99999994
+  m_Value: 1
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6714,6 +6718,8 @@ MonoBehaviour:
   trailRed: []
   trailGreen: []
   trailBlue: []
+  planetPresets: []
+  radius: 0
 --- !u!1 &1960431461
 GameObject:
   m_ObjectHideFlags: 0
@@ -7393,7 +7399,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &177342080848986339
 Transform:
   m_ObjectHideFlags: 0
@@ -7462,6 +7468,8 @@ MonoBehaviour:
   trailRed: []
   trailGreen: []
   trailBlue: []
+  planetPresets: []
+  radius: 0
 --- !u!114 &177342080848986341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17719,7 +17727,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1266462043404940489}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -17761,7 +17769,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9214578223552247462}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -22953,7 +22961,7 @@ Transform:
   m_GameObject: {fileID: 5805693484954456001}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00054398604, y: 0.00021589713, z: 0.0008108226}
+  m_LocalPosition: {x: 0.0008503825, y: 0.00047736045, z: 0.00022106152}
   m_LocalScale: {x: 1.005, y: 1.005, z: 1.005}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22966,7 +22974,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1683901078554674040}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -23488,6 +23496,8 @@ MonoBehaviour:
   trailRed: []
   trailGreen: []
   trailBlue: []
+  planetPresets: []
+  radius: 0
 --- !u!135 &1983439763308622521
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -34099,6 +34109,8 @@ MonoBehaviour:
   trailRed: []
   trailGreen: []
   trailBlue: []
+  planetPresets: []
+  radius: 0
 --- !u!23 &3048640265980335621
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -34272,6 +34284,8 @@ MonoBehaviour:
   trailRed: []
   trailGreen: []
   trailBlue: []
+  planetPresets: []
+  radius: 0
 --- !u!199 &3146448920272883902
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -39388,7 +39402,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &3294658844376392668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39441,6 +39455,8 @@ MonoBehaviour:
   trailRed: []
   trailGreen: []
   trailBlue: []
+  planetPresets: []
+  radius: 0
 --- !u!114 &3294658844376392669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39556,7 +39572,7 @@ Transform:
   m_GameObject: {fileID: 8614335840512426888}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.001, z: 0}
+  m_LocalPosition: {x: 0.00008622912, y: -0.00010833824, z: -0.0009903674}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -39642,7 +39658,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1993071009272499286}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -39751,7 +39767,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &3800150425701782417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39804,6 +39820,8 @@ MonoBehaviour:
   trailRed: []
   trailGreen: []
   trailBlue: []
+  planetPresets: []
+  radius: 0
 --- !u!114 &3800150425701782418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40102,7 +40120,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9050499098453884825}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -40873,7 +40891,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7796974534168517544}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -45761,6 +45779,8 @@ MonoBehaviour:
   trailRed: []
   trailGreen: []
   trailBlue: []
+  planetPresets: []
+  radius: 0
 --- !u!1 &4589242793765798544
 GameObject:
   m_ObjectHideFlags: 0
@@ -45787,7 +45807,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2835747629547649180}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -45890,7 +45910,7 @@ Transform:
   m_GameObject: {fileID: 7978886630850274176}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.001, z: 0}
+  m_LocalPosition: {x: 0.00008622912, y: -0.00010833824, z: -0.0009903674}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -45945,7 +45965,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 940888550894455644}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -51047,7 +51067,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &5557803753914808474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51100,6 +51120,8 @@ MonoBehaviour:
   trailRed: []
   trailGreen: []
   trailBlue: []
+  planetPresets: []
+  radius: 0
 --- !u!114 &5557803753914808475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51586,6 +51608,8 @@ MonoBehaviour:
   trailRed: []
   trailGreen: []
   trailBlue: []
+  planetPresets: []
+  radius: 0
 --- !u!1 &5692318411685961568
 GameObject:
   m_ObjectHideFlags: 0
@@ -51675,7 +51699,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &5692318412741488100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51728,6 +51752,8 @@ MonoBehaviour:
   trailRed: []
   trailGreen: []
   trailBlue: []
+  planetPresets: []
+  radius: 0
 --- !u!114 &5692318412741488101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52260,7 +52286,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8480868557149589190}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -52402,6 +52428,8 @@ MonoBehaviour:
   trailRed: []
   trailGreen: []
   trailBlue: []
+  planetPresets: []
+  radius: 0
 --- !u!199 &5922833892623923521
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -57358,6 +57386,8 @@ MonoBehaviour:
   trailRed: []
   trailGreen: []
   trailBlue: []
+  planetPresets: []
+  radius: 0
 --- !u!23 &6189388597613577661
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -57365,7 +57395,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2528977936940967590}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -57661,7 +57691,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6905349007287667420
 Transform:
   m_ObjectHideFlags: 0
@@ -57730,6 +57760,8 @@ MonoBehaviour:
   trailRed: []
   trailGreen: []
   trailBlue: []
+  planetPresets: []
+  radius: 0
 --- !u!114 &6905349007287667422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58153,7 +58185,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7008199968130342167}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -58231,7 +58263,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5329748086712766006}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -63424,6 +63456,8 @@ MonoBehaviour:
   trailRed: []
   trailGreen: []
   trailBlue: []
+  planetPresets: []
+  radius: 0
 --- !u!114 &7738495994098486434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63656,7 +63690,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &7977947120253654218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63709,6 +63743,8 @@ MonoBehaviour:
   trailRed: []
   trailGreen: []
   trailBlue: []
+  planetPresets: []
+  radius: 0
 --- !u!114 &7977947120253654219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63971,7 +64007,7 @@ Transform:
   m_GameObject: {fileID: 8480868557149589190}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.00035521778, z: -0.00093460083}
+  m_LocalPosition: {x: 0.000048954676, y: 0.0004364233, z: -0.0008983612}
   m_LocalScale: {x: 1.02, y: 1.02, z: 1.02}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -64100,6 +64136,8 @@ MonoBehaviour:
   trailRed: []
   trailGreen: []
   trailBlue: []
+  planetPresets: []
+  radius: 0
 --- !u!23 &8611719219510133097
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -64107,7 +64145,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5805693484954456001}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -64149,7 +64187,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4589242793765798544}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -74083,7 +74121,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9159674923889768349
 Transform:
   m_ObjectHideFlags: 0
@@ -74152,6 +74190,8 @@ MonoBehaviour:
   trailRed: []
   trailGreen: []
   trailBlue: []
+  planetPresets: []
+  radius: 0
 --- !u!114 &9159674923889768351
 MonoBehaviour:
   m_ObjectHideFlags: 0

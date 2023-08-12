@@ -11,6 +11,7 @@ using SlimUI.ModernMenu;
 public class EditPlanetConfig : MonoBehaviour
 {
     public TMP_InputField PlanetName;
+    
     public GameObject StatBar;
     public Slider MassSlider;
     public Slider OrbitalVelocitySlider;
@@ -22,14 +23,21 @@ public class EditPlanetConfig : MonoBehaviour
     public TextMeshProUGUI OrbitalRadiusValue;
     public TextMeshProUGUI InclinationAngleValue;
     // public TextMeshProUGUI RadiusValue;
+    public TMP_InputField SolarSystemName;
 
     public UIMenuManager MenuManager;
     public int index;
 
     void Start()
     {
+        
+       
         MenuManager = (UIMenuManager)FindObjectOfType(typeof(UIMenuManager));
-        PlanetName.text = "The Solar System";
+        PlanetName.text = "Planet";
+        PlanetName.onValueChanged.AddListener((a) =>
+        {
+            PlanetName.text = a.ToString();
+        });
         PlanetName.onValueChanged.AddListener(delegate { OnDeselectedNameInput(PlanetName.text); });
 
         MassSlider.onValueChanged.AddListener((a) =>
@@ -58,6 +66,14 @@ public class EditPlanetConfig : MonoBehaviour
             InclinationAngleValue.text = "Inclination Angle / (°): " + d.ToString("0");
         });
         InclinationAngleSlider.onValueChanged.AddListener(delegate { OnDeselectedInclinationAngleInput(GetValue(InclinationAngleValue.text)); });
+
+        SolarSystemName.text = "Solar System";
+        SolarSystemName.onValueChanged.AddListener((a) =>
+        {
+            SolarSystemName.text = a.ToString();
+        });
+        SolarSystemName.onValueChanged.AddListener(delegate { OnDeselectedSolarSystemNameInput(SolarSystemName.text); });
+        
     }
 
     public float GetValue(string value)
@@ -67,10 +83,19 @@ public class EditPlanetConfig : MonoBehaviour
         return float.Parse(newValue);
     }
 
+
+    public void HandleInputData(int val)
+    {
+        MenuManager.ChangePlanetPreset(index, val);
+    }
+    public void OnDeselectedSolarSystemNameInput(string input)
+    {
+        MenuManager.ChangeSolarSystemName(index, input);
+
+    }
     public void OnDeselectedNameInput(string input)
     {
-        MenuManager.ChangeName(index, input);
-
+        MenuManager.ChangePlanetName(index, input);
     }
     public void OnDeselectedMassInput(float input)
     {

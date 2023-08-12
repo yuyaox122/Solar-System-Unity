@@ -5,17 +5,19 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System;
+using System.Linq;
 
 public static class SaveAndLoad
 {
-    
+
     public static void SaveName(string name)
     {
         if (!PlayerPrefs.HasKey("!SolarSystemNames!"))
         {
             PlayerPrefs.SetString("!SolarSystemNames!", name);
         }
-        else {
+        else
+        {
             string SolarSystemNames = PlayerPrefs.GetString("!SolarSystemNames!");
             SolarSystemNames = SolarSystemNames + "/" + name;
             PlayerPrefs.SetString("!SolarSystemNames!", SolarSystemNames);
@@ -45,10 +47,29 @@ public static class SaveAndLoad
             buf = stream.ToArray();
         }
         string binary = "";
-        // Debug.Log(newSolarSystem.name);
+        Debug.Log("Current: " + newSolarSystem.name);
         for (int i = 0; i < buf.Length; i++)
             binary += Convert.ToString(buf[i], 2).PadLeft(8, '0'); ;
         // Debug.Log(binary);
+        string[] names = GetNames();
+        while (names.Contains(newSolarSystem.name))
+        {
+            int i = 0;
+            bool result = int.TryParse(newSolarSystem.name[newSolarSystem.name.Length - 1].ToString(), out i);
+            Debug.Log(newSolarSystem.name[newSolarSystem.name.Length - 1]);
+            Debug.Log(result);
+            if (result)
+            {
+                newSolarSystem.name = newSolarSystem.name.Substring(0, newSolarSystem.name.Length - 1);
+                newSolarSystem.name = newSolarSystem.name + (i + 1).ToString();
+                break;
+            }
+            else
+            {
+                newSolarSystem.name = newSolarSystem.name + "2";
+            }
+        }
+        Debug.Log("Changed: " + newSolarSystem.name);
         SaveName(newSolarSystem.name);
         PlayerPrefs.SetString(newSolarSystem.name, binary);
     }
@@ -72,35 +93,38 @@ public static class SaveAndLoad
         return loadedSolarSystem;
     }
 
-    public static void DestroySolarSystem(string name) {
+    public static void DestroySolarSystem(string name)
+    {
         string SolarSystemNames = PlayerPrefs.GetString("!SolarSystemNames!");
         // for(int i = 0; i < SolarSystemNames.Length; i++)
         // {
         //     Debug.Log(SolarSystemNames[i]);
         // }
         string[] names = SolarSystemNames.Split('/');
-        
-        string[] newNames = new string[names.Length-1];
+
+        string[] newNames = new string[names.Length - 1];
         int index = Array.IndexOf(names, name);
         int spot = 0;
         Debug.Log(index);
 
-        for(int i = 0; i < names.Length; i++)
+        for (int i = 0; i < names.Length; i++)
         {
             Debug.Log(names[i]);
         }
         for (int l = 0; l < names.Length; l++)
         {
-            if (l != index){
+            if (l != index)
+            {
                 newNames[spot] = names[l];
                 spot++;
                 // Debug.Log(newNames[index]);
-            names = newNames;
+                names = newNames;
             }
         }
         PlayerPrefs.DeleteKey(name);
-    
-        if (names.Length != 0) {
+
+        if (names.Length != 0)
+        {
             string finishedNames = string.Join("/", names);
             Debug.Log("Finished names: " + finishedNames);
             PlayerPrefs.SetString("!SolarSystemNames!", finishedNames);

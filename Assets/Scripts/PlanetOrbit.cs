@@ -13,7 +13,7 @@ public class PlanetOrbit : MonoBehaviour
     public string solarSystemName;
     public GameObject GameController;
     float G = 6.67e-11f;
-    [SerializeField] Transform Star;
+    public Transform Star;
     PlanetOrbit StarScript;
     public List<string> planets;
     public List<float> masses; // Earth masses
@@ -60,9 +60,11 @@ public class PlanetOrbit : MonoBehaviour
         trailRed = currentSolarSystem.trailRed;
         trailGreen = currentSolarSystem.trailGreen;
         trailBlue = currentSolarSystem.trailBlue;
+        planetPresets = currentSolarSystem.planetPresets;
         solarSystem = transform.parent.gameObject;
         threeDOrbit = solarSystem.GetComponent<SolarSystemProperties>().ThreeDOrbits;
         StarScript = Star.GetComponent<PlanetOrbit>();
+
         if (planet != "Sun")
         {
             timeScale = GameController.GetComponent<EventController>().ReturnTimeScale();
@@ -79,7 +81,7 @@ public class PlanetOrbit : MonoBehaviour
             orbitalPeriod = calculateOrbitalPeriod(mass, starMass, semiMajor);
 
             semiMajor /= 1.496e11f;
-            
+
             // Debug.Log($"{planet}: orbitalPeriod={orbitalPeriod}");
 
             if (logarithmicSizes)
@@ -90,7 +92,7 @@ public class PlanetOrbit : MonoBehaviour
             {
                 radiusScale = radius * 50;
             }
-            
+
             transform.localScale = new Vector3(radiusScale, radiusScale, radiusScale);
             gameObject.AddComponent<TrailRenderer>();
             tr = GetComponent<TrailRenderer>();
@@ -102,7 +104,7 @@ public class PlanetOrbit : MonoBehaviour
             float trailGreen1 = Mathf.Clamp(trailGreen[index] + 0.15f, 0f, 1f);
             float trailBlue1 = Mathf.Clamp(trailBlue[index] + 0.15f, 0f, 1f);
             gradient.SetKeys(
-                new GradientColorKey[] { new GradientColorKey(new Color (trailRed1, trailGreen1, trailBlue1), 0.0f), new GradientColorKey(new Color (trailRed[index], trailBlue[index], trailGreen[index]), 0.0f) },
+                new GradientColorKey[] { new GradientColorKey(new Color(trailRed1, trailGreen1, trailBlue1), 0.0f), new GradientColorKey(new Color(trailRed[index], trailBlue[index], trailGreen[index]), 0.0f) },
                 new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
             );
             tr.colorGradient = gradient;
@@ -144,7 +146,7 @@ public class PlanetOrbit : MonoBehaviour
             }
             orbitalPeriod = calculateOrbitalPeriod(mass, starMass, semiMajor);
             // Debug.Log(planet + " " + orbitalPeriod);
-            
+
             // Debug.Log(tr.time);
             // Debug.Log(planet);
             newTimeScale = GameController.GetComponent<EventController>().ReturnTimeScale() / 1e18f;
@@ -178,7 +180,8 @@ public class PlanetOrbit : MonoBehaviour
                 // UpdatePlanet();
             }
         }
-        else {
+        else
+        {
             if (logarithmicSizes)
             {
                 radiusScale = Mathf.Log(radius, 10) + 1;
@@ -190,116 +193,118 @@ public class PlanetOrbit : MonoBehaviour
         }
     }
 
-public void clearTrails()
-{
-    tr.enabled = false;
-    // Debug.Log("cleared");
-    tr.Clear();
-    tr.enabled = true;
-}
+    public void clearTrails()
+    {
+        tr.enabled = false;
+        // Debug.Log("cleared");
+        tr.Clear();
+        tr.enabled = true;
+    }
 
-float calculateSemiMajor(float m, float M, float r, float v)
-{
-    float mu = G * (m + M);
-    return (mu * r) / (2 * mu - v * v * r);
-}
+    float calculateSemiMajor(float m, float M, float r, float v)
+    {
+        float mu = G * (m + M);
+        return (mu * r) / (2 * mu - v * v * r);
+    }
 
-float calculateEccentricity(float m, float M, float r, float v)
-{
-    float mu = G * (m + M);
-    return Mathf.Sqrt(1-r*r*v*v*(2*mu-v*v*r)/(mu*mu*r));
-}
+    float calculateEccentricity(float m, float M, float r, float v)
+    {
+        float mu = G * (m + M);
+        return Mathf.Sqrt(1 - r * r * v * v * (2 * mu - v * v * r) / (mu * mu * r));
+    }
 
-float calculateR(float a, float epsilon, float theta)
-{
-    return (a * (1 - Mathf.Pow(epsilon, 2f))) / (1 - epsilon * Mathf.Cos(theta));
-}
+    float calculateR(float a, float epsilon, float theta)
+    {
+        return (a * (1 - Mathf.Pow(epsilon, 2f))) / (1 - epsilon * Mathf.Cos(theta));
+    }
 
-float calculateOrbitalPeriod(float m, float M, float a)
-{
-    return Mathf.Sqrt(4 * Mathf.Pow(Mathf.PI, 2f) * Mathf.Pow(a, 3f) / (G * (M + m))) / (365 * 24 * 60 * 60);
-}
+    float calculateOrbitalPeriod(float m, float M, float a)
+    {
+        return Mathf.Sqrt(4 * Mathf.Pow(Mathf.PI, 2f) * Mathf.Pow(a, 3f) / (G * (M + m))) / (365 * 24 * 60 * 60);
+    }
 
-public string getPlanet()
-{
-    return planet;
-}
+    public string getPlanet()
+    {
+        return planet;
+    }
 
-public float getMass()
-{
-    return mass;
-}
+    public float getMass()
+    {
+        return mass;
+    }
 
-public float getSemiMajor()
-{
-    return semiMajor;
-}
+    public float getSemiMajor()
+    {
+        return semiMajor;
+    }
 
-public float getRadius()
-{
-    return radius;
-}
+    public float getRadius()
+    {
+        return radius;
+    }
 
-public float getOrbitalRadius()
-{
-    return orbitalRadius;
-}
+    public float getOrbitalRadius()
+    {
+        return orbitalRadius;
+    }
 
-public float getOrbitalVelocity()
-{
-    return orbitalVelocity;
-}
+    public float getOrbitalVelocity()
+    {
+        return orbitalVelocity;
+    }
 
-public float getInclinationAngle()
-{
-    return inclinationAngle;
-}
+    public float getInclinationAngle()
+    {
+        return inclinationAngle;
+    }
 
-public void changeGameName(string newGameName)
-{
-    solarSystemName = newGameName;
-}
-public void changePlanet(string newPlanet)
-{
-    planet = newPlanet;
-    planets[index] = planet;
-    clearTrails();
-}
+    public void changeGameName(string newGameName)
+    {
+        solarSystemName = newGameName;
+    }
+    public void changePlanet(string newPlanet)
+    {
+        planet = newPlanet;
+        planets[index] = planet;
+        clearTrails();
+    }
 
-public void changeMass(float newMass)
-{
-    mass = newMass;
-    StarScript.masses[index] = mass;
-    clearTrails();
-}
+    public void changeMass(float newMass)
+    {
+        mass = newMass;
+        StarScript.masses[index] = mass;
+        clearTrails();
+    }
 
-public void changeRadius(float newRadius)
-{
-    radius = newRadius;
-    StarScript.radii[index] = radius;
-    clearTrails();
-}
+    public void changeRadius(float newRadius)
+    {
+        radius = newRadius;
+        StarScript.radii[index] = radius;
+        clearTrails();
+    }
 
-public void changeOrbitalRadius(float newOrbitalRadius)
-{
-    Debug.Log("Radius changing");
-    orbitalRadius = newOrbitalRadius;
-    StarScript.orbitalRadii[index] = orbitalRadius;
-    clearTrails();
-}
+    public void changeOrbitalRadius(float newOrbitalRadius)
+    {
+        Debug.Log("Radius changing");
+        orbitalRadius = newOrbitalRadius;
+        StarScript.orbitalRadii[index] = orbitalRadius;
+        clearTrails();
+    }
 
-public void changeOrbitalVelocity(float newOrbitalVelocity)
-{
-    Debug.Log("Velocity changing");
-    orbitalVelocity = newOrbitalVelocity;
-    StarScript.orbitalVelocities[index] = orbitalVelocity;
-    clearTrails();
-}
+    public void changeOrbitalVelocity(float newOrbitalVelocity)
+    {
+        Debug.Log("Velocity changing");
+        orbitalVelocity = newOrbitalVelocity;
+        StarScript.orbitalVelocities[index] = orbitalVelocity;
+        clearTrails();
+    }
 
-public void changeInclinationAngle(float newInclinationAngle)
-{
-    inclinationAngle = newInclinationAngle;
-    StarScript.inclinationAngles[index] = inclinationAngle;
-    clearTrails();
-}
+    public void changeInclinationAngle(float newInclinationAngle)
+    {
+        inclinationAngle = newInclinationAngle;
+        StarScript.inclinationAngles[index] = inclinationAngle;
+        clearTrails();
+    }
+
+   
 }
