@@ -22,60 +22,71 @@ public class DisplayStats : MonoBehaviour
     PlanetOrbit SunScript;
     PlanetOrbit currentPlanetScript;
 
-    // void Start()
-    // {
-    //     SunScript = Sun.GetComponent<PlanetOrbit>();
-    //     StatBar.SetActive(false);
-    //     MassStat.onValueChanged.AddListener(delegate{OnDeselectedMassInput(GetValue(MassValue.text));});
-    //     MassStat.onValueChanged.AddListener((a) => {
-    //         MassValue.text = "Mass / M: " + a.ToString("0.00");
-    //     });
-    //
-    //     OrbitalRadiusStat.onValueChanged.AddListener(delegate{OnDeselectedOrbitalRadiusInput(GetValue(OrbitalRadiusValue.text));});
-    //     OrbitalRadiusStat.onValueChanged.AddListener((b) => {
-    //         OrbitalRadiusValue.text = "Perihelion distance / AU: " + b.ToString("0.00");
-    //     });
-    //     
-    //     
-    //     OrbitalVelocityStat.onValueChanged.AddListener(delegate{OnDeselectedOrbitalVelocityInput(GetValue(OrbitalVelocityValue.text));});
-    //     OrbitalVelocityStat.onValueChanged.AddListener((b) => {
-    //         OrbitalVelocityValue.text = "Perihelion velocity / km/s: " + b.ToString("0.00");
-    //     });
-    // }
-    //
-    // void Update()
-    // {
-    //     if (Input.GetMouseButton(0))
-    //     {
-    //         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //         RaycastHit hitInfo;
-    //         MassStat.minValue = 0.01f;
-    //         MassStat.maxValue = 500;
-    //         OrbitalRadiusStat.minValue = 0.01f;
-    //         OrbitalRadiusStat.maxValue = 500;
-    //         if (Physics.Raycast(ray, out hitInfo)) {
-    //             // Debug.Log(hitInfo.collider.gameObject.name);
-    //             if (hitInfo.collider.GetComponent<PlanetOrbit>()) {
-    //                 StatBar.SetActive(true);
-    //                 currentPlanetScript = hitInfo.collider.GetComponent<PlanetOrbit>();
-    //                 if (currentPlanetScript.planet != "Sun") {
-    //                     string PlanetName = currentPlanetScript.getPlanet();
-    //                     Title.text = PlanetName;
-    //                     float Mass = currentPlanetScript.getMass();
-    //                     MassValue.text = "Mass / M: " + Mass.ToString();
-    //                     MassStat.value = Mass;
-    //                     float OrbitalRadius = currentPlanetScript.getOrbitalRadius();
-    //                     OrbitalRadiusValue.text = "Orbital radius / AU: " + OrbitalRadius.ToString();
-    //                     OrbitalRadiusStat.value = OrbitalRadius;
-    //                     float OrbitalVelocity = currentPlanetScript.getOrbitalVelocity();
-    //                     OrbitalVelocityValue.text = "Orbital velocity / km/s: " + OrbitalVelocity.ToString();
-    //                     OrbitalVelocityStat.value = OrbitalVelocity;
-    //                     string Radius = currentPlanetScript.getRadius().ToString();
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
+    void Start()
+    {
+        SunScript = Sun.GetComponent<PlanetOrbit>();
+        StatBar.SetActive(false);
+        
+        MassStat.onValueChanged.AddListener(delegate{OnDeselectedMassInput(GetValue(MassValue.text));});
+        MassStat.onValueChanged.AddListener(a => {
+            MassValue.text = "Mass / M: " + a.ToString("0.00");
+        });
+    
+        OrbitalRadiusStat.onValueChanged.AddListener(delegate{OnDeselectedOrbitalRadiusInput(GetValue(OrbitalRadiusValue.text));});
+        OrbitalRadiusStat.onValueChanged.AddListener(b => {
+            OrbitalRadiusValue.text = "Perihelion distance / AU: " + b.ToString("0.00");
+        });
+        
+        
+        OrbitalVelocityStat.onValueChanged.AddListener(delegate{OnDeselectedOrbitalVelocityInput(GetValue(OrbitalVelocityValue.text));});
+        OrbitalVelocityStat.onValueChanged.AddListener(c => {
+            OrbitalVelocityValue.text = "Perihelion velocity / km/s: " + c.ToString("0.00");
+        });
+    }
+    
+    void Update()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hitInfo;
+            
+            MassStat.minValue = 0.05f;
+            MassStat.maxValue = 500;
+            
+            OrbitalRadiusStat.minValue = 0.5f;
+            OrbitalRadiusStat.maxValue = 50;
+            
+            OrbitalVelocityStat.minValue = 5f;
+            OrbitalVelocityStat.maxValue = 100f;
+            
+            if (Physics.Raycast(ray, out hitInfo)) {
+                // Debug.Log(hitInfo.collider.gameObject.name);
+                if (hitInfo.collider.GetComponent<PlanetOrbit>()) {
+                    StatBar.SetActive(true);
+                    currentPlanetScript = hitInfo.collider.GetComponent<PlanetOrbit>();
+                    if (currentPlanetScript.planet != "Sun") {
+                        string PlanetName = currentPlanetScript.getPlanet();
+                        Title.text = PlanetName;
+                        
+                        float Mass = currentPlanetScript.getMass();
+                        MassValue.text = "Mass / M: " + Mass;
+                        MassStat.value = Mass;
+                        
+                        float OrbitalRadius = currentPlanetScript.getOrbitalRadius();
+                        OrbitalRadiusValue.text = "Orbital radius / AU: " + OrbitalRadius;
+                        OrbitalRadiusStat.value = OrbitalRadius;
+                        
+                        float OrbitalVelocity = currentPlanetScript.getOrbitalVelocity();
+                        OrbitalVelocityValue.text = "Orbital velocity / km/s: " + OrbitalVelocity;
+                        OrbitalVelocityStat.value = OrbitalVelocity;
+                        
+                        string Radius = currentPlanetScript.getRadius().ToString();
+                    }
+                }
+            }
+        }
+    }
 
     public void PlanetSelected(string planet) {
         currentPlanetScript = GameObject.Find(planet).GetComponent<PlanetOrbit>();

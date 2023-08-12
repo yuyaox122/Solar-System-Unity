@@ -281,6 +281,7 @@ public void changeRadius(float newRadius)
 
 public void changeOrbitalRadius(float newOrbitalRadius)
 {
+    Debug.Log("Radius changing");
     orbitalRadius = newOrbitalRadius;
     StarScript.orbitalRadii[index] = orbitalRadius;
     clearTrails();
@@ -288,6 +289,7 @@ public void changeOrbitalRadius(float newOrbitalRadius)
 
 public void changeOrbitalVelocity(float newOrbitalVelocity)
 {
+    Debug.Log("Velocity changing");
     orbitalVelocity = newOrbitalVelocity;
     StarScript.orbitalVelocities[index] = orbitalVelocity;
     clearTrails();
