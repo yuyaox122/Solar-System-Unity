@@ -5142,8 +5142,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sensitivity: 3
-  _speed: 100
-  jump_strength: 100
+  _speed: 500
+  jump_strength: 500
 --- !u!114 &1479142259
 MonoBehaviour:
   m_ObjectHideFlags: 0

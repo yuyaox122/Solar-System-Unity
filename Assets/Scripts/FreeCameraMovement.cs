@@ -53,16 +53,18 @@ public class FreeCameraMovement : MonoBehaviour
             
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        transform.position += vertical * _speed * Time.deltaTime * transform.forward;
-        transform.Translate(horizontal * _speed * Time.deltaTime, 0f, 0f);
+        // using transform.Translate performs the action locally as opposed to globally, so the camera
+        // rotates according to localEulerAngles. Use transform.position += instead.
+        transform.position += vertical * _speed * Time.deltaTime * new Vector3(transform.forward.x, 0, transform.forward.z).normalized;
+        // transform.position += new Vector3(horizontal * _speed * Time.deltaTime, 0f, 0f);
         
 
         if (Input.GetKey(KeyCode.Space)) {  
-            transform.Translate(0f, jump_strength * Time.deltaTime, 0f);
+            transform.position += new Vector3(0f, jump_strength * Time.deltaTime, 0f);
         }
 
         if (Input.GetKey(KeyCode.LeftShift)) {  
-            transform.Translate(0f, -jump_strength * Time.deltaTime, 0f);
+            transform.position += new Vector3(0f, -jump_strength * Time.deltaTime, 0f);
         }
     }
 }

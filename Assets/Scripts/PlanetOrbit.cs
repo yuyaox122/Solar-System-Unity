@@ -79,7 +79,7 @@ public class PlanetOrbit : MonoBehaviour
 
             semiMajor /= 1.496e11f;
             
-            Debug.Log($"{planet}: orbitalPeriod={orbitalPeriod}");
+            // Debug.Log($"{planet}: orbitalPeriod={orbitalPeriod}");
 
             if (logarithmicSizes)
             {
@@ -147,12 +147,12 @@ public class PlanetOrbit : MonoBehaviour
             // Debug.Log(tr.time);
             // Debug.Log(planet);
             newTimeScale = GameController.GetComponent<EventController>().ReturnTimeScale() / 1e18f;
-            Debug.Log("new: " + newTimeScale);
-            Debug.Log("old: " + timeScale);
+            // Debug.Log("new: " + newTimeScale);
+            // Debug.Log("old: " + timeScale);
             if (newTimeScale != timeScale)
             {
                 timeScale = newTimeScale;
-                Debug.Log("new timescale");
+                // Debug.Log("new timescale");
                 clearTrails();
             }
             tr.time = orbitalPeriod / timeScale;

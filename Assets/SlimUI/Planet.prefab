@@ -542,7 +542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Title: {fileID: 3590770133647406069}
-  Camera: {fileID: 0}
+  FollowText: {fileID: 6280231734550519726}
 --- !u!1 &7718397565881810035
 GameObject:
   m_ObjectHideFlags: 0
