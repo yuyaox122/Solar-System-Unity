@@ -17,7 +17,7 @@ public class FollowPlanet : MonoBehaviour
         MainCamera = Camera.main;
         FreeScript = MainCamera.GetComponent<FreeCameraMovement>();
         SphericalScript = MainCamera.GetComponent<SphericalCameraMovement>();
-        active = false;
+        active = false; 
     }
 
     // Update is called once per frame

@@ -29,7 +29,7 @@ public class PlanetOrbit : MonoBehaviour
     bool logarithmicSizes = false;
     bool logarithmicOrbits = false;
     float mass; // Earth masses
-    float radius; // Earth radii
+    public float radius; // Earth radii
     float orbitalRadius; // AU
     float orbitalVelocity; // km/s
     float inclinationAngle;
@@ -80,7 +80,7 @@ public class PlanetOrbit : MonoBehaviour
 
             semiMajor /= 1.496e11f;
             
-            Debug.Log($"{planet}: orbitalPeriod={orbitalPeriod}");
+            // Debug.Log($"{planet}: orbitalPeriod={orbitalPeriod}");
 
             if (logarithmicSizes)
             {
@@ -148,12 +148,12 @@ public class PlanetOrbit : MonoBehaviour
             // Debug.Log(tr.time);
             // Debug.Log(planet);
             newTimeScale = GameController.GetComponent<EventController>().ReturnTimeScale() / 1e18f;
-            Debug.Log("new: " + newTimeScale);
-            Debug.Log("old: " + timeScale);
+            // Debug.Log("new: " + newTimeScale);
+            // Debug.Log("old: " + timeScale);
             if (newTimeScale != timeScale)
             {
                 timeScale = newTimeScale;
-                Debug.Log("new timescale");
+                // Debug.Log("new timescale");
                 clearTrails();
             }
             tr.time = orbitalPeriod / timeScale;
@@ -282,6 +282,7 @@ public void changeRadius(float newRadius)
 
 public void changeOrbitalRadius(float newOrbitalRadius)
 {
+    Debug.Log("Radius changing");
     orbitalRadius = newOrbitalRadius;
     StarScript.orbitalRadii[index] = orbitalRadius;
     clearTrails();
@@ -289,6 +290,7 @@ public void changeOrbitalRadius(float newOrbitalRadius)
 
 public void changeOrbitalVelocity(float newOrbitalVelocity)
 {
+    Debug.Log("Velocity changing");
     orbitalVelocity = newOrbitalVelocity;
     StarScript.orbitalVelocities[index] = orbitalVelocity;
     clearTrails();

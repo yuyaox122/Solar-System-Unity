@@ -8,7 +8,7 @@ public class SphericalCameraMovement : MonoBehaviour
  
     float mouseRotationSpeed = 1f;
     float keysRotationSpeed = 3f;
-    float r = 1000f;
+    float r = 3000f;
     float scrollSpeed = 100f;
  
     Vector3 last = new Vector3();
@@ -21,8 +21,8 @@ public class SphericalCameraMovement : MonoBehaviour
     {
         target_position = target.position;
         sc = new Vector3 (r * 10, 0.0f, 1.0f);
-        this.transform.position = getCartesianCoordinates(sc);
-        this.transform.LookAt (target_position);
+        transform.position = getCartesianCoordinates(sc);
+        transform.LookAt (target_position);
     }
  
     Vector3 getSphericalCoordinates(Vector3 cartesian)
@@ -93,7 +93,7 @@ public class SphericalCameraMovement : MonoBehaviour
 
         transform.position = getCartesianCoordinates (sc) + target_position;
 
-        transform.LookAt (target_position);
+        transform.LookAt(target_position);
 
         last = Input.mousePosition;
     }
