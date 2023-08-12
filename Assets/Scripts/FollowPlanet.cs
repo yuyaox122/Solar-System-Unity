@@ -17,8 +17,7 @@ public class FollowPlanet : MonoBehaviour
         MainCamera = Camera.main;
         FreeScript = MainCamera.GetComponent<FreeCameraMovement>();
         SphericalScript = MainCamera.GetComponent<SphericalCameraMovement>();
-        active = false;
-        offset = new Vector3(500, 500, 500);
+        active = false; 
     }
 
     // Update is called once per frame
@@ -26,6 +25,8 @@ public class FollowPlanet : MonoBehaviour
     {
         if (active)
         {
+            offset =  new Vector3(200, 200, 200) * target.GetComponent<PlanetOrbit>().radius / 0.383f;
+            // Debug.Log(target.GetComponent<PlanetOrbit>().radius);
             transform.position = target.position + offset;
             transform.LookAt(target);
             FreeScript.enabled = false;

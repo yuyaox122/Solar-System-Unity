@@ -28,7 +28,7 @@ public class PlanetOrbit : MonoBehaviour
     bool logarithmicSizes = false;
     bool logarithmicOrbits = false;
     float mass; // Earth masses
-    float radius; // Earth radii
+    public float radius; // Earth radii
     float orbitalRadius; // AU
     float orbitalVelocity; // km/s
     float inclinationAngle;
