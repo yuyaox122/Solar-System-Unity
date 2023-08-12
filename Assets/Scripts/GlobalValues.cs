@@ -30,7 +30,7 @@ public class EventController : MonoBehaviour
         PlanetOrbit planetOrbit = Sun.GetComponent<PlanetOrbit>();
         Debug.Log("Current Name: " + planetOrbit.solarSystemName);
         SaveAndLoad.SaveSolarSystem(new SolarSystem(planetOrbit.solarSystemName, planetOrbit.planets, planetOrbit.masses, planetOrbit.radii, planetOrbit.orbitalRadii, planetOrbit.orbitalVelocities, 
-            planetOrbit.inclinationAngles, planetOrbit.trailRed, planetOrbit.trailGreen, planetOrbit.trailBlue));
+            planetOrbit.inclinationAngles, planetOrbit.trailRed, planetOrbit.trailGreen, planetOrbit.trailBlue, planetOrbit.planetPresets));
         SaveAndLoad.DestroySolarSystem(PlayerPrefs.GetString("!ActiveSolarSystem!"));
         Debug.Log("The names: " + PlayerPrefs.GetString("!SolarSystemNames!"));
         SceneManager.LoadScene(0);
@@ -52,9 +52,10 @@ public struct SolarSystem
         public List<float> trailRed;
         public List<float> trailGreen;
         public List<float> trailBlue;
+        public List<string> planetPresets;
 
         public SolarSystem(string name, List<string> planets, List<float> masses, List<float> radii, List<float> orbitalRadii,
-        List<float> orbitalVelocities, List<float> inclinationAngles, List<float> trailRed, List<float> trailGreen, List<float> trailBlue) {
+        List<float> orbitalVelocities, List<float> inclinationAngles, List<float> trailRed, List<float> trailGreen, List<float> trailBlue, List<string> planetPresets) {
             this.name = name;
             this.planets = planets;
             this.masses = masses;
@@ -65,5 +66,6 @@ public struct SolarSystem
             this.trailRed = trailRed;
             this.trailGreen = trailGreen;
             this.trailBlue = trailBlue;
+            this.planetPresets = planetPresets;
         }
     }

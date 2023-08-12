@@ -12,7 +12,7 @@ namespace SlimUI.ModernMenu
 
 	public class UIMenuManager : MonoBehaviour
 	{
-		public List<string> planets = new List<string> { "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto" };
+		public List<string> planets = new List<string> { "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune" };
 		public List<float> masses = new List<float> { 0.0553f, 0.815f, 1.000f, 0.107f, 317.83f, 95.16f, 14.54f, 17.15f, 0.0022f }; // Earth masses
 		public List<float> radii = new List<float> { 0.383f, 0.949f, 1.000f, 0.533f, 11.209f, 9.449f, 4.007f, 3.883f, 0.187f }; // Earth radii
 		public List<float> orbitalRadii = new List<float> { 0.307f, 0.718f, 0.983f, 1.381f, 4.951f, 9.075f, 18.267f, 29.887f, 29.646f };
@@ -21,6 +21,7 @@ namespace SlimUI.ModernMenu
 		public List<float> trailRed = new List<float> { 0.639f, 0.678f, 0.000f, 0.557f, 0.588f, 0.443f, 0.376f, 0.127f, 0.761f };
 		public List<float> trailGreen = new List<float> { 0.416f, 0.329f, 0.278f, 0.067f, 0.365f, 0.408f, 0.522f, 0.179f, 0.643f };
 		public List<float> trailBlue = new List<float> { 0.078f, 0.000f, 0.522f, 0.000f, 0.024f, 0.247f, 0.545f, 0.429f, 0.576f };
+		public List<string> planetPresets = new List<string> { "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune" };
 		public List<int> indexes = new List<int>();
 		// {
 		// 	{new Color (0.639f, 0.416f, 0.078f), new Color (0.839f, 0.616f, 0.278f)},
@@ -135,7 +136,7 @@ namespace SlimUI.ModernMenu
 				Debug.Log(PlayerPrefs.GetString("!SolarSystemNames!"));
 				PlayerPrefs.SetString("!DefaultSolarSystem!", "1");
 				SaveAndLoad.SaveSolarSystem(new SolarSystem("The Solar System", planets, masses, radii, orbitalRadii, orbitalVelocities, inclinationAngles,
-				trailRed, trailGreen, trailBlue));
+				trailRed, trailGreen, trailBlue, planetPresets));
 			}
 		}
 
@@ -368,19 +369,26 @@ namespace SlimUI.ModernMenu
 
 		public void ChangeMass(int index, float newMass)
 		{
-			GameObject current = PlanetsList.transform.GetChild(index + 1).gameObject;
 			newGame.masses[index] = newMass;
 			Debug.Log($"[{string.Join(",", newGame.masses)}]");
 		}
 
 		public void ChangeOrbitalVelocity(int index, float newOrbitalVelocity)
 		{
-			GameObject current = PlanetsList.transform.GetChild(index + 1).gameObject;
 			newGame.orbitalVelocities[index] = newOrbitalVelocity;
-			foreach (var x in newGame.orbitalVelocities)
-			{
-				Debug.Log("ORBITAL VELOCITY: " + x.ToString());
-			}
+			Debug.Log($"[{string.Join(",", newGame.orbitalVelocities)}]");
+		}
+
+		public void ChangeOrbitalRadius(int index, float newOrbitalRadius)
+		{
+			newGame.orbitalRadii[index] = newOrbitalRadius;
+			Debug.Log($"[{string.Join(",", newGame.orbitalRadii)}]");
+		}
+
+		public void ChangeInclinationAngle(int index, float newInclinationAngle)
+		{
+			newGame.inclinationAngles[index] = newInclinationAngle;
+			Debug.Log($"[{string.Join(",", newGame.inclinationAngles)}]");
 		}
 
 		public void DestroyPlanetConfigs()
@@ -393,7 +401,7 @@ namespace SlimUI.ModernMenu
 				}
 			}
 			newGame = new SolarSystem("Solar System", new List<string>(), new List<float>(), new List<float>(), new List<float>(), new List<float>(), new List<float>(),
-			new List<float>(), new List<float>(), new List<float>());
+			new List<float>(), new List<float>(), new List<float>(), new List<string>());
 		}
 
 		public void DestroyPlanetConfig(int destroyIndex)
@@ -422,7 +430,7 @@ namespace SlimUI.ModernMenu
 					Debug.Log("Value: " + i);
 					GameObject z = PlanetsList.transform.GetChild(indexes[i] + 1).gameObject;
 					z.GetComponent<LoadEditPanel>().index -= 1;
-					indexes[i] = indexes[i] - 1;
+					indexes[i] = indexes[i] - 1;	
 				}
 			}
 			foreach (var x in indexes)
@@ -459,23 +467,27 @@ namespace SlimUI.ModernMenu
 			newGame.trailRed.Add(0.5f);
 			newGame.trailGreen.Add(0.5f);
 			newGame.trailBlue.Add(0.5f);
+			Debug.Log($"[{string.Join(",", newGame.masses)}]");
 		}
 		public void EditPlanet(int newIndex)
 		{
 			EditMenu.SetActive(true);
 			EditPlanetConfig editPlanetConfig = EditMenu.GetComponent<EditPlanetConfig>();
 			editPlanetConfig.index = newIndex;
-			editPlanetConfig.PlanetName.text = "";
-			editPlanetConfig.MassSlider.value = 0.05f;
-			editPlanetConfig.OrbitalVelocitySlider.value = 5f;
-			// OrbitalRadiusSlider.value = OrbitalRadiusSlider.minValue;
-			// InclinationAngleSlider.value = InclinationAngleSlider.minValue;
-			editPlanetConfig.MassValue.text = "Mass / (Earth M): 0.05";
-			// OrbitalVelocityValue.text = "Orbital Radius / (AU): 0.5";
-			editPlanetConfig.OrbitalRadiusValue.text = "Orbital Velocity / (km/s): 5";
-			// InclinationAngleValue.text = "Inclination Angle / (°): 0";
+			Debug.Log($"[{string.Join(",", newGame.masses)}]");
+			editPlanetConfig.PlanetName.text = newGame.planets[newIndex];
+			editPlanetConfig.MassSlider.value = newGame.masses[newIndex];
+			editPlanetConfig.OrbitalRadiusSlider.value = newGame.radii[newIndex];
+			editPlanetConfig.OrbitalVelocitySlider.value = newGame.orbitalVelocities[newIndex];
+			editPlanetConfig.InclinationAngleSlider.value = newGame.inclinationAngles[newIndex];
+
+			editPlanetConfig.MassValue.text = "Mass / (Earth M): " + newGame.masses[newIndex].ToString();
+			editPlanetConfig.OrbitalRadiusValue.text = "Orbital Radius / (AU): " + newGame.orbitalRadii[newIndex].ToString();
+			editPlanetConfig.OrbitalVelocityValue.text = "Orbital Velocity / (km/s): " + newGame.orbitalVelocities[newIndex].ToString();
+			editPlanetConfig.InclinationAngleValue.text = "Inclination Angle / (°): " + newGame.inclinationAngles[newIndex].ToString();
 			NewGame.SetActive(false);
 			Debug.Log("Edit called");
+			Debug.Log(newIndex);
 		}
 
 		public void CloseEditPlanet()
@@ -508,7 +520,11 @@ namespace SlimUI.ModernMenu
 				}
 			}
 		}
-
+		
+		public void CreateButtonClicked() {
+			SaveAndLoad.SaveSolarSystem(newGame);
+			NewGameMenu();
+		}
 
 		public void TestSaveAndLoad()
 		{

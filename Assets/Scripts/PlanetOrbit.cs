@@ -24,6 +24,7 @@ public class PlanetOrbit : MonoBehaviour
     public List<float> trailRed;
     public List<float> trailGreen;
     public List<float> trailBlue;
+    public List<string> planetPresets;
     private float t;
     bool logarithmicSizes = false;
     bool logarithmicOrbits = false;
