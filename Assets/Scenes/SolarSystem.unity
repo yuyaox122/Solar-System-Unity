@@ -4733,12 +4733,10 @@ MonoBehaviour:
   Title: {fileID: 313000526}
   MassSlider: {fileID: 1586325482}
   OrbitalRadiusSlider: {fileID: 1336412220}
-  OrbitalVelocitySlider: {fileID: 0}
   InclinationAngleSlider: {fileID: 719092287}
   Sun: {fileID: 1983439763308622408}
   MassValue: {fileID: 620738328}
   OrbitalRadiusValue: {fileID: 820563221}
-  OrbitalVelocityValue: {fileID: 0}
   InclinationAngleValue: {fileID: 1193549234}
 --- !u!114 &1479142258
 MonoBehaviour:
@@ -39600,7 +39598,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 3975267251816142883}
   m_Direction: 0
   m_MinValue: 0.1
-  m_MaxValue: 2
+  m_MaxValue: 20
   m_WholeNumbers: 0
   m_Value: 1
   m_OnValueChanged:

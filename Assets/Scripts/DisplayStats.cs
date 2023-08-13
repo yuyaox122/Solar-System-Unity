@@ -14,12 +14,12 @@ public class DisplayStats : MonoBehaviour
     [SerializeField] TMP_Text Title;
     [SerializeField] Slider MassSlider;
     [SerializeField] Slider OrbitalRadiusSlider;
-    [SerializeField] Slider OrbitalVelocitySlider;
+    // [SerializeField] Slider OrbitalVelocitySlider;
     [SerializeField] Slider InclinationAngleSlider;
     [SerializeField] Transform Sun;
     [SerializeField] TextMeshProUGUI MassValue;
-    [SerializeField] TextMeshProUGUI OrbitalRadiusValue;
-    [SerializeField] TextMeshProUGUI OrbitalVelocityValue;
+    [SerializeField] TextMeshProUGUI OrbitalRadiusValue; 
+    // [SerializeField] TextMeshProUGUI OrbitalVelocityValue;
     [SerializeField] TextMeshProUGUI InclinationAngleValue;
     PlanetOrbit SunScript;
     PlanetOrbit currentPlanetScript;
@@ -43,11 +43,11 @@ public class DisplayStats : MonoBehaviour
         OrbitalRadiusSlider.onValueChanged.AddListener(delegate { OnDeselectedOrbitalRadiusInput(GetValue(OrbitalRadiusValue.text)); });
 
 
-        OrbitalVelocitySlider.onValueChanged.AddListener((b) =>
-        {
-            OrbitalVelocityValue.text = "Orbital Velocity / (km/s): " + b.ToString("0.00");
-        });
-        OrbitalVelocitySlider.onValueChanged.AddListener(delegate { OnDeselectedOrbitalVelocityInput(GetValue(OrbitalVelocityValue.text)); });
+        // OrbitalVelocitySlider.onValueChanged.AddListener((b) =>
+        // {
+        //     OrbitalVelocityValue.text = "Orbital Velocity / (km/s): " + b.ToString("0.00");
+        // });
+        // OrbitalVelocitySlider.onValueChanged.AddListener(delegate { OnDeselectedOrbitalVelocityInput(GetValue(OrbitalVelocityValue.text)); });
 
 
         InclinationAngleSlider.onValueChanged.AddListener((d) =>
@@ -71,8 +71,8 @@ public class DisplayStats : MonoBehaviour
             OrbitalRadiusSlider.minValue = 0.5f;
             OrbitalRadiusSlider.maxValue = 50;
 
-            OrbitalVelocitySlider.minValue = 5f;
-            OrbitalVelocitySlider.maxValue = 100f;
+            // OrbitalVelocitySlider.minValue = 5f;
+            // OrbitalVelocitySlider.maxValue = 100f;
 
             InclinationAngleSlider.minValue = -180f;
             InclinationAngleSlider.maxValue = 180f;
@@ -86,7 +86,6 @@ public class DisplayStats : MonoBehaviour
                     currentPlanetScript = hitInfo.collider.GetComponent<PlanetOrbit>();
                     if (currentPlanetScript.planet != "Sun")
                     {
-                        Debug.Log(currentPlanetScript.planet);
                         string PlanetName = currentPlanetScript.getPlanet();
                         Title.text = PlanetName;
 
@@ -98,13 +97,13 @@ public class DisplayStats : MonoBehaviour
                         OrbitalRadiusValue.text = "Orbital radius / AU: " + OrbitalRadius;
                         OrbitalRadiusSlider.value = OrbitalRadius;
 
-                        float OrbitalVelocity = currentPlanetScript.getOrbitalVelocity();
-                        OrbitalVelocityValue.text = "Orbital velocity / km/s: " + OrbitalVelocity;
-                        OrbitalVelocitySlider.value = OrbitalVelocity;
+                        // float OrbitalVelocity = currentPlanetScript.getOrbitalVelocity();
+                        // OrbitalVelocityValue.text = "Orbital velocity / km/s: " + OrbitalVelocity;
+                        // OrbitalVelocitySlider.value = OrbitalVelocity;
 
-                        float InclinationAngle = currentPlanetScript.getOrbitalVelocity();
-                        InclinationAngleValue.text = "Orbital velocity / km/s: " + OrbitalVelocity;
-                        InclinationAngleSlider.value = OrbitalVelocity;
+                        float InclinationAngle = currentPlanetScript.getInclinationAngle();
+                        InclinationAngleValue.text = "Inclination Angle / °: " + InclinationAngle;
+                        InclinationAngleSlider.value = InclinationAngle;
 
                         string Radius = currentPlanetScript.getRadius().ToString();
                     }
@@ -119,17 +118,17 @@ public class DisplayStats : MonoBehaviour
         StatBar.SetActive(true);
         string PlanetName = currentPlanetScript.getPlanet();
         Title.text = PlanetName;
-        float Mass = currentPlanetScript.getMass();
-        MassValue.text = "Mass / M: " + Mass.ToString();
+        float Mass = currentPlanetScript.getMass()  / 5.972e24f;
+        MassValue.text = "Mass / M: " + Mass;
         MassSlider.value = Mass;
-        float OrbitalRadius = currentPlanetScript.getOrbitalRadius();
-        OrbitalRadiusValue.text = "Orbital Radius / (AU): " + OrbitalRadius.ToString();
+        float OrbitalRadius = currentPlanetScript.getOrbitalRadius() / 1.496e11f;
+        OrbitalRadiusValue.text = "Orbital Radius / (AU): " + OrbitalRadius;
         OrbitalRadiusSlider.value = OrbitalRadius;
-        float OrbitalVelocity = currentPlanetScript.getOrbitalVelocity();
-        OrbitalVelocityValue.text = "Orbital Velocity / (km/s): " + OrbitalVelocity.ToString();
-        OrbitalVelocitySlider.value = OrbitalVelocity;
+        // float OrbitalVelocity = currentPlanetScript.getOrbitalVelocity();
+        // OrbitalVelocityValue.text = "Orbital Velocity / (km/s): " + OrbitalVelocity;
+        // OrbitalVelocitySlider.value = OrbitalVelocity;
         float InclinationAngle = currentPlanetScript.getInclinationAngle();
-        InclinationAngleValue.text = "Inclination Angle / (°): " + InclinationAngle.ToString();
+        InclinationAngleValue.text = "Inclination Angle / (°): " + InclinationAngle;
         InclinationAngleSlider.value = InclinationAngle;
     }
 

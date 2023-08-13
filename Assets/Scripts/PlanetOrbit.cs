@@ -129,6 +129,11 @@ public class PlanetOrbit : MonoBehaviour
 
             transform.localScale = new Vector3(radiusScale, radiusScale, radiusScale);
         }
+
+        if (planet == "Earth")
+        {
+            Debug.Log($"Earth - eccentricity: {eccentricity}, semiMajor: {semiMajor}");
+        }
     }
 
     // Update is called once per frame
@@ -267,10 +272,9 @@ public class PlanetOrbit : MonoBehaviour
     {
         mass = newMass * 5.972e24f;
         StarScript.masses[index] = mass;
-        eccentricity = calculateEccentricity(newMass, starMass, orbitalRadius * 1.496e11f, orbitalVelocity);
-        semiMajor = calculateSemiMajor(newMass, starMass, orbitalRadius * 1.496e11f, orbitalVelocity);
-        orbitalPeriod = calculateOrbitalPeriod(newMass, starMass, semiMajor);
-        // Debug.Log($"newMass: {mass}, newEccentricity: {eccentricity}, radius: {orbitalRadius * 1.496e11f}, velocity: {orbitalVelocity}");
+        eccentricity = calculateEccentricity(mass, starMass, orbitalRadius, orbitalVelocity);
+        semiMajor = calculateSemiMajor(mass, starMass, orbitalRadius, orbitalVelocity) /  1.496e11f;
+        Debug.Log($"newMass: {mass}, newEccentricity: {eccentricity}, newSemiMajor={semiMajor}");
         clearTrails();
     }
 
@@ -278,6 +282,9 @@ public class PlanetOrbit : MonoBehaviour
     {
         radius = newRadius;
         StarScript.radii[index] = radius;
+        eccentricity = calculateEccentricity(mass, starMass, orbitalRadius, orbitalVelocity);
+        semiMajor = calculateSemiMajor(mass, starMass, orbitalRadius, orbitalVelocity) /  1.496e11f;
+        Debug.Log($"newMass: {mass}, newEccentricity: {eccentricity}, newSemiMajor={semiMajor}");
         clearTrails();
     }
 
@@ -285,6 +292,9 @@ public class PlanetOrbit : MonoBehaviour
     {
         orbitalRadius = newOrbitalRadius * 1.496e11f;
         StarScript.orbitalRadii[index] = orbitalRadius;
+        eccentricity = calculateEccentricity(mass, starMass, orbitalRadius, orbitalVelocity);
+        semiMajor = calculateSemiMajor(mass, starMass, orbitalRadius, orbitalVelocity) /  1.496e11f;
+        Debug.Log($"newMass: {mass}, newEccentricity: {eccentricity}, newSemiMajor={semiMajor}");
         clearTrails();
     }
 
