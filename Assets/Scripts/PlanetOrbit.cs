@@ -12,6 +12,7 @@ public class PlanetOrbit : MonoBehaviour
     public string planet;
     public string solarSystemName;
     public GameObject GameController;
+    string explore;
     float G = 6.67e-11f;
     public Transform Star;
     PlanetOrbit StarScript;
@@ -50,6 +51,7 @@ public class PlanetOrbit : MonoBehaviour
     void Start()
     {
         solarSystemName = PlayerPrefs.GetString("!ActiveSolarSystem!");
+        explore = PlayerPrefs.GetString("!Explore!");
         currentSolarSystem = SaveAndLoad.LoadSolarSystem(solarSystemName);
         planets = currentSolarSystem.planets;
         masses = currentSolarSystem.masses; // Earth masses
@@ -93,6 +95,10 @@ public class PlanetOrbit : MonoBehaviour
                 radiusScale = radius * 50;
             }
 
+            if (explore == "1") {
+                radiusScale *= 10;
+                orbitScale *= 5;
+            }
             transform.localScale = new Vector3(radiusScale, radiusScale, radiusScale);
             gameObject.AddComponent<TrailRenderer>();
             tr = GetComponent<TrailRenderer>();
@@ -108,7 +114,15 @@ public class PlanetOrbit : MonoBehaviour
                 new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
             );
             tr.colorGradient = gradient;
-            tr.time = orbitalPeriod / timeScale;
+            if (explore == "1")
+            {
+                tr.time = orbitalPeriod / timeScale;
+            }
+            else
+            {
+                tr.time = 0;
+            }
+
             tr.startWidth = radiusScale * 0.2f;
             tr.endWidth = radiusScale * 0.2f;
             // tr.startWidth = 0.2f;
@@ -156,6 +170,10 @@ public class PlanetOrbit : MonoBehaviour
             {
                 timeScale = newTimeScale;
                 clearTrails();
+            }
+
+            if (explore == "1") {
+                timeScale /= 100;
             }
             tr.time = orbitalPeriod / timeScale;
             // Debug.Log(tr.time);
@@ -273,7 +291,7 @@ public class PlanetOrbit : MonoBehaviour
         mass = newMass * 5.972e24f;
         StarScript.masses[index] = mass;
         eccentricity = calculateEccentricity(mass, starMass, orbitalRadius, orbitalVelocity);
-        semiMajor = calculateSemiMajor(mass, starMass, orbitalRadius, orbitalVelocity) /  1.496e11f;
+        semiMajor = calculateSemiMajor(mass, starMass, orbitalRadius, orbitalVelocity) / 1.496e11f;
         Debug.Log($"newMass: {mass}, newEccentricity: {eccentricity}, newSemiMajor={semiMajor}");
         clearTrails();
     }
@@ -283,7 +301,7 @@ public class PlanetOrbit : MonoBehaviour
         radius = newRadius;
         StarScript.radii[index] = radius;
         eccentricity = calculateEccentricity(mass, starMass, orbitalRadius, orbitalVelocity);
-        semiMajor = calculateSemiMajor(mass, starMass, orbitalRadius, orbitalVelocity) /  1.496e11f;
+        semiMajor = calculateSemiMajor(mass, starMass, orbitalRadius, orbitalVelocity) / 1.496e11f;
         Debug.Log($"newMass: {mass}, newEccentricity: {eccentricity}, newSemiMajor={semiMajor}");
         clearTrails();
     }
@@ -293,7 +311,7 @@ public class PlanetOrbit : MonoBehaviour
         orbitalRadius = newOrbitalRadius * 1.496e11f;
         StarScript.orbitalRadii[index] = orbitalRadius;
         eccentricity = calculateEccentricity(mass, starMass, orbitalRadius, orbitalVelocity);
-        semiMajor = calculateSemiMajor(mass, starMass, orbitalRadius, orbitalVelocity) /  1.496e11f;
+        semiMajor = calculateSemiMajor(mass, starMass, orbitalRadius, orbitalVelocity) / 1.496e11f;
         Debug.Log($"newMass: {mass}, newEccentricity: {eccentricity}, newSemiMajor={semiMajor}");
         clearTrails();
     }
@@ -312,5 +330,5 @@ public class PlanetOrbit : MonoBehaviour
         clearTrails();
     }
 
-   
+
 }

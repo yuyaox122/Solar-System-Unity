@@ -124,9 +124,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SlimUI.ModernMenu.UIMenuManager, Assembly-CSharp
-        m_MethodName: TestSaveAndLoad
+      - m_Target: {fileID: 8819080985430300979}
+        m_TargetAssemblyTypeName: LoadGamePanel, Assembly-CSharp
+        m_MethodName: ExploreButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
