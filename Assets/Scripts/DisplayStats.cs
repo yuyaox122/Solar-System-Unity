@@ -86,14 +86,15 @@ public class DisplayStats : MonoBehaviour
                     currentPlanetScript = hitInfo.collider.GetComponent<PlanetOrbit>();
                     if (currentPlanetScript.planet != "Sun")
                     {
+                        Debug.Log(currentPlanetScript.planet);
                         string PlanetName = currentPlanetScript.getPlanet();
                         Title.text = PlanetName;
 
-                        float Mass = currentPlanetScript.getMass();
+                        float Mass = currentPlanetScript.getMass() / 5.972e24f;
                         MassValue.text = "Mass / M: " + Mass;
                         MassSlider.value = Mass;
 
-                        float OrbitalRadius = currentPlanetScript.getOrbitalRadius();
+                        float OrbitalRadius = currentPlanetScript.getOrbitalRadius() / 1.496e11f;
                         OrbitalRadiusValue.text = "Orbital radius / AU: " + OrbitalRadius;
                         OrbitalRadiusSlider.value = OrbitalRadius;
 
@@ -141,7 +142,8 @@ public class DisplayStats : MonoBehaviour
     public void OnDeselectedMassInput(string input)
     {
         // Debug.Log(input);
-        currentPlanetScript.changeMass(float.Parse(input));
+        currentPlanetScript.
+            changeMass(float.Parse(input));
     }
 
     public void OnDeselectedOrbitalRadiusInput(string input)

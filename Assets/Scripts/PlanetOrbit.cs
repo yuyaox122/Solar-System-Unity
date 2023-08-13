@@ -270,20 +270,20 @@ public class PlanetOrbit : MonoBehaviour
         eccentricity = calculateEccentricity(newMass, starMass, orbitalRadius * 1.496e11f, orbitalVelocity);
         semiMajor = calculateSemiMajor(newMass, starMass, orbitalRadius * 1.496e11f, orbitalVelocity);
         orbitalPeriod = calculateOrbitalPeriod(newMass, starMass, semiMajor);
-        Debug.Log($"newMass: {mass}, newEccentricity: {eccentricity}, radius: {orbitalRadius * 1.496e11f}, velocity: {orbitalVelocity}");
+        // Debug.Log($"newMass: {mass}, newEccentricity: {eccentricity}, radius: {orbitalRadius * 1.496e11f}, velocity: {orbitalVelocity}");
         clearTrails();
     }
 
     public void changeRadius(float newRadius)
     {
-        radius = newRadius * 1.496e11f;
+        radius = newRadius;
         StarScript.radii[index] = radius;
         clearTrails();
     }
 
     public void changeOrbitalRadius(float newOrbitalRadius)
     {
-        orbitalRadius = newOrbitalRadius * 1000f;
+        orbitalRadius = newOrbitalRadius * 1.496e11f;
         StarScript.orbitalRadii[index] = orbitalRadius;
         clearTrails();
     }
