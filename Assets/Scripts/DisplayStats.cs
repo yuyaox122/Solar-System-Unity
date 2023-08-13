@@ -68,8 +68,10 @@ public class DisplayStats : MonoBehaviour
             MassSlider.minValue = 0.05f;
             MassSlider.maxValue = 500;
 
-            OrbitalRadiusSlider.minValue = 0.5f;
-            OrbitalRadiusSlider.maxValue = 50;
+            float mu = currentPlanetScript.G * (currentPlanetScript.mass + currentPlanetScript.starMass);
+            float vel = currentPlanetScript.orbitalVelocity;
+            OrbitalRadiusSlider.minValue = mu / (vel * vel) / 1.496e11f;
+            OrbitalRadiusSlider.maxValue = 2 * mu / (vel * vel) / 1.496e11f;
 
             // OrbitalVelocitySlider.minValue = 5f;
             // OrbitalVelocitySlider.maxValue = 100f;

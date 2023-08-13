@@ -12,7 +12,7 @@ public class PlanetOrbit : MonoBehaviour
     public string planet;
     public string solarSystemName;
     public GameObject GameController;
-    float G = 6.67e-11f;
+    public float G = 6.67e-11f;
     public Transform Star;
     PlanetOrbit StarScript;
     public List<string> planets;
@@ -28,12 +28,12 @@ public class PlanetOrbit : MonoBehaviour
     private float t;
     bool logarithmicSizes = false;
     bool logarithmicOrbits = false;
-    float mass; // Earth masses
+    public float mass; // Earth masses
     public float radius; // Earth radii
     float orbitalRadius; // AU
-    float orbitalVelocity; // km/s
+    public float orbitalVelocity; // km/s
     float inclinationAngle;
-    float starMass;
+    public float starMass;
     float semiMajor;
     float eccentricity;
     float orbitalPeriod;
