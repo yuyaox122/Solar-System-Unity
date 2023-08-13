@@ -145,17 +145,11 @@ public class PlanetOrbit : MonoBehaviour
                 radiusScale = radius * 50;
             }
             orbitalPeriod = calculateOrbitalPeriod(mass, starMass, semiMajor);
-            // Debug.Log(planet + " " + orbitalPeriod);
-
-            // Debug.Log(tr.time);
-            // Debug.Log(planet);
             newTimeScale = GameController.GetComponent<EventController>().ReturnTimeScale() / 1e18f;
-            // Debug.Log("new: " + newTimeScale);
-            // Debug.Log("old: " + timeScale);
+
             if (newTimeScale != timeScale)
             {
                 timeScale = newTimeScale;
-                // Debug.Log("new timescale");
                 clearTrails();
             }
             tr.time = orbitalPeriod / timeScale;
@@ -271,29 +265,31 @@ public class PlanetOrbit : MonoBehaviour
 
     public void changeMass(float newMass)
     {
-        mass = newMass;
+        mass = newMass * 5.972e24f;
         StarScript.masses[index] = mass;
+        eccentricity = calculateEccentricity(newMass, starMass, orbitalRadius * 1.496e11f, orbitalVelocity);
+        semiMajor = calculateSemiMajor(newMass, starMass, orbitalRadius * 1.496e11f, orbitalVelocity);
+        orbitalPeriod = calculateOrbitalPeriod(newMass, starMass, semiMajor);
+        Debug.Log($"newMass: {mass}, newEccentricity: {eccentricity}, radius: {orbitalRadius * 1.496e11f}, velocity: {orbitalVelocity}");
         clearTrails();
     }
 
     public void changeRadius(float newRadius)
     {
-        radius = newRadius;
+        radius = newRadius * 1.496e11f;
         StarScript.radii[index] = radius;
         clearTrails();
     }
 
     public void changeOrbitalRadius(float newOrbitalRadius)
     {
-        Debug.Log("Radius changing");
-        orbitalRadius = newOrbitalRadius;
+        orbitalRadius = newOrbitalRadius * 1000f;
         StarScript.orbitalRadii[index] = orbitalRadius;
         clearTrails();
     }
 
     public void changeOrbitalVelocity(float newOrbitalVelocity)
     {
-        Debug.Log("Velocity changing");
         orbitalVelocity = newOrbitalVelocity;
         StarScript.orbitalVelocities[index] = orbitalVelocity;
         clearTrails();
