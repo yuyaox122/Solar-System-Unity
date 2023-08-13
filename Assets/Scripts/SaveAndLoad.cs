@@ -62,7 +62,6 @@ public static class SaveAndLoad
             {
                 newSolarSystem.name = newSolarSystem.name.Substring(0, newSolarSystem.name.Length - 1);
                 newSolarSystem.name = newSolarSystem.name + (i + 1).ToString();
-                break;
             }
             else
             {

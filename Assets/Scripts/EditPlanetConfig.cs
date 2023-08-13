@@ -11,6 +11,7 @@ using SlimUI.ModernMenu;
 public class EditPlanetConfig : MonoBehaviour
 {
     public TMP_InputField PlanetName;
+    public TMP_Dropdown PlanetPresetDropdown;
     
     public GameObject StatBar;
     public Slider MassSlider;
@@ -30,7 +31,7 @@ public class EditPlanetConfig : MonoBehaviour
 
     void Start()
     {
-        
+        PlanetPresetDropdown.onValueChanged.AddListener(delegate { HandleInputData(PlanetPresetDropdown.value); });
        
         MenuManager = (UIMenuManager)FindObjectOfType(typeof(UIMenuManager));
         PlanetName.text = "Planet";

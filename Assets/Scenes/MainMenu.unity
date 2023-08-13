@@ -3358,6 +3358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlanetName: {fileID: 485202835}
+  PlanetPresetDropdown: {fileID: 1765467435}
   StatBar: {fileID: 650864660}
   MassSlider: {fileID: 2044791391}
   OrbitalVelocitySlider: {fileID: 1142256729}
@@ -10934,19 +10935,7 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 650864665}
-        m_TargetAssemblyTypeName: PlanetPresetDropdown, Assembly-CSharp
-        m_MethodName: HandleInputData
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &1765467436
 MonoBehaviour:
@@ -24587,7 +24576,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81bc16ca95894c34b836ea33671ae46d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planets:
+  TheSolarSystemPlanets:
   - Mercury
   - Venus
   - Earth
@@ -24596,18 +24585,17 @@ MonoBehaviour:
   - Saturn
   - Uranus
   - Neptune
-  - Pluto
-  masses:
-  - 0.055
+  TheSolarSystemMasses:
+  - 0.0553
   - 0.815
   - 1
   - 0.107
-  - 317.85
-  - 95.159
-  - 14.5
-  - 17.204
-  - 0.003
-  radii:
+  - 317.83
+  - 95.16
+  - 14.54
+  - 17.15
+  - 0.0022
+  TheSolarSystemRadii:
   - 0.383
   - 0.949
   - 1
@@ -24617,7 +24605,7 @@ MonoBehaviour:
   - 4.007
   - 3.883
   - 0.187
-  orbitalRadii:
+  TheSolarSystemOrbitalRadii:
   - 0.307
   - 0.718
   - 0.983
@@ -24627,7 +24615,7 @@ MonoBehaviour:
   - 18.267
   - 29.887
   - 29.646
-  orbitalVelocities:
+  TheSolarSystemOrbitalVelocities:
   - 58.97
   - 35.26
   - 30.29
@@ -24637,7 +24625,7 @@ MonoBehaviour:
   - 7.13
   - 5.47
   - 6.1
-  inclinationAngles:
+  TheSolarSystemInclinationAngles:
   - 7
   - 3.39
   - 0
@@ -24647,7 +24635,7 @@ MonoBehaviour:
   - 0.77
   - 1.77
   - 17.5
-  trailRed:
+  TheSolarSystemTrailRed:
   - 0.639
   - 0.678
   - 0
@@ -24657,7 +24645,7 @@ MonoBehaviour:
   - 0.376
   - 0.127
   - 0.761
-  trailGreen:
+  TheSolarSystemTrailGreen:
   - 0.416
   - 0.329
   - 0.278
@@ -24667,7 +24655,7 @@ MonoBehaviour:
   - 0.522
   - 0.179
   - 0.643
-  trailBlue:
+  TheSolarSystemTrailBlue:
   - 0.078
   - 0
   - 0.522
@@ -24677,7 +24665,15 @@ MonoBehaviour:
   - 0.545
   - 0.429
   - 0.576
-  planetPresets: []
+  TheSolarSystemPlanetPresets:
+  - Mercury
+  - Venus
+  - Earth
+  - Mars
+  - Jupiter
+  - Saturn
+  - Uranus
+  - Neptune
   presets:
   - Mercury
   - Venus

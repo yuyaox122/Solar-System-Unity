@@ -18,7 +18,9 @@ public class EventController : MonoBehaviour
 
     void Start () 
     {
+        Debug.Log("Start");
         SpawnPlanets();
+        Debug.Log("Spawned");
     }
 
     public void AdjustTimeScale(float newTimeScale)
@@ -56,10 +58,13 @@ public class EventController : MonoBehaviour
         List<float> trailGreen = currentSolarSystem.trailGreen;
         List<float> trailBlue = currentSolarSystem.trailBlue;
         List<string> planetPresets = currentSolarSystem.planetPresets;
+        Debug.Log($"[{string.Join(",", planetPresets)}]");
+        Debug.Log($"[{string.Join(",", planets)}]");
 
         for (int i = 0; i < planetPresets.Count; i++)
         {
-            UnityEngine.Object newPlanetPreset = Resources.Load("Assets/Plugins/CW/SpaceGraphicsToolkit/Packs/Solar System Pack/Prefabs/" + planetPresets[i]);
+            // GameObject newPlanetPreset = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Plugins/CW/SpaceGraphicsToolkit/Packs/Solar System Pack/Prefabs/" + planetPresets[i], typeof(GameObject));
+            GameObject newPlanetPreset = Resources.Load<GameObject>("PlanetPresets/" + planetPresets[i]);
             Debug.Log(i);
             GameObject newPlanetObject = (GameObject)GameObject.Instantiate(newPlanetPreset, Vector3.zero, Quaternion.identity);
             newPlanetObject.transform.parent = SolarSystemGameObject.transform;
