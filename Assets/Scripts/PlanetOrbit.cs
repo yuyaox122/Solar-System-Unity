@@ -12,12 +12,8 @@ public class PlanetOrbit : MonoBehaviour
     public string planet;
     public string solarSystemName;
     public GameObject GameController;
-<<<<<<< HEAD
     string explore;
-    float G = 6.67e-11f;
-=======
-    public float G = 6.67e-11f;
->>>>>>> origin/position-velocity-rework
+    public  float G = 6.67e-11f;
     public Transform Star;
     PlanetOrbit StarScript;
     public List<string> planets;
