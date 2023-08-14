@@ -6,9 +6,9 @@ using SlimUI.ModernMenu;
 public class LoadEditPanel : MonoBehaviour
 {
     [SerializeField] TMPro.TextMeshProUGUI Title;
-    string planetName;
+    public string planetName;
     public UIMenuManager MenuManager;
-    int index;
+    public int index;
 
     public void SetIndex(int newIndex) {
         index = newIndex;
@@ -18,9 +18,14 @@ public class LoadEditPanel : MonoBehaviour
         Title.text = planetName;
     }
 
+    public void Destroy() {
+        MenuManager.DestroyPlanetConfig(index);
+    }
+
     public void EditButtonClicked() {
-        MenuManager.EditPlanet();
+        MenuManager.EditPlanet(index);
         Debug.Log("Hello");
     }
+
 
 }

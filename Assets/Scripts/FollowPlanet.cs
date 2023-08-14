@@ -5,6 +5,7 @@ using UnityEngine;
 public class FollowPlanet : MonoBehaviour
 {
     public Transform target;
+    public string activePlanet;
     public Vector3 offset;
     public bool active;
     Camera MainCamera;
@@ -17,13 +18,15 @@ public class FollowPlanet : MonoBehaviour
         FreeScript = MainCamera.GetComponent<FreeCameraMovement>();
         SphericalScript = MainCamera.GetComponent<SphericalCameraMovement>();
         active = false;
-        offset = new Vector3(500, 500, 500);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (active) {
+        if (active)
+        {
+            offset =  new Vector3(200, 200, 200) * target.GetComponent<PlanetOrbit>().radius / 0.383f;
+            // Debug.Log(target.GetComponent<PlanetOrbit>().radius);
             transform.position = target.position + offset;
             transform.LookAt(target);
             FreeScript.enabled = false;

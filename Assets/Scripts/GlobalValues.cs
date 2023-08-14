@@ -7,68 +7,106 @@ using TMPro;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System;
+using UnityEngine.Serialization;
 
 public class EventController : MonoBehaviour
 {
-    float time_scale = 1f;
+    float timeScale = 1f;
     [SerializeField] GameObject Sun;
     [SerializeField] TMP_InputField GameName;
+    public GameObject SolarSystemGameObject;
 
-    
+    void Start () 
+    {
+        Debug.Log("Start");
+        SpawnPlanets();
+        Debug.Log("Spawned");
+    }
+
     public void AdjustTimeScale(float newTimeScale)
     {
-        time_scale = newTimeScale;
+        timeScale = newTimeScale;
     }
     public float ReturnTimeScale()
     {
-        return time_scale;
+        return timeScale;
     }
 
     public void LoadMainMenu()
     {
         PlanetOrbit planetOrbit = Sun.GetComponent<PlanetOrbit>();
         Debug.Log("Current Name: " + planetOrbit.solarSystemName);
-        SaveAndLoad.SaveSolarSystem(new SolarSystem(planetOrbit.solarSystemName, planetOrbit.planets, planetOrbit.masses, planetOrbit.semiMajor, planetOrbit.radii, planetOrbit.rotational_periods, planetOrbit.orbital_periods,
-        planetOrbit.gravities, planetOrbit.eccentricities, planetOrbit.inclination_angles, planetOrbit.trail_red, planetOrbit.trail_green, planetOrbit.trail_blue));
+        SaveAndLoad.SaveSolarSystem(new SolarSystem(planetOrbit.solarSystemName, planetOrbit.planets, planetOrbit.masses, planetOrbit.radii, planetOrbit.orbitalRadii, planetOrbit.orbitalVelocities,
+            planetOrbit.inclinationAngles, planetOrbit.trailRed, planetOrbit.trailGreen, planetOrbit.trailBlue, planetOrbit.planetPresets));
         SaveAndLoad.DestroySolarSystem(PlayerPrefs.GetString("!ActiveSolarSystem!"));
         Debug.Log("The names: " + PlayerPrefs.GetString("!SolarSystemNames!"));
+        PlayerPrefs.Save();
         SceneManager.LoadScene(0);
     }
 
-    
-}
-
-[Serializable()] 
-public struct SolarSystem
+    public void SpawnPlanets()
     {
-        public string name;
-        public string[] planets;
-        public float[] masses;
-        public float[] semiMajor;
-        public float[] radii;
-        public float[] rotational_periods;
-        public float[] orbital_periods;
-        public float[] gravities;
-        public float[] eccentricities;
-        public float[] inclination_angles;
-        public float[] trail_red;
-        public float[] trail_green;
-        public float[] trail_blue;
+        string solarSystemName = PlayerPrefs.GetString("!ActiveSolarSystem!");
+        SolarSystem currentSolarSystem = SaveAndLoad.LoadSolarSystem(solarSystemName);
+        List<string> planets = currentSolarSystem.planets;
+        List<float> masses = currentSolarSystem.masses; // Earth masses
+        List<float> radii = currentSolarSystem.radii; // Earth radii
+        List<float> orbitalRadii = currentSolarSystem.orbitalRadii; // AU
+        List<float> orbitalVelocities = currentSolarSystem.orbitalVelocities; // km/s
+        List<float> inclinationAngles = currentSolarSystem.inclinationAngles;
+        List<float> trailRed = currentSolarSystem.trailRed;
+        List<float> trailGreen = currentSolarSystem.trailGreen;
+        List<float> trailBlue = currentSolarSystem.trailBlue;
+        List<string> planetPresets = currentSolarSystem.planetPresets;
+        Debug.Log($"[{string.Join(",", planetPresets)}]");
+        Debug.Log($"[{string.Join(",", planets)}]");
 
-        public SolarSystem(string name, string[] planets, float[] masses, float[] semiMajor, float[] radii, float[] rotational_periods,
-        float[] orbital_periods, float[] gravities, float[] eccentricities, float[] inclination_angles, float[] trail_red, float[] trail_green, float[] trail_blue) {
-            this.name = name;
-            this.planets = planets;
-            this.masses = masses;
-            this.semiMajor = semiMajor;
-            this.radii = radii;
-            this.rotational_periods = rotational_periods;
-            this.orbital_periods = orbital_periods;
-            this.gravities = gravities;
-            this.eccentricities = eccentricities;
-            this.inclination_angles = inclination_angles;
-            this.trail_red = trail_red;
-            this.trail_green = trail_green;
-            this.trail_blue = trail_blue;
+        for (int i = 0; i < planetPresets.Count; i++)
+        {
+            // GameObject newPlanetPreset = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Plugins/CW/SpaceGraphicsToolkit/Packs/Solar System Pack/Prefabs/" + planetPresets[i], typeof(GameObject));
+            GameObject newPlanetPreset = Resources.Load<GameObject>("PlanetPresets/" + planetPresets[i]);
+            Debug.Log(i);
+            GameObject newPlanetObject = (GameObject)GameObject.Instantiate(newPlanetPreset, Vector3.zero, Quaternion.identity);
+            newPlanetObject.transform.parent = SolarSystemGameObject.transform;
+            newPlanetObject.name = planets[i];
+            newPlanetObject.AddComponent<PlanetOrbit>();
+            PlanetOrbit PlanetOrbitScript = newPlanetObject.GetComponent<PlanetOrbit>();
+            PlanetOrbitScript.planet = planets[i];
+            PlanetOrbitScript.GameController = this.gameObject;
+            PlanetOrbitScript.Star = Sun.transform;
         }
     }
+
+}
+
+[Serializable()]
+public struct SolarSystem
+{
+    public string name;
+    public List<string> planets;
+    public List<float> masses;
+    public List<float> radii;
+    public List<float> orbitalRadii;
+    public List<float> orbitalVelocities;
+    public List<float> inclinationAngles;
+    public List<float> trailRed;
+    public List<float> trailGreen;
+    public List<float> trailBlue;
+    public List<string> planetPresets;
+
+    public SolarSystem(string name, List<string> planets, List<float> masses, List<float> radii, List<float> orbitalRadii,
+    List<float> orbitalVelocities, List<float> inclinationAngles, List<float> trailRed, List<float> trailGreen, List<float> trailBlue, List<string> planetPresets)
+    {
+        this.name = name;
+        this.planets = planets;
+        this.masses = masses;
+        this.radii = radii;
+        this.orbitalRadii = orbitalRadii;
+        this.orbitalVelocities = orbitalVelocities;
+        this.inclinationAngles = inclinationAngles;
+        this.trailRed = trailRed;
+        this.trailGreen = trailGreen;
+        this.trailBlue = trailBlue;
+        this.planetPresets = planetPresets;
+    }
+}

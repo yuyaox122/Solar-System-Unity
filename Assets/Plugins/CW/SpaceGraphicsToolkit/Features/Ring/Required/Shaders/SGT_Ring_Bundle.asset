@@ -15,7 +15,7 @@ MonoBehaviour:
   title: Space Graphics Toolkit/Ring
   target: {fileID: 4800000, guid: 15e2baabe916168449b0a6e806047670, type: 3}
   variantHash: -487498390
-  projectHash: -1971351777
+  projectHash: 2047617784
   variants:
   - Pipe: 0
     Code: "//<HASH>-1611424743</HASH>\n////////////////////////////////////////\n//
