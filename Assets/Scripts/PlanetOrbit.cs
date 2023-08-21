@@ -46,6 +46,7 @@ public class PlanetOrbit : MonoBehaviour
     private GameObject solarSystem;
     private bool threeDOrbit;
     private TrailRenderer tr;
+    private SphereCollider planet_collider;
     float newTimeScale;
 
     void Start()
@@ -97,10 +98,13 @@ public class PlanetOrbit : MonoBehaviour
 
             if (explore == "1") {
                 radiusScale *= 10;
-                orbitScale *= 5;
+                // orbitScale *= 5;
             }
             transform.localScale = new Vector3(radiusScale, radiusScale, radiusScale);
             gameObject.AddComponent<TrailRenderer>();
+            // planet_collider = gameObject.AddComponent<SphereCollider>();
+            // planet_collider.center = Vector3.zero;
+            // planet_collider.radius = 1;
             tr = GetComponent<TrailRenderer>();
             tr.material = new Material(Shader.Find("Sprites/Default"));
             // A simple 2 color gradient with a fixed alpha of 1.0f.
