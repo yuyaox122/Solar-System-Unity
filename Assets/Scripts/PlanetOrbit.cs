@@ -86,7 +86,7 @@ public class PlanetOrbit : MonoBehaviour
             semiMajor /= 1.496e11f;
 
             // Debug.Log($"{planet}: orbitalPeriod={orbitalPeriod}");
-
+            Debug.Log("The Radius: " + radius);
             if (logarithmicSizes)
             {
                 radiusScale = Mathf.Log(radius, 10) + 1;
@@ -95,6 +95,8 @@ public class PlanetOrbit : MonoBehaviour
             {
                 radiusScale = radius * 50;
             }
+
+            Debug.Log(radiusScale);
 
             if (explore == "1") {
                 radiusScale *= 10;
