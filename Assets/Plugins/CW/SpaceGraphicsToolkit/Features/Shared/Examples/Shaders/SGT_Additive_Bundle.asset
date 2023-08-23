@@ -15,7 +15,7 @@ MonoBehaviour:
   title: Space Graphics Toolkit/Additive
   target: {fileID: 4800000, guid: 4990c77624ac93d44abe4211c4de433a, type: 3}
   variantHash: 1965113898
-  projectHash: 2047617784
+  projectHash: 1822919293
   variants:
   - Pipe: 0
     Code: "//<HASH>799524777</HASH>\n////////////////////////////////////////\n//

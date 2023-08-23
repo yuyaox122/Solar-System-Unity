@@ -8,17 +8,20 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System;
 using UnityEngine.Serialization;
+using SpaceGraphicsToolkit;
 
 public class EventController : MonoBehaviour
 {
     float timeScale = 1f;
     [SerializeField] GameObject Sun;
     [SerializeField] TMP_InputField GameName;
+    string explore;
     public GameObject SolarSystemGameObject;
-
-    void Start () 
+    float radiusScale;
+    void Start()
     {
         Debug.Log("Start");
+        explore = PlayerPrefs.GetString("!Explore!");
         SpawnPlanets();
         Debug.Log("Spawned");
     }
@@ -61,22 +64,42 @@ public class EventController : MonoBehaviour
         Debug.Log($"[{string.Join(",", planetPresets)}]");
         Debug.Log($"[{string.Join(",", planets)}]");
 
-        for (int i = 0; i < planetPresets.Count; i++)
+        if (explore == "1")
         {
-            // GameObject newPlanetPreset = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Plugins/CW/SpaceGraphicsToolkit/Packs/Solar System Pack/Prefabs/" + planetPresets[i], typeof(GameObject));
-            GameObject newPlanetPreset = Resources.Load<GameObject>("PlanetPresets/" + planetPresets[i]);
-            Debug.Log(i);
-            GameObject newPlanetObject = (GameObject)GameObject.Instantiate(newPlanetPreset, Vector3.zero, Quaternion.identity);
-            newPlanetObject.transform.parent = SolarSystemGameObject.transform;
-            newPlanetObject.name = planets[i];
-            newPlanetObject.AddComponent<PlanetOrbit>();
-            PlanetOrbit PlanetOrbitScript = newPlanetObject.GetComponent<PlanetOrbit>();
-            PlanetOrbitScript.planet = planets[i];
-            PlanetOrbitScript.GameController = this.gameObject;
-            PlanetOrbitScript.Star = Sun.transform;
+            for (int i = 0; i < planetPresets.Count; i++)
+            {
+                GameObject newPlanetPreset = Resources.Load<GameObject>("ExplorePresets/" + planetPresets[i]);
+                Debug.Log(i);
+                GameObject newPlanetObject = (GameObject)GameObject.Instantiate(newPlanetPreset, Vector3.zero, Quaternion.identity);
+                newPlanetObject.transform.parent = SolarSystemGameObject.transform;
+                newPlanetObject.name = planets[i];
+                newPlanetObject.GetComponent<SgtFloatingOrbit>().Radius = orbitalRadii[i] * 1e+4;
+                newPlanetObject.GetComponent<SgtFloatingOrbit>().ParentPoint = Sun.GetComponent<SgtFloatingObject>();
+                newPlanetObject.GetComponent<SgtFloatingOrbit>().DegreesPerSecond = orbitalVelocities[i] / 100;
+                newPlanetObject.GetComponent<SgtFloatingTarget>().WarpName = planets[i];
+                newPlanetObject.GetComponent<SgtFloatingTarget>().WarpDistance = radii[i] * 2000;
+                radiusScale = radii[i];
+                newPlanetObject.transform.localScale = new Vector3(radiusScale, radiusScale, radiusScale);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < planetPresets.Count; i++)
+            {
+                // GameObject newPlanetPreset = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Plugins/CW/SpaceGraphicsToolkit/Packs/Solar System Pack/Prefabs/" + planetPresets[i], typeof(GameObject));
+                GameObject newPlanetPreset = Resources.Load<GameObject>("PlanetPresets/" + planetPresets[i]);
+                Debug.Log(i);
+                GameObject newPlanetObject = (GameObject)GameObject.Instantiate(newPlanetPreset, Vector3.zero, Quaternion.identity);
+                newPlanetObject.transform.parent = SolarSystemGameObject.transform;
+                newPlanetObject.name = planets[i];
+                newPlanetObject.AddComponent<PlanetOrbit>();
+                PlanetOrbit PlanetOrbitScript = newPlanetObject.GetComponent<PlanetOrbit>();
+                PlanetOrbitScript.planet = planets[i];
+                PlanetOrbitScript.GameController = this.gameObject;
+                PlanetOrbitScript.Star = Sun.transform;
+            }
         }
     }
-
 }
 
 [Serializable()]

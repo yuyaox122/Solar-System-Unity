@@ -15,7 +15,7 @@ MonoBehaviour:
   title: Space Graphics Toolkit/Lightning
   target: {fileID: 4800000, guid: eea2333a66a3dd4448789f9b3d2f0d5d, type: 3}
   variantHash: 2107518278
-  projectHash: 2047617784
+  projectHash: 1822919293
   variants:
   - Pipe: 0
     Code: "//<HASH>-137262145</HASH>\n////////////////////////////////////////\n//

@@ -15,7 +15,7 @@ MonoBehaviour:
   title: Space Graphics Toolkit/Belt Opaque
   target: {fileID: 4800000, guid: fadba8098476bba46baa3bfdb7c60189, type: 3}
   variantHash: -667241466
-  projectHash: 2047617784
+  projectHash: 1822919293
   variants:
   - Pipe: 0
     Code: "//<HASH>1356009797</HASH>\n////////////////////////////////////////\n//
