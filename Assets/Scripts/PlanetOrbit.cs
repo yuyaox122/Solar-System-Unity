@@ -26,6 +26,9 @@ public class PlanetOrbit : MonoBehaviour
     public List<float> trailGreen;
     public List<float> trailBlue;
     public List<string> planetPresets;
+    public List<float> TheSolarSystemTrailRed = new List<float> { 0.639f, 0.678f, 0.000f, 0.557f, 0.588f, 0.443f, 0.376f, 0.127f, 0.761f };
+    public List<float> TheSolarSystemTrailGreen = new List<float> { 0.416f, 0.329f, 0.278f, 0.067f, 0.365f, 0.408f, 0.522f, 0.179f, 0.643f };
+    public List<float> TheSolarSystemTrailBlue = new List<float> { 0.078f, 0.000f, 0.522f, 0.000f, 0.024f, 0.247f, 0.545f, 0.429f, 0.576f };
     private float t;
     bool logarithmicSizes = false;
     bool logarithmicOrbits = false;
@@ -38,7 +41,7 @@ public class PlanetOrbit : MonoBehaviour
     float semiMajor;
     float eccentricity;
     float orbitalPeriod;
-
+    string planetPreset;
     float radiusScale;
     float orbitScale = 10000;
     float timeScale;
@@ -60,9 +63,9 @@ public class PlanetOrbit : MonoBehaviour
         orbitalRadii = currentSolarSystem.orbitalRadii; // AU
         orbitalVelocities = currentSolarSystem.orbitalVelocities; // km/s
         inclinationAngles = currentSolarSystem.inclinationAngles;
-        trailRed = currentSolarSystem.trailRed;
-        trailGreen = currentSolarSystem.trailGreen;
-        trailBlue = currentSolarSystem.trailBlue;
+        // trailRed = currentSolarSystem.trailRed;
+        // trailGreen = currentSolarSystem.trailGreen;
+        // trailBlue = currentSolarSystem.trailBlue;
         planetPresets = currentSolarSystem.planetPresets;
         solarSystem = transform.parent.gameObject;
         threeDOrbit = solarSystem.GetComponent<SolarSystemProperties>().ThreeDOrbits;
@@ -77,6 +80,7 @@ public class PlanetOrbit : MonoBehaviour
             orbitalRadius = orbitalRadii[index] * 1.496e11f; // m
             orbitalVelocity = orbitalVelocities[index] * 1e3f; // m/s
             inclinationAngle = inclinationAngles[index];
+            planetPreset = planetPresets[index];
             //starMass = StarScript.mass;
             starMass = 1.988e30f;
             semiMajor = calculateSemiMajor(mass, starMass, orbitalRadius, orbitalVelocity); // m
@@ -112,11 +116,13 @@ public class PlanetOrbit : MonoBehaviour
             // A simple 2 color gradient with a fixed alpha of 1.0f.
             float alpha = 1.0f;
             Gradient gradient = new Gradient();
-            float trailRed1 = Mathf.Clamp(trailRed[index] + 0.15f, 0f, 1f);
-            float trailGreen1 = Mathf.Clamp(trailGreen[index] + 0.15f, 0f, 1f);
-            float trailBlue1 = Mathf.Clamp(trailBlue[index] + 0.15f, 0f, 1f);
+            float trailIndex = planetPresets.IndexOf(planetPreset);
+            float trailRed1 = Mathf.Clamp(TheSolarSystemTrailRed[index] + 0.15f, 0f, 1f);
+            float trailGreen1 = Mathf.Clamp(TheSolarSystemTrailGreen[index] + 0.15f, 0f, 1f);
+            float trailBlue1 = Mathf.Clamp(TheSolarSystemTrailBlue[index] + 0.15f, 0f, 1f);
             gradient.SetKeys(
-                new GradientColorKey[] { new GradientColorKey(new Color(trailRed1, trailGreen1, trailBlue1), 0.0f), new GradientColorKey(new Color(trailRed[index], trailBlue[index], trailGreen[index]), 0.0f) },
+                new GradientColorKey[] { new GradientColorKey(new Color(trailRed1, trailGreen1, trailBlue1), 0.0f), 
+                new GradientColorKey(new Color(TheSolarSystemTrailRed[index], TheSolarSystemTrailBlue[index], TheSolarSystemTrailGreen[index]), 0.0f) },
                 new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
             );
             tr.colorGradient = gradient;

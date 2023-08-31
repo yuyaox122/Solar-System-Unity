@@ -18,9 +18,6 @@ namespace SlimUI.ModernMenu
 		public List<float> TheSolarSystemOrbitalRadii = new List<float> { 0.307f, 0.718f, 0.983f, 1.381f, 4.951f, 9.075f, 18.267f, 29.887f, 29.646f };
 		public List<float> TheSolarSystemOrbitalVelocities = new List<float> { 58.97f, 35.26f, 30.29f, 26.50f, 13.72f, 10.14f, 7.13f, 5.47f, 6.10f };
 		public List<float> TheSolarSystemInclinationAngles = new List<float> { 7.00f, 3.39f, 0.00f, 1.85f, 1.31f, 2.49f, 0.77f, 1.77f, 17.5f };
-		public List<float> TheSolarSystemTrailRed = new List<float> { 0.639f, 0.678f, 0.000f, 0.557f, 0.588f, 0.443f, 0.376f, 0.127f, 0.761f };
-		public List<float> TheSolarSystemTrailGreen = new List<float> { 0.416f, 0.329f, 0.278f, 0.067f, 0.365f, 0.408f, 0.522f, 0.179f, 0.643f };
-		public List<float> TheSolarSystemTrailBlue = new List<float> { 0.078f, 0.000f, 0.522f, 0.000f, 0.024f, 0.247f, 0.545f, 0.429f, 0.576f };
 		public List<string> TheSolarSystemPlanetPresets = new List<string> { "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune" };
 		public List<string> presets = new List<string> { "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune" };
 		public List<int> indexes = new List<int>();
@@ -151,7 +148,7 @@ namespace SlimUI.ModernMenu
 		void CreateDefaultSolarSystem() {
 			PlayerPrefs.SetString("!DefaultSolarSystem!", "1");
 				SaveAndLoad.SaveSolarSystem(new SolarSystem("The Solar System", TheSolarSystemPlanets, TheSolarSystemMasses, TheSolarSystemRadii, TheSolarSystemOrbitalRadii,
-				TheSolarSystemOrbitalVelocities, TheSolarSystemInclinationAngles, TheSolarSystemTrailRed, TheSolarSystemTrailGreen, TheSolarSystemTrailBlue, TheSolarSystemPlanetPresets));
+				TheSolarSystemOrbitalVelocities, TheSolarSystemInclinationAngles, TheSolarSystemPlanetPresets));
 				// Debug.Log($"[{string.Join(",", TheSolarSystemPlanets)}]");
 				// Debug.Log($"[{string.Join(",", TheSolarSystemPlanetPresets)}]");
 		}
@@ -441,7 +438,7 @@ namespace SlimUI.ModernMenu
 				}
 			}
 			newGame = new SolarSystem("Solar System", new List<string>(), new List<float>(), new List<float>(), new List<float>(), new List<float>(), new List<float>(),
-			new List<float>(), new List<float>(), new List<float>(), new List<string>());
+			 new List<string>());
 		}
 
 		public void DestroyPlanetConfig(int destroyIndex)
@@ -454,9 +451,9 @@ namespace SlimUI.ModernMenu
 			newGame.orbitalRadii.RemoveAt(destroyIndex);
 			newGame.orbitalVelocities.RemoveAt(destroyIndex);
 			newGame.inclinationAngles.RemoveAt(destroyIndex);
-			newGame.trailRed.RemoveAt(destroyIndex);
-			newGame.trailGreen.RemoveAt(destroyIndex);
-			newGame.trailBlue.RemoveAt(destroyIndex);
+			// newGame.trailRed.RemoveAt(destroyIndex);
+			// newGame.trailGreen.RemoveAt(destroyIndex);
+			// newGame.trailBlue.RemoveAt(destroyIndex);
 			newGame.planetPresets.RemoveAt(destroyIndex);
 			Destroy(child);
 			indexes.Remove(destroyIndex);
@@ -522,9 +519,9 @@ namespace SlimUI.ModernMenu
 			newGame.orbitalRadii.Add(0.5f);
 			newGame.orbitalVelocities.Add(5f);
 			newGame.inclinationAngles.Add(0f);
-			newGame.trailRed.Add(0.5f);
-			newGame.trailGreen.Add(0.5f);
-			newGame.trailBlue.Add(0.5f);
+			// newGame.trailRed.Add(0.5f);
+			// newGame.trailGreen.Add(0.5f);
+			// newGame.trailBlue.Add(0.5f);
 			newGame.planetPresets.Add("Mercury");
 			Debug.Log($"[{string.Join(",", indexes)}]");
 		}

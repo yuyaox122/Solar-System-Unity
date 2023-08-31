@@ -141,8 +141,11 @@ public class DisplayStats : MonoBehaviour
 
         float mu = currentPlanetScript.G * (currentPlanetScript.mass + currentPlanetScript.starMass);
         float vel = currentPlanetScript.orbitalVelocity;
-        Debug.Log(currentPlanetScript.getOrbitalRadius() / 1.496e11f);
+        // Debug.Log("Velocity: " + vel);
+        // Debug.Log("Mu: " + mu);
+        Debug.Log("Current Orbital Radius: " + currentPlanetScript.getOrbitalRadius() / 1.496e11f);
         OrbitalRadiusSlider.minValue = mu / (vel * vel) / 1.496e11f;
+        Debug.Log("Current Orbital Radius: " + currentPlanetScript.getOrbitalRadius() / 1.496e11f);
         Debug.Log(OrbitalRadiusSlider.value);
         OrbitalRadiusSlider.maxValue = 1.8f * mu / (vel * vel) / 1.496e11f;
         Debug.Log(OrbitalRadiusSlider.minValue);  

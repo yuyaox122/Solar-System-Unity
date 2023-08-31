@@ -27,6 +27,9 @@ public class EditPlanetConfig : MonoBehaviour
 
     public UIMenuManager MenuManager;
     public int index;
+    public float G = 6.67e-11f;
+    public float starMass = 1.988e30f;
+    
 
     void Start()
     {
@@ -67,8 +70,11 @@ public class EditPlanetConfig : MonoBehaviour
             InclinationAngleValue.text = "Inclination Angle / (°): " + d.ToString("0");
         });
         InclinationAngleSlider.onValueChanged.AddListener(delegate { OnDeselectedInclinationAngleInput(GetValue(InclinationAngleValue.text)); });
-
         
+        float mu = G * (GetValue(MassValue.text) * 5.972e24f + starMass);
+        float vel = GetValue(OrbitalVelocityValue.text) * 1e3f;
+        OrbitalRadiusSlider.minValue = mu / (vel * vel) / 1.496e11f;
+        OrbitalRadiusSlider.maxValue = 1.8f * mu / (vel * vel) / 1.496e11f;
         
     }
 
@@ -78,7 +84,6 @@ public class EditPlanetConfig : MonoBehaviour
         string newValue = value.Substring(index + 2);
         return float.Parse(newValue);
     }
-
 
     public void HandleInputData(int val)
     {
@@ -98,12 +103,22 @@ public class EditPlanetConfig : MonoBehaviour
     public void OnDeselectedMassInput(float input)
     {
         MenuManager.ChangeMass(index, input);
-        Debug.Log(input);
+        float mu = G * (input * 5.972e24f + starMass);
+        // Debug.Log(mu);
+        float vel = GetValue(OrbitalVelocityValue.text) * 1e3f;
+        // Debug.Log(vel);
+        OrbitalRadiusSlider.minValue = mu / (vel * vel) / 1.496e11f;
+        OrbitalRadiusSlider.maxValue = 1.8f * mu / (vel * vel) / 1.496e11f;
+        // Debug.Log(input);
     }
 
     public void OnDeselectedOrbitalVelocityInput(float input)
     {
         MenuManager.ChangeOrbitalVelocity(index, input);
+        float mu = G * (GetValue(MassValue.text) + starMass);
+        float vel = input * 1e3f;
+        OrbitalRadiusSlider.minValue = mu / (vel * vel) / 1.496e11f;
+        OrbitalRadiusSlider.maxValue = 1.8f * mu / (vel * vel) / 1.496e11f;
     }
 
     public void OnDeselectedOrbitalRadiusInput(float input)

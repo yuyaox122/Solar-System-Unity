@@ -42,7 +42,7 @@ public class EventController : MonoBehaviour
         Debug.Log("Current Name: " + planetOrbit.solarSystemName);
         SaveAndLoad.DestroySolarSystem(PlayerPrefs.GetString("!ActiveSolarSystem!"));
         SaveAndLoad.SaveCurrentSolarSystem(new SolarSystem(planetOrbit.solarSystemName, planetOrbit.planets, planetOrbit.masses, planetOrbit.radii, planetOrbit.orbitalRadii, planetOrbit.orbitalVelocities,
-            planetOrbit.inclinationAngles, planetOrbit.trailRed, planetOrbit.trailGreen, planetOrbit.trailBlue, planetOrbit.planetPresets));
+            planetOrbit.inclinationAngles, planetOrbit.planetPresets));
         Debug.Log("The names: " + PlayerPrefs.GetString("!SolarSystemNames!"));
         PlayerPrefs.Save();
         SceneManager.LoadScene(0);
@@ -63,9 +63,9 @@ public class EventController : MonoBehaviour
         List<float> orbitalRadii = currentSolarSystem.orbitalRadii; // AU
         List<float> orbitalVelocities = currentSolarSystem.orbitalVelocities; // km/s
         List<float> inclinationAngles = currentSolarSystem.inclinationAngles;
-        List<float> trailRed = currentSolarSystem.trailRed;
-        List<float> trailGreen = currentSolarSystem.trailGreen;
-        List<float> trailBlue = currentSolarSystem.trailBlue;
+        // List<float> trailRed = currentSolarSystem.trailRed;
+        // List<float> trailGreen = currentSolarSystem.trailGreen;
+        // List<float> trailBlue = currentSolarSystem.trailBlue;
         List<string> planetPresets = currentSolarSystem.planetPresets;
         Debug.Log($"[{string.Join(",", planetPresets)}]");
         Debug.Log($"[{string.Join(",", planets)}]");
@@ -120,13 +120,13 @@ public struct SolarSystem
     public List<float> orbitalRadii;
     public List<float> orbitalVelocities;
     public List<float> inclinationAngles;
-    public List<float> trailRed;
-    public List<float> trailGreen;
-    public List<float> trailBlue;
+    // public List<float> trailRed;
+    // public List<float> trailGreen;
+    // public List<float> trailBlue;
     public List<string> planetPresets;
 
     public SolarSystem(string name, List<string> planets, List<float> masses, List<float> radii, List<float> orbitalRadii,
-    List<float> orbitalVelocities, List<float> inclinationAngles, List<float> trailRed, List<float> trailGreen, List<float> trailBlue, List<string> planetPresets)
+    List<float> orbitalVelocities, List<float> inclinationAngles, List<string> planetPresets)
     {
         this.name = name;
         this.planets = planets;
@@ -135,9 +135,9 @@ public struct SolarSystem
         this.orbitalRadii = orbitalRadii;
         this.orbitalVelocities = orbitalVelocities;
         this.inclinationAngles = inclinationAngles;
-        this.trailRed = trailRed;
-        this.trailGreen = trailGreen;
-        this.trailBlue = trailBlue;
+        // this.trailRed = trailRed;
+        // this.trailGreen = trailGreen;
+        // this.trailBlue = trailBlue;
         this.planetPresets = planetPresets;
     }
 }
