@@ -18,6 +18,7 @@ public class EventController : MonoBehaviour
     string explore;
     public GameObject SolarSystemGameObject;
     float radiusScale;
+
     void Start()
     {
         Debug.Log("Start");
@@ -39,9 +40,9 @@ public class EventController : MonoBehaviour
     {
         PlanetOrbit planetOrbit = Sun.GetComponent<PlanetOrbit>();
         Debug.Log("Current Name: " + planetOrbit.solarSystemName);
-        SaveAndLoad.SaveSolarSystem(new SolarSystem(planetOrbit.solarSystemName, planetOrbit.planets, planetOrbit.masses, planetOrbit.radii, planetOrbit.orbitalRadii, planetOrbit.orbitalVelocities,
-            planetOrbit.inclinationAngles, planetOrbit.trailRed, planetOrbit.trailGreen, planetOrbit.trailBlue, planetOrbit.planetPresets));
         SaveAndLoad.DestroySolarSystem(PlayerPrefs.GetString("!ActiveSolarSystem!"));
+        SaveAndLoad.SaveCurrentSolarSystem(new SolarSystem(planetOrbit.solarSystemName, planetOrbit.planets, planetOrbit.masses, planetOrbit.radii, planetOrbit.orbitalRadii, planetOrbit.orbitalVelocities,
+            planetOrbit.inclinationAngles, planetOrbit.trailRed, planetOrbit.trailGreen, planetOrbit.trailBlue, planetOrbit.planetPresets));
         Debug.Log("The names: " + PlayerPrefs.GetString("!SolarSystemNames!"));
         PlayerPrefs.Save();
         SceneManager.LoadScene(0);

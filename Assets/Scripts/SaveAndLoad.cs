@@ -12,7 +12,7 @@ public static class SaveAndLoad
 
     public static void SaveName(string name)
     {
-        if (!PlayerPrefs.HasKey("!SolarSystemNames!"))
+        if (PlayerPrefs.GetString("!SolarSystemNames!") == "")
         {
             PlayerPrefs.SetString("!SolarSystemNames!", name);
         }
@@ -36,6 +36,7 @@ public static class SaveAndLoad
         Debug.Log("PlayerPrefs Names: " + SolarSystemNames);
         return names;
     }
+
     public static void SaveSolarSystem(SolarSystem newSolarSystem)
     {
         var formatter = new BinaryFormatter();
@@ -68,6 +69,27 @@ public static class SaveAndLoad
                 newSolarSystem.name = newSolarSystem.name + "2";
             }
         }
+        Debug.Log("Changed: " + newSolarSystem.name);
+        SaveName(newSolarSystem.name);
+        PlayerPrefs.SetString(newSolarSystem.name, binary);
+    }
+
+        
+    public static void SaveCurrentSolarSystem(SolarSystem newSolarSystem)
+    {
+        var formatter = new BinaryFormatter();
+        byte[] buf;
+        using (MemoryStream stream = new MemoryStream())
+        {
+            formatter.Serialize(stream, newSolarSystem);
+            buf = new byte[stream.Length];
+            buf = stream.ToArray();
+        }
+        string binary = "";
+        Debug.Log("Current: " + newSolarSystem.name);
+        for (int i = 0; i < buf.Length; i++)
+            binary += Convert.ToString(buf[i], 2).PadLeft(8, '0'); ;
+        // Debug.Log(binary);
         Debug.Log("Changed: " + newSolarSystem.name);
         SaveName(newSolarSystem.name);
         PlayerPrefs.SetString(newSolarSystem.name, binary);
@@ -116,17 +138,20 @@ public static class SaveAndLoad
             {
                 newNames[spot] = names[l];
                 spot++;
-                // Debug.Log(newNames[index]);
-                names = newNames;
+                // names = newNames;
             }
         }
         PlayerPrefs.DeleteKey(name);
 
-        if (names.Length != 0)
+        if (newNames.Length != 0)
         {
-            string finishedNames = string.Join("/", names);
+            string finishedNames = string.Join("/", newNames);
             Debug.Log("Finished names: " + finishedNames);
             PlayerPrefs.SetString("!SolarSystemNames!", finishedNames);
+        }
+        else{
+            PlayerPrefs.SetString("!SolarSystemNames!", "");
+            Debug.Log("There are no solar systems");
         }
     }
 }

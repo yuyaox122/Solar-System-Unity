@@ -13,15 +13,15 @@ public class LoadGamePanel : MonoBehaviour
 
     public void PlayButtonClicked() {
         PlayerPrefs.SetString("!ActiveSolarSystem!", gameName);
-        PlayerPrefs.Save();
         PlayerPrefs.SetString("!Explore!", "0");
+        PlayerPrefs.Save();
         FindObjectOfType<LevelManager>().LoadLevel(1);
     }
 
     public void ExploreButtonClicked() {
         PlayerPrefs.SetString("!ActiveSolarSystem!", gameName);
-        PlayerPrefs.Save();
         PlayerPrefs.SetString("!Explore!", "1");
+        PlayerPrefs.Save();
         FindObjectOfType<LevelManager>().LoadLevel(2);
     }
 }

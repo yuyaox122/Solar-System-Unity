@@ -132,18 +132,28 @@ namespace SlimUI.ModernMenu
 			EditMenu.SetActive(false);
 			LoadGame.SetActive(false);
 			SetThemeColors();
-			PlayerPrefs.DeleteAll();
-			// planetPresets = new List<string> { "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune" };
+			
+			PlayerPrefs.SetString("!ActiveSolarSystem!", "");
+        	PlayerPrefs.SetString("!Explore!", "");
 			if (!PlayerPrefs.HasKey("!DefaultSolarSystem!"))
 			{
 				Debug.Log(PlayerPrefs.GetString("!SolarSystemNames!"));
-				PlayerPrefs.SetString("!DefaultSolarSystem!", "1");
+				CreateDefaultSolarSystem();
+			}
+		}
+
+		public void DeleteSolarSystemConfigs() {
+			PlayerPrefs.DeleteAll();
+			CreateDefaultSolarSystem();
+			LoadGameMenu();
+		}
+
+		void CreateDefaultSolarSystem() {
+			PlayerPrefs.SetString("!DefaultSolarSystem!", "1");
 				SaveAndLoad.SaveSolarSystem(new SolarSystem("The Solar System", TheSolarSystemPlanets, TheSolarSystemMasses, TheSolarSystemRadii, TheSolarSystemOrbitalRadii,
 				TheSolarSystemOrbitalVelocities, TheSolarSystemInclinationAngles, TheSolarSystemTrailRed, TheSolarSystemTrailGreen, TheSolarSystemTrailBlue, TheSolarSystemPlanetPresets));
-				SolarSystem testing = SaveAndLoad.LoadSolarSystem("The Solar System");
-				Debug.Log($"[{string.Join(",", TheSolarSystemPlanets)}]");
-				Debug.Log($"[{string.Join(",", TheSolarSystemPlanetPresets)}]");
-			}
+				// Debug.Log($"[{string.Join(",", TheSolarSystemPlanets)}]");
+				// Debug.Log($"[{string.Join(",", TheSolarSystemPlanetPresets)}]");
 		}
 
 		void SetThemeColors()
