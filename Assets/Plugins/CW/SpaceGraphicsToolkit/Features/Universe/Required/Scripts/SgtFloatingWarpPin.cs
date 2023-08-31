@@ -9,8 +9,10 @@ namespace SpaceGraphicsToolkit
 	[ExecuteInEditMode]
 	[HelpURL(SgtCommon.HelpUrlPrefix + "SgtFloatingWarpPin")]
 	[AddComponentMenu(SgtCommon.ComponentMenuPrefix + "Floating Warp Pin")]
+	
 	public class SgtFloatingWarpPin : MonoBehaviour
 	{
+		
 		[System.Serializable] public class SgtFloatingTargetEvent : UnityEvent {}
 
 		/// <summary>Fingers that began touching the screen on top of these UI layers will be ignored.</summary>
@@ -44,13 +46,17 @@ namespace SpaceGraphicsToolkit
 		/// <summary>Hide the pin if we're within warping distance?</summary>
 		public bool HideIfTooClose { set { hideIfTooClose = value; } get { return hideIfTooClose; } } [SerializeField] private bool hideIfTooClose = true;
 
+		
+
 		[HideInInspector]
 		public float Alpha { set { alpha = value; } get { return alpha; } } [SerializeField] private float alpha;
 
 		public SgtFloatingTargetEvent OnWarp { get { if (onWarp == null) onWarp = new SgtFloatingTargetEvent(); return onWarp; } } [SerializeField] private SgtFloatingTargetEvent onWarp;
-
+		
+		
 		public void ClickWarp()
 		{
+			GetComponent<AudioSource>().Play();
 			if (currentTarget != null)
 			{
 				if (warp != null)

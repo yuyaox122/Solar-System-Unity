@@ -56,6 +56,17 @@ public class DisplayStats : MonoBehaviour
         });
         InclinationAngleSlider.onValueChanged.AddListener(delegate { OnDeselectedInclinationAngleInput(GetValue(InclinationAngleValue.text)); });
 
+        MassSlider.minValue = 0.05f;
+        MassSlider.maxValue = 500;
+
+        float mu = currentPlanetScript.G * (currentPlanetScript.mass + currentPlanetScript.starMass);
+        float vel = currentPlanetScript.orbitalVelocity;
+        OrbitalRadiusSlider.minValue = mu / (vel * vel) / 1.496e11f;
+        OrbitalRadiusSlider.maxValue = 2 * mu / (vel * vel) / 1.496e11f;
+
+        InclinationAngleSlider.minValue = -180f;
+        InclinationAngleSlider.maxValue = 180f;
+        
     }
 
     void Update()
@@ -65,29 +76,25 @@ public class DisplayStats : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitInfo;
 
-            MassSlider.minValue = 0.05f;
-            MassSlider.maxValue = 500;
-
-            float mu = currentPlanetScript.G * (currentPlanetScript.mass + currentPlanetScript.starMass);
-            float vel = currentPlanetScript.orbitalVelocity;
-            OrbitalRadiusSlider.minValue = mu / (vel * vel) / 1.496e11f;
-            OrbitalRadiusSlider.maxValue = 2 * mu / (vel * vel) / 1.496e11f;
-
-            // OrbitalVelocitySlider.minValue = 5f;
-            // OrbitalVelocitySlider.maxValue = 100f;
-
-            InclinationAngleSlider.minValue = -180f;
-            InclinationAngleSlider.maxValue = 180f;
-
             if (Physics.Raycast(ray, out hitInfo))
             {
-                // Debug.Log(hitInfo.collider.gameObject.name);
+                Debug.Log(hitInfo.collider.gameObject.name);
                 if (hitInfo.collider.GetComponent<PlanetOrbit>())
                 {
                     StatBar.SetActive(true);
                     currentPlanetScript = hitInfo.collider.GetComponent<PlanetOrbit>();
                     if (currentPlanetScript.planet != "Sun")
                     {
+                        MassSlider.minValue = 0.05f;
+                        MassSlider.maxValue = 500;
+
+                        float mu = currentPlanetScript.G * (currentPlanetScript.mass + currentPlanetScript.starMass);
+                        float vel = currentPlanetScript.orbitalVelocity;
+                        OrbitalRadiusSlider.minValue = mu / (vel * vel) / 1.496e11f;
+                        OrbitalRadiusSlider.maxValue = 1.8f * mu / (vel * vel) / 1.496e11f;
+
+                        InclinationAngleSlider.minValue = -180f;
+                        InclinationAngleSlider.maxValue = 180f;
                         string PlanetName = currentPlanetScript.getPlanet();
                         Title.text = PlanetName;
 
@@ -117,7 +124,9 @@ public class DisplayStats : MonoBehaviour
     public void PlanetSelected(string planet)
     {
         currentPlanetScript = GameObject.Find(planet).GetComponent<PlanetOrbit>();
-        StatBar.SetActive(true);
+        MassSlider.minValue = 0.05f;
+        MassSlider.maxValue = 500;
+
         string PlanetName = currentPlanetScript.getPlanet();
         Title.text = PlanetName;
         float Mass = currentPlanetScript.getMass()  / 5.972e24f;
@@ -126,12 +135,23 @@ public class DisplayStats : MonoBehaviour
         float OrbitalRadius = currentPlanetScript.getOrbitalRadius() / 1.496e11f;
         OrbitalRadiusValue.text = "Orbital Radius / (AU): " + OrbitalRadius;
         OrbitalRadiusSlider.value = OrbitalRadius;
-        // float OrbitalVelocity = currentPlanetScript.getOrbitalVelocity();
-        // OrbitalVelocityValue.text = "Orbital Velocity / (km/s): " + OrbitalVelocity;
-        // OrbitalVelocitySlider.value = OrbitalVelocity;
         float InclinationAngle = currentPlanetScript.getInclinationAngle();
         InclinationAngleValue.text = "Inclination Angle / (°): " + InclinationAngle;
         InclinationAngleSlider.value = InclinationAngle;
+
+        float mu = currentPlanetScript.G * (currentPlanetScript.mass + currentPlanetScript.starMass);
+        float vel = currentPlanetScript.orbitalVelocity;
+        Debug.Log(currentPlanetScript.getOrbitalRadius() / 1.496e11f);
+        OrbitalRadiusSlider.minValue = mu / (vel * vel) / 1.496e11f;
+        Debug.Log(OrbitalRadiusSlider.value);
+        OrbitalRadiusSlider.maxValue = 1.8f * mu / (vel * vel) / 1.496e11f;
+        Debug.Log(OrbitalRadiusSlider.minValue);  
+        Debug.Log(OrbitalRadiusSlider.maxValue);
+        Debug.Log(currentPlanetScript.getOrbitalRadius() / 1.496e11f);
+        InclinationAngleSlider.minValue = -180f;
+        InclinationAngleSlider.maxValue = 180f;
+        
+        StatBar.SetActive(true);
     }
 
     public string GetValue(string value)

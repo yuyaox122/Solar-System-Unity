@@ -159,6 +159,7 @@ public class PlanetOrbit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Debug.Log(planet + " Position: " + transform.position);
         if (planet != "Sun")
         {
             if (logarithmicSizes)

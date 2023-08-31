@@ -57,7 +57,7 @@ MonoBehaviour:
   sky: 1
   mesh: {fileID: 4300000, guid: 662157716ef2b6840841e610138115a4, type: 3}
   meshRadius: 1
-  radius: 1
+  radius: 1000
   distanceRadius: 0.9
   model: {fileID: 1265616131701591088}
 --- !u!114 &4285795607945426121
@@ -142,7 +142,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1000, y: 1000, z: 1000}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8895382631246522875}
@@ -241,8 +241,8 @@ Transform:
   m_GameObject: {fileID: 8697548822551712380}
   serializedVersion: 2
   m_LocalRotation: {x: 0.006034534, y: -0.8566584, z: 0.01738267, w: -0.51555586}
-  m_LocalPosition: {x: 0, y: 0, z: 74000}
-  m_LocalScale: {x: 1000, y: 1000, z: 1000}
+  m_LocalPosition: {x: 0, y: 0, z: -6000}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8895382631246522875}
@@ -260,7 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4bfb1d3dd33d1443bdea6dd00ce03d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mass: 100000000
+  mass: 10000000
   autoSetMass: 0
 --- !u!114 &6290208567065689009
 MonoBehaviour:
@@ -277,11 +277,11 @@ MonoBehaviour:
   position:
     LocalX: 0
     LocalY: 0
-    LocalZ: 80000
+    LocalZ: 0
     GlobalX: 0
     GlobalY: 0
     GlobalZ: 0
-  expectedPosition: {x: 0, y: 0, z: 74000}
+  expectedPosition: {x: 0, y: 0, z: -6000}
   expectedPositionSet: 1
   positionSet: 1
   seed: 0

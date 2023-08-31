@@ -66,13 +66,13 @@ namespace SlimUI.ModernMenu
 		public GameObject PanelVideo;
 		[Tooltip("The UI Panel that holds the GAME window tab")]
 		public GameObject PanelGame;
-		[Tooltip("The UI Panel that holds the KEY BINDINGS window tab")]
-		public GameObject PanelKeyBindings;
-		[Tooltip("The UI Sub-Panel under KEY BINDINGS for MOVEMENT")]
-		public GameObject PanelMovement;
-		[Tooltip("The UI Sub-Panel under KEY BINDINGS for COMBAT")]
-		public GameObject PanelCombat;
-		[Tooltip("The UI Sub-Panel under KEY BINDINGS for GENERAL")]
+		// [Tooltip("The UI Panel that holds the KEY BINDINGS window tab")]
+		// public GameObject PanelKeyBindings;
+		// [Tooltip("The UI Sub-Panel under KEY BINDINGS for MOVEMENT")]
+		// public GameObject PanelMovement;
+		// [Tooltip("The UI Sub-Panel under KEY BINDINGS for COMBAT")]
+		// public GameObject PanelCombat;
+		// [Tooltip("The UI Sub-Panel under KEY BINDINGS for GENERAL")]
 		public GameObject PanelGeneral;
 		public GameObject NewGame;
 		public GameObject LoadGame;
@@ -81,6 +81,7 @@ namespace SlimUI.ModernMenu
 		public GameObject PlanetsList;
 		public GameObject PlanetConfig;
 		public GameObject EditMenu;
+   		public TMP_InputField SolarSystemName;	
 
 		// highlights in settings screen
 		[Header("SETTINGS SCREEN")]
@@ -234,19 +235,19 @@ namespace SlimUI.ModernMenu
 			PanelControls.SetActive(false);
 			PanelVideo.SetActive(false);
 			PanelGame.SetActive(false);
-			PanelKeyBindings.SetActive(false);
+			// PanelKeyBindings.SetActive(false);
 
 			lineGame.SetActive(false);
 			lineControls.SetActive(false);
 			lineVideo.SetActive(false);
-			lineKeyBindings.SetActive(false);
+			// lineKeyBindings.SetActive(false);
 
-			PanelMovement.SetActive(false);
-			lineMovement.SetActive(false);
-			PanelCombat.SetActive(false);
-			lineCombat.SetActive(false);
-			PanelGeneral.SetActive(false);
-			lineGeneral.SetActive(false);
+			// PanelMovement.SetActive(false);
+			// lineMovement.SetActive(false);
+			// PanelCombat.SetActive(false);
+			// lineCombat.SetActive(false);
+			// PanelGeneral.SetActive(false);
+			// lineGeneral.SetActive(false);
 		}
 
 		public void GamePanel()
@@ -256,12 +257,12 @@ namespace SlimUI.ModernMenu
 			lineGame.SetActive(true);
 		}
 
-		public void VideoPanel()
-		{
-			DisablePanels();
-			PanelVideo.SetActive(true);
-			lineVideo.SetActive(true);
-		}
+		// public void VideoPanel()
+		// {
+		// 	DisablePanels();
+		// 	PanelVideo.SetActive(true);
+		// 	lineVideo.SetActive(true);
+		// }
 
 		public void ControlsPanel()
 		{
@@ -270,37 +271,37 @@ namespace SlimUI.ModernMenu
 			lineControls.SetActive(true);
 		}
 
-		public void KeyBindingsPanel()
-		{
-			DisablePanels();
-			MovementPanel();
-			PanelKeyBindings.SetActive(true);
-			lineKeyBindings.SetActive(true);
-		}
+		// public void KeyBindingsPanel()
+		// {
+		// 	DisablePanels();
+		// 	MovementPanel();
+		// 	PanelKeyBindings.SetActive(true);
+		// 	lineKeyBindings.SetActive(true);
+		// }
 
-		public void MovementPanel()
-		{
-			DisablePanels();
-			PanelKeyBindings.SetActive(true);
-			PanelMovement.SetActive(true);
-			lineMovement.SetActive(true);
-		}
+		// public void MovementPanel()
+		// {
+		// 	DisablePanels();
+		// 	PanelKeyBindings.SetActive(true);
+		// 	PanelMovement.SetActive(true);
+		// 	lineMovement.SetActive(true);
+		// }
 
-		public void CombatPanel()
-		{
-			DisablePanels();
-			PanelKeyBindings.SetActive(true);
-			PanelCombat.SetActive(true);
-			lineCombat.SetActive(true);
-		}
+		// public void CombatPanel()
+		// {
+		// 	DisablePanels();
+		// 	PanelKeyBindings.SetActive(true);
+		// 	PanelCombat.SetActive(true);
+		// 	lineCombat.SetActive(true);
+		// }
 
-		public void GeneralPanel()
-		{
-			DisablePanels();
-			PanelKeyBindings.SetActive(true);
-			PanelGeneral.SetActive(true);
-			lineGeneral.SetActive(true);
-		}
+		// public void GeneralPanel()
+		// {
+		// 	DisablePanels();
+		// 	PanelKeyBindings.SetActive(true);
+		// 	PanelGeneral.SetActive(true);
+		// 	lineGeneral.SetActive(true);
+		// }
 
 		public void PlayHover()
 		{
@@ -363,15 +364,21 @@ namespace SlimUI.ModernMenu
 			EditMenu.SetActive(false);
 			DestroyGameConfigs();
 			DestroyPlanetConfigs();
-			EditMenu.GetComponent<EditPlanetConfig>().SolarSystemName.text = "Solar System";
 			indexes = new List<int>();
+			SolarSystemName.text = "Solar System";
+			SolarSystemName.onValueChanged.AddListener((e) =>
+			{
+				SolarSystemName.text = e.ToString();
+			});
+			SolarSystemName.onValueChanged.AddListener(delegate { ChangeSolarSystemName(SolarSystemName.text); });
 		}
 
 
-		public void ChangeSolarSystemName(int index, string newSolarSystemName)
+		public void ChangeSolarSystemName(string newSolarSystemName)
 		{
 			newGame.name = newSolarSystemName;
 		}
+
 		public void ChangePlanetName(int index, string newName)
 		{
 			Debug.Log(newName);

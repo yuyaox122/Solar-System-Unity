@@ -47,6 +47,11 @@ public class EventController : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    public void ExitExploreMode()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     public void SpawnPlanets()
     {
         string solarSystemName = PlayerPrefs.GetString("!ActiveSolarSystem!");
@@ -73,11 +78,13 @@ public class EventController : MonoBehaviour
                 GameObject newPlanetObject = (GameObject)GameObject.Instantiate(newPlanetPreset, Vector3.zero, Quaternion.identity);
                 newPlanetObject.transform.parent = SolarSystemGameObject.transform;
                 newPlanetObject.name = planets[i];
-                newPlanetObject.GetComponent<SgtFloatingOrbit>().Radius = orbitalRadii[i] * 1e+4;
+                Debug.Log(orbitalRadii[i]);
+                Debug.Log(orbitalRadii[0]);
+                newPlanetObject.GetComponent<SgtFloatingOrbit>().Radius = Mathf.Log(orbitalRadii[i] * 10, orbitalRadii[0] * 10) * 1e+5;
                 newPlanetObject.GetComponent<SgtFloatingOrbit>().ParentPoint = Sun.GetComponent<SgtFloatingObject>();
-                newPlanetObject.GetComponent<SgtFloatingOrbit>().DegreesPerSecond = orbitalVelocities[i] / 100;
+                newPlanetObject.GetComponent<SgtFloatingOrbit>().DegreesPerSecond = orbitalVelocities[i] / 10000;
                 newPlanetObject.GetComponent<SgtFloatingTarget>().WarpName = planets[i];
-                newPlanetObject.GetComponent<SgtFloatingTarget>().WarpDistance = radii[i] * 2000;
+                newPlanetObject.GetComponent<SgtFloatingTarget>().WarpDistance = radii[i] * 1200;
                 radiusScale = radii[i];
                 newPlanetObject.transform.localScale = new Vector3(radiusScale, radiusScale, radiusScale);
             }

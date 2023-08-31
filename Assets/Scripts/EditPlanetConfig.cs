@@ -24,7 +24,6 @@ public class EditPlanetConfig : MonoBehaviour
     public TextMeshProUGUI OrbitalRadiusValue;
     public TextMeshProUGUI InclinationAngleValue;
     // public TextMeshProUGUI RadiusValue;
-    public TMP_InputField SolarSystemName;
 
     public UIMenuManager MenuManager;
     public int index;
@@ -34,6 +33,7 @@ public class EditPlanetConfig : MonoBehaviour
         PlanetPresetDropdown.onValueChanged.AddListener(delegate { HandleInputData(PlanetPresetDropdown.value); });
        
         MenuManager = (UIMenuManager)FindObjectOfType(typeof(UIMenuManager));
+        
         PlanetName.text = "Planet";
         PlanetName.onValueChanged.AddListener((a) =>
         {
@@ -68,12 +68,7 @@ public class EditPlanetConfig : MonoBehaviour
         });
         InclinationAngleSlider.onValueChanged.AddListener(delegate { OnDeselectedInclinationAngleInput(GetValue(InclinationAngleValue.text)); });
 
-        SolarSystemName.text = "Solar System";
-        SolarSystemName.onValueChanged.AddListener((a) =>
-        {
-            SolarSystemName.text = a.ToString();
-        });
-        SolarSystemName.onValueChanged.AddListener(delegate { OnDeselectedSolarSystemNameInput(SolarSystemName.text); });
+        
         
     }
 
@@ -89,11 +84,13 @@ public class EditPlanetConfig : MonoBehaviour
     {
         MenuManager.ChangePlanetPreset(index, val);
     }
-    public void OnDeselectedSolarSystemNameInput(string input)
-    {
-        MenuManager.ChangeSolarSystemName(index, input);
+    // public void OnDeselectedSolarSystemNameInput(string input)
+    // {
+    //     Debug.Log(true);
+    //     MenuManager.ChangeSolarSystemName(index, input);
+    //     Debug.Log(input);   
 
-    }
+    // }
     public void OnDeselectedNameInput(string input)
     {
         MenuManager.ChangePlanetName(index, input);

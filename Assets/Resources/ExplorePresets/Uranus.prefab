@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 3047546900881556105}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 104000}
-  m_LocalScale: {x: 1000, y: 1000, z: 1000}
+  m_LocalPosition: {x: 0, y: 0, z: -6000}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1845529174150835712}
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4bfb1d3dd33d1443bdea6dd00ce03d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mass: 100000000
+  mass: 10000000
   autoSetMass: 0
 --- !u!114 &9123556844764444829
 MonoBehaviour:
@@ -65,11 +65,11 @@ MonoBehaviour:
   position:
     LocalX: 0
     LocalY: 0
-    LocalZ: 110000
+    LocalZ: 0
     GlobalX: 0
     GlobalY: 0
     GlobalZ: 0
-  expectedPosition: {x: 0, y: 0, z: 104000}
+  expectedPosition: {x: 0, y: 0, z: -6000}
   expectedPositionSet: 1
   positionSet: 1
   seed: 0
@@ -169,7 +169,7 @@ MonoBehaviour:
   sky: 1
   mesh: {fileID: 4300000, guid: 662157716ef2b6840841e610138115a4, type: 3}
   meshRadius: 1
-  radius: 1
+  radius: 1000
   distanceRadius: 0.9
   model: {fileID: 2114222888217912695}
 --- !u!114 &1710343318473868647
@@ -271,7 +271,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1000, y: 1000, z: 1000}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1845529174150835712}
@@ -591,8 +591,8 @@ MonoBehaviour:
   color: {r: 1, g: 1, b: 1, a: 1}
   brightness: 1
   mainTex: {fileID: 2800000, guid: 687dcf1acfd093145b603a178e0a9ecd, type: 3}
-  radiusInner: 2
-  radiusOuter: 2.3
+  radiusInner: 2000
+  radiusOuter: 2300
   split: 1
   sortDistance: 2
   foregroundModel: {fileID: 5368251828205982581}
@@ -626,5 +626,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   texture: {fileID: 2800000, guid: 132673503bb4f4d4fad228ed764b9894, type: 2}
-  radiusMin: 2
-  radiusMax: 2.3
+  radiusMin: 2000
+  radiusMax: 2300
